@@ -28,7 +28,7 @@ public class Vehicle extends SimulatedObject{
         } else {
             this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         }
-        if (maxSpeed < 0){
+        if (maxSpeed <= 0){
             throw new Exception("Max speed is negative");
         } else {
             this.maximumSpeed = maxSpeed;
