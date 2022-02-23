@@ -91,6 +91,7 @@ public abstract class Road extends SimulatedObject {
 
     abstract int calculateVehicleSpeed(Vehicle v);
 
+    //NOT FINISHED
     @Override
     void advance(int time) {
         reduceTotalContamination();
@@ -100,11 +101,56 @@ public abstract class Road extends SimulatedObject {
             vehicle.advance(time);
         }
         //WRONG : have to sort by location descending order -> will fix
-       //this.vehicles.stream().sorted().?
+       this.vehicles.getLocation();
     }
 
+    //NOT DONE
     @Override
     public JSONObject report() {
         return null;
     }
+
+    //Public getters
+    public int getLength() {
+        return length;
+    }
+
+    public Junction getDest(){
+        return destinationJunction;
+    }
+
+    public Junction getSrc(){
+        return sourceJunction;
+    }
+
+    public Weather getWeather(){
+        return weatherConditions;
+    }
+
+    public int getContLimit(){
+        return contaminationAlarmLimit;
+    }
+
+    public int getMaxSpeed(){
+        return maximumSpeed;
+    }
+
+    public int getTotalCO2(){
+        return totalContamination;
+    }
+
+    public int getSpeedLimit(){
+        return currentSpeedLimit;
+    }
+
+    public List<Vehicle> getVehicles(){
+        return Collections.unmodifiableList(vehicles);
+    }
+
+    //additional private setters?
+
+    private void setTotalCO2(float x){
+        this.totalContamination -= x;
+    }
+
 }
