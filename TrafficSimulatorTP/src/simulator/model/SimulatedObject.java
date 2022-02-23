@@ -19,7 +19,7 @@ public abstract class SimulatedObject {
 		return _id;
 	}
 
-	abstract void advance(int time);
+	abstract void advance(int time) throws Exception;
 
 	abstract public JSONObject report();
 }

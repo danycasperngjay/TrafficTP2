@@ -1,5 +1,7 @@
 package simulator.model;
 
+import java.util.List;
+
 public class InterCityRoad extends Road{
 
     InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception {
@@ -7,21 +9,22 @@ public class InterCityRoad extends Road{
     }
 
     @Override
-    void reduceTotalContamination(){
+    void reduceTotalContamination() throws Exception {
         int tc = getTotalCO2();
         int x = 0;
-        switch (x) {
-            Weather w = getWeather();
-            case w == Weather.SUNNY -> x = 2;
-            case w == Weather.CLOUDY -> x = 3;
-            case w == Weather.RAINY -> x = 10;
-            case w == Weather.WINDY -> x = 15;
-            //why is w "not initialized"?
-            case w == Weather.STORM -> x = 20;
+        Weather w = getWeather();
+        switch (w){
+            case SUNNY -> x = 2;
+            case CLOUDY -> x = 3;
+            case RAINY -> x = 10;
+            case WINDY -> x = 15;
+            case STORM -> x = 20;
         }
 
-        //this.getTotalCO2 or tc or what : where to store the answer
-        Road.? -= (((100 - x) * tc) / 100);
+        int value = (((100 - x) * tc) / 100);
+        int diff = value - tc;
+
+        addContamination(diff);
 
     }
 
@@ -29,7 +32,7 @@ public class InterCityRoad extends Road{
     @Override
     void updateSpeedLimit() {
         if(getTotalCO2() > getContLimit()) {
-            this.getSpeedLimit() = getMaxSpeed() / 2;
+            this.updateSpeedLimit(); = getMaxSpeed() / 2;
         } else {
             this.getSpeedLimit() = getMaxSpeed();
         }

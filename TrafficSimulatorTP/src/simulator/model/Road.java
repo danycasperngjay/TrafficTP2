@@ -85,7 +85,7 @@ public abstract class Road extends SimulatedObject {
         }
     }
 
-    abstract void reduceTotalContamination();
+    abstract void reduceTotalContamination() throws Exception;
 
     abstract void updateSpeedLimit();
 
@@ -93,7 +93,7 @@ public abstract class Road extends SimulatedObject {
 
     //NOT FINISHED
     @Override
-    void advance(int time) {
+    void advance(int time) throws Exception {
         reduceTotalContamination();
         updateSpeedLimit();
         for (Vehicle vehicle : this.vehicles) {
@@ -148,9 +148,5 @@ public abstract class Road extends SimulatedObject {
     }
 
     //additional private setters?
-
-    private void setTotalCO2(float x){
-        this.totalContamination -= x;
-    }
 
 }
