@@ -4,7 +4,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Road extends SimulatedObject {
 
@@ -12,10 +14,10 @@ public abstract class Road extends SimulatedObject {
     private Junction destinationJunction;
     private int length;
     private int maximumSpeed;
-    private int currentSpeedLimit;
+    protected int currentSpeedLimit;
     private int contaminationAlarmLimit;
     private Weather weatherConditions;
-    private int totalContamination;
+    protected int totalContamination;
     private List<Vehicle> vehicles;
 
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception{
@@ -100,8 +102,7 @@ public abstract class Road extends SimulatedObject {
             calculateVehicleSpeed(vehicle);
             vehicle.advance(time);
         }
-        //WRONG : have to sort by location descending order -> will fix
-       this.vehicles.getLocation();
+        this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation, Comparator.reverseOrder())).collect(Collectors.toList()); // Sort List 
     }
 
     //NOT DONE

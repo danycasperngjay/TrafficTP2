@@ -68,25 +68,57 @@ public class Vehicle extends SimulatedObject{
         if(this.status != VehicleStatus.TRAVELING){
             return;
         }
-        this.location = Math.min(this.location + this.currentSpeed, this.road.length());
-
-        //contamination factor?? (b)
-
-        if (this.location == this.road.length()) {
+        //(A)
+        int newLocation = Math.min(this.location + this.currentSpeed, this.road.getLength());
+       
+        //(B)
+        int c = this.contaminationClass * (newLocation - this.location);
+        this.totalContamination += c;
+        this.road.addContamination(c);
+        this.location = newLocation;
+        
+        // (C)
+        if (this.location == this.road.getLength()) {
             //method of class Junction : enters queue of junction
             this.status = VehicleStatus.WAITING;
         }
     }
 
-    //NOT STARTED : need class Road
-    void moveToNextRoad(){
-        return;
+    //NOT FINISHED : need class JUNCTION
+    void moveToNextRoad() throws Exception{
+    	
+    	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.WAITING )
+    		throw new Exception ("Cannot move to next road because the status is not pending or waiting");
+    	if (this.road != null || this.itinerary.get(this.itinerary.size() - 1) == 0)
+    		{
+    		this.road.exit(this); // exit current road
+        	this.road.enter(this);
+        	this.location = 0;
+    		};
+    	
     }
 
     //NOT STARTED
     @Override
     public JSONObject report() {
-        return null;
+    	JSONObject O = new JSONObject();
+    	
+    	O.put("id", this._id);
+    	O.put("speed", this.currentSpeed);
+    	O.put("distance", this.totalTraveledDistance);
+    	O.put("co2", this.totalContamination);
+    	O.put("class", this.contaminationClass);
+    	O.put("status", this.status);
+    	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.ARRIVED) {
+        	O.put("road", this.road);
+        	O.put("location", this.location);
+    	}
+    	
+    	
+    	
+    	
+    	
+        return O;
     }
 
     int getLocation(){
