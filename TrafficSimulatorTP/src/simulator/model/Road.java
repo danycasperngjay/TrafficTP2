@@ -1,5 +1,6 @@
 package simulator.model;
 
+import netscape.javascript.JSObject;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -22,16 +23,16 @@ public abstract class Road extends SimulatedObject {
 
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception{
         super(id);
-        //NOT SURE : "The constructor should add the road as an incoming road to its destination junction, and
-        //as an outgoing road of its source junction" dk if i should do anything extra
         if (srcJunc == null){
             throw new Exception ("Source Junction is null");
         } else {
+            srcJunc.addOutcomingRoad(this);
             this.sourceJunction = srcJunc;
         }
         if (destJunc == null){
             throw new Exception ("Destination Junction is null");
         } else {
+            destJunc.addIncomingRoad(this);
             this.destinationJunction = destJunc;
         }
         if (length <= 0){
@@ -93,7 +94,6 @@ public abstract class Road extends SimulatedObject {
 
     abstract int calculateVehicleSpeed(Vehicle v);
 
-    //NOT FINISHED
     @Override
     void advance(int time) throws Exception {
         reduceTotalContamination();
@@ -105,10 +105,25 @@ public abstract class Road extends SimulatedObject {
         this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation, Comparator.reverseOrder())).collect(Collectors.toList()); // Sort List 
     }
 
-    //NOT DONE
     @Override
     public JSONObject report() {
-        return null;
+        JSObject jo = new JSObject();
+
+        jo.put("id", this._id);
+        jo.put("speedlimit", this.currentSpeedLimit);
+        jo.put("weather", this.weatherConditions);
+        jo.put("co2", this.totalContamination);
+
+        List<Vehicle> vehiclesTraveling = new ArrayList<>();
+        for(Vehicle v : this.vehicles){
+            if(v.getStatus() == VehicleStatus.TRAVELING){
+                vehiclesTraveling.add(v);
+            }
+        }
+        jo.put("vehicles", vehiclesTraveling);
+
+        return jo;
+
     }
 
     //Public getters
@@ -147,7 +162,5 @@ public abstract class Road extends SimulatedObject {
     public List<Vehicle> getVehicles(){
         return Collections.unmodifiableList(vehicles);
     }
-
-    //additional private setters?
 
 }

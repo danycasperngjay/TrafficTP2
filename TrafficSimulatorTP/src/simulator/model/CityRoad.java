@@ -1,6 +1,6 @@
 package simulator.model;
 
-//NOT DONE YET
+
 public class CityRoad extends Road {
 
     CityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception {

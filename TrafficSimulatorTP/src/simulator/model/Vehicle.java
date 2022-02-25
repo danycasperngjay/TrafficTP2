@@ -62,9 +62,9 @@ public class Vehicle extends SimulatedObject{
         this.contaminationClass = c;
     }
 
-//NOT FINISHED
+//NOT FINISHED : need class JUNCTION
     @Override
-    void advance(int time) {
+    void advance(int time) throws Exception {
         if(this.status != VehicleStatus.TRAVELING){
             return;
         }
@@ -75,7 +75,6 @@ public class Vehicle extends SimulatedObject{
         int c = this.contaminationClass * (newLocation - this.location);
         this.totalContamination += c;
         this.road.addContamination(c);
-        this.location = newLocation;
         
         // (C)
         if (this.location == this.road.getLength()) {
@@ -94,31 +93,25 @@ public class Vehicle extends SimulatedObject{
     		this.road.exit(this); // exit current road
         	this.road.enter(this);
         	this.location = 0;
-    		};
+    		}
     	
     }
 
-    //NOT STARTED
     @Override
     public JSONObject report() {
-    	JSONObject O = new JSONObject();
+    	JSONObject jo = new JSONObject();
     	
-    	O.put("id", this._id);
-    	O.put("speed", this.currentSpeed);
-    	O.put("distance", this.totalTraveledDistance);
-    	O.put("co2", this.totalContamination);
-    	O.put("class", this.contaminationClass);
-    	O.put("status", this.status);
+    	jo.put("id", this._id);
+    	jo.put("speed", this.currentSpeed);
+    	jo.put("distance", this.totalTraveledDistance);
+    	jo.put("co2", this.totalContamination);
+    	jo.put("class", this.contaminationClass);
+    	jo.put("status", this.status);
     	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.ARRIVED) {
-        	O.put("road", this.road);
-        	O.put("location", this.location);
+        	jo.put("road", this.road);
+        	jo.put("location", this.location);
     	}
-    	
-    	
-    	
-    	
-    	
-        return O;
+        return jo;
     }
 
     int getLocation(){
