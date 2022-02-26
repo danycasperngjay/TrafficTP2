@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/simulator/model/Junction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/simulator/model/LightSwitchingStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/simulator/model/RoundRobinStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/extra/json/UsageExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/extra/json/UsageExample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/CityRoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/CityRoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/Road.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Road.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/RoadMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/RoadMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/model/Junction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Junction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -48,7 +46,7 @@
       <option name="presentableId" value="Default" />
       <updated>1645619438338</updated>
       <workItem from="1645619439826" duration="2207000" />
-      <workItem from="1645717272997" duration="8394000" />
+      <workItem from="1645717272997" duration="11020000" />
     </task>
     <servers />
   </component>

@@ -30,8 +30,20 @@ public class Junction {
 
     //DONT KNOW
     public void enter(Vehicle v){
+
     }
 
-    
+    public Road roadTo(Junction j){
+        return this._outRoadByJunction.get(j);
+    }
+
+    //NOT finished
+    public void advance(int time){
+        if (_greenLightIndex != -1){
+
+        }
+    }
+
+
 
 }
