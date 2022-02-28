@@ -107,7 +107,7 @@ public abstract class Road extends SimulatedObject {
 
     @Override
     public JSONObject report() {
-        JSObject jo = new JSObject();
+        JSONObject jo = new JSONObject();
 
         jo.put("id", this._id);
         jo.put("speedlimit", this.currentSpeedLimit);
