@@ -1,6 +1,5 @@
 package simulator.model;
 
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public abstract class Road extends SimulatedObject {
         if (srcJunc == null){
             throw new Exception ("Source Junction is null");
         } else {
-            srcJunc.addOutcomingRoad(this);
+            srcJunc.addOutgoingRoad(this);
             this.sourceJunction = srcJunc;
         }
         if (destJunc == null){

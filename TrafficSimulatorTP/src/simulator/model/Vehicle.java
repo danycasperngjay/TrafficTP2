@@ -62,7 +62,6 @@ public class Vehicle extends SimulatedObject{
         this.contaminationClass = c;
     }
 
-//NOT FINISHED : need class JUNCTION
     @Override
     void advance(int time) throws Exception {
         if(this.status != VehicleStatus.TRAVELING){
@@ -80,16 +79,17 @@ public class Vehicle extends SimulatedObject{
         if (this.location == this.road.getLength()) {
             //method of class Junction : enters queue of junction
             this.status = VehicleStatus.WAITING;
+            Junction j = null;
+            j.enter(this);
         }
     }
 
-    //NOT FINISHED : need class JUNCTION
     void moveToNextRoad() throws Exception{
     	
     	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.WAITING )
     		throw new Exception ("Cannot move to next road because the status is not pending or waiting");
-    	if (this.road != null || this.itinerary.get(this.itinerary.size() - 1) == 0)
-    		{
+    	
+    	if (this.road != null || this.itinerary.size() - 1 == 0) {
     		this.road.exit(this); // exit current road
         	this.road.enter(this);
         	this.location = 0;
@@ -148,7 +148,5 @@ public class Vehicle extends SimulatedObject{
     Road getRoad() {
         return this.road;
     }
-
-    //additional private setters?
 
 }
