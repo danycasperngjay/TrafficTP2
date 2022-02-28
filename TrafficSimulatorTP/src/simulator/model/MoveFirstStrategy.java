@@ -11,7 +11,6 @@ public class MoveFirstStrategy implements DequeuingStrategy {
 	
 		if (q.isEmpty())
     		return q;
-		aux = null;
 		aux.add(q.get(0));
 
 		return aux;

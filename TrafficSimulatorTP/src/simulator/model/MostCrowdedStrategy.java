@@ -22,7 +22,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 		int indexoflargest = currGreen + 1;
 		int index = currGreen + 1;
 		
-		for (int i = 0; i <= roads.size(); i++) //checks all the roads
+		for (int i = 0; i < roads.size(); i++) //checks all the roads
 		{
 			index = currGreen + 1 + i;
 			
