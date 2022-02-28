@@ -17,8 +17,12 @@ public class Junction extends SimulatedObject {
     LightSwitchingStrategy _lss;
     DequeuingStrategy _dqs;
     
-    Junction(String id) {
+    Junction(String id, LightSwitchingStrategy _lss, DequeuingStrategy _dqs, int _greenLightIndex, int _lastSwitchingTime) {
 		super(id);
+		this._lss = _lss;
+		this._dqs = _dqs;
+		this._greenLightIndex = _greenLightIndex;
+		this._lastSwitchingTime = _lastSwitchingTime;
 		
 	}
 

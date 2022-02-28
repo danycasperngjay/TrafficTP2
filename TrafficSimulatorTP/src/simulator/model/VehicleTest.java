@@ -11,7 +11,7 @@ class VehicleTest {
 
 		
 	@Test
-	void getset_contamination_class() {
+	void getset_contamination_class() throws Exception {
 
 		// two junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
@@ -33,7 +33,7 @@ class VehicleTest {
 	}
 
 	@Test
-	void getset_test_speed() {
+	void getset_test_speed() throws Exception {
 
 		// two junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
@@ -66,7 +66,7 @@ class VehicleTest {
 	}
 
 	@Test
-	void test_report() {
+	void test_report() throws Exception {
 		// two junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
@@ -86,7 +86,7 @@ class VehicleTest {
 	
 	// when asking for the itinerary, it should be returned as read only
 	@Test
-	void test_iterinary_is_readonly() {
+	void test_iterinary_is_readonly() throws Exception {
 		// two junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
 		Junction j2 = new Junction("j2", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
@@ -100,7 +100,7 @@ class VehicleTest {
 	
 	// some basic tests of the different methods
 	@Test
-	void test_1() {
+	void test_1() throws Exception {
 
 		// two junctions
 		Junction j1 = new Junction("j1", new RoundRobinStrategy(10), new MoveFirstStrategy(), 0, 0);
