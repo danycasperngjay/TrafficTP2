@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,10 +70,24 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	public JSONObject report() {
-		// TODO Auto-generated method stub
-		return null;
+		 JSONObject jo = new JSONObject();
+
+	        jo.put("id", this._id);
+	        if (_greenLightIndex == -1)
+	        	jo.put("green", "none");
+	        jo.put("green", _inRoads.get(_greenLightIndex));
+	        
+	        int i = 1;
+	        jo.put("queues", _queues);
+	        for(List<Vehicle> q : this._queues){
+	        	
+	        	jo.put("Q", i);
+	        	jo.put("road", q.get(0).getRoad());
+	        	jo.put("vehicles", q);
+	        	i++;
+	        }
+	       
+		return jo;
 	}
-
-
 
 }
