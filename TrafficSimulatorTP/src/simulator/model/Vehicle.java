@@ -86,7 +86,7 @@ public class Vehicle extends SimulatedObject{
 
     void moveToNextRoad() throws Exception{
     	
-    	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.WAITING )
+    	if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING )
     		throw new Exception ("Cannot move to next road because the status is not pending or waiting");
     	
     	if (this.road != null || this.itinerary.size() - 1 == 0) {
