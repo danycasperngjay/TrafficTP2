@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +17,25 @@ public class Junction extends SimulatedObject {
     int _lastSwitchingTime; // the last time we switched the green light from one road to another
     LightSwitchingStrategy _lss;
     DequeuingStrategy _dqs;
+    int xCoor;
+    int yCoor;
     
-    Junction(String id, LightSwitchingStrategy _lss, DequeuingStrategy _dqs, int _greenLightIndex, int _lastSwitchingTime) {
+    Junction(String id, LightSwitchingStrategy _lss, DequeuingStrategy _dqs, int xCoor, int yCoor) {
 		super(id);
+		
+		//if(_lss == null || _dqs == null || xCoor <= 0 || yCoor <= 0) throw new IllegalArgumentException();
+		
 		this._lss = _lss;
 		this._dqs = _dqs;
-		this._greenLightIndex = _greenLightIndex;
-		this._lastSwitchingTime = _lastSwitchingTime;
+		this.xCoor = xCoor;
+		this.yCoor = yCoor;
+		this._greenLightIndex = -1;
+		this._lastSwitchingTime = 0;
 		
+		this._inRoads = new ArrayList<>();
+		this._queues = new ArrayList<>();
+		this._queueByRoad = new HashMap<>();
+		this._outRoadByJunction = new HashMap<>();
 	}
 
     public void addIncomingRoad(Road r) {

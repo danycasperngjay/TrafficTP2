@@ -7,6 +7,7 @@ public abstract class SimulatedObject {
 	protected String _id;
 
 	SimulatedObject(String id) {
+		if (id == null || id.length() == 9 || id == "") throw new IllegalArgumentException ("The 'id' is non valid");
 		_id = id;
 	}
 
