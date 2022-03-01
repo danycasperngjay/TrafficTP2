@@ -23,7 +23,15 @@ public class Junction extends SimulatedObject {
     Junction(String id, LightSwitchingStrategy _lss, DequeuingStrategy _dqs, int xCoor, int yCoor) {
 		super(id);
 		
-		if(_lss == null || _dqs == null || xCoor <= 0 || yCoor <= 0) throw new IllegalArgumentException();
+		if(_lss == null) 
+			 throw new IllegalArgumentException("Light Switching Strategy is null");
+		if(_dqs == null) 
+			 throw new IllegalArgumentException("Dequeueing Switching Strategy is null");
+		if( xCoor < 0 ) 
+			 throw new IllegalArgumentException("X Coordinate is null");
+		if( yCoor < 0 ) 
+			 throw new IllegalArgumentException("Y Coordinate is null");
+	
 		
 		this._lss = _lss;
 		this._dqs = _dqs;
@@ -32,24 +40,30 @@ public class Junction extends SimulatedObject {
 		this._greenLightIndex = -1;
 		this._lastSwitchingTime = 0;
 		
-		this._inRoads = new ArrayList<>();
-		this._queues = new ArrayList<>();
-		this._queueByRoad = new HashMap<>();
-		this._outRoadByJunction = new HashMap<>();
+		this._inRoads = new ArrayList<Road>();
+		this._queues = new ArrayList<List<Vehicle>>();
+		this._queueByRoad = new HashMap<Road, List<Vehicle>>();
+		this._outRoadByJunction = new HashMap<Junction, Road>();
 	}
 
     public void addIncomingRoad(Road r) {
         if (r.getDest() == this) {
             this._inRoads.add(r);
-            this._queues.add(r.getVehicles());
-            this._queueByRoad.put(r, r.getVehicles());
+            List <Vehicle> queue = new ArrayList<>();
+            this._queues.add(queue);
+            this._queueByRoad.put(r, queue);
         }
+        else
+        	throw new IllegalArgumentException ("Invalid Incoming Road");
+         
     }
 
     public void addOutgoingRoad(Road r){
         if(r.getSrc() == this){
-            this._outRoadByJunction.put(this, r);
+            this._outRoadByJunction.put(r.getDest(), r);
         }
+        else
+        	throw new IllegalArgumentException ("Invalid Incoming Road");
     }
 
     //Adds the vehicle to the queue of that road
@@ -83,7 +97,7 @@ public class Junction extends SimulatedObject {
         	_lastSwitchingTime = time;
         }
     }
-
+    
 	@Override
 	public JSONObject report() {
 		 JSONObject jo = new JSONObject();

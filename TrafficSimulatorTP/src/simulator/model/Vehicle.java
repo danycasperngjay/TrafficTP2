@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Vehicle extends SimulatedObject{
-
+	
     private List<Junction> itinerary;
     private int maximumSpeed;
     private int currentSpeed;
@@ -17,6 +17,7 @@ public class Vehicle extends SimulatedObject{
     private int contaminationClass;
     private int totalContamination;
     private int totalTraveledDistance;
+    private int lastSeenJunction;
 
     Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary){
         super(id);
@@ -41,14 +42,19 @@ public class Vehicle extends SimulatedObject{
         }
         this.totalContamination = 0;
         this.totalTraveledDistance = 0;
+        this.lastSeenJunction = 0;
 
     }
 
     void setSpeed(int s) {
         if (s < 0){
         	throw new IllegalArgumentException ("Current speed negative");
-        } else {
-            this.currentSpeed = Math.min(s, this.maximumSpeed);
+        } 
+        else if (this.status == VehicleStatus.TRAVELING) {
+        		if ( s < this.maximumSpeed)
+        			this.currentSpeed = s;
+        		else
+        			 this.currentSpeed = this.maximumSpeed;
         }
     }
 
@@ -65,8 +71,14 @@ public class Vehicle extends SimulatedObject{
             return;
         }
         //(A)
-        int newLocation = Math.min(this.location + this.currentSpeed, this.road.getLength());
-       
+        //int newLocation = Math.min(this.location + this.currentSpeed, this.road.getLength());
+        int newLocation;
+        if ((this.location + this.currentSpeed) < this.road.getLength())
+        	newLocation = (this.location + this.currentSpeed);
+        else
+        	newLocation = this.road.getLength();
+        this.location = newLocation;
+        
         //(B)
         int c = this.contaminationClass * (newLocation - this.location);
         this.totalContamination += c;
@@ -75,9 +87,10 @@ public class Vehicle extends SimulatedObject{
         // (C)
         if (this.location == this.road.getLength()) {
             //method of class Junction : enters queue of junction
+        	road.getDest().enter(this);
             this.status = VehicleStatus.WAITING;
-            Junction j = null;
-            j.enter(this);
+            this.currentSpeed = 0;
+            this.location = 0;
         }
     }
 
@@ -86,12 +99,24 @@ public class Vehicle extends SimulatedObject{
     	if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING )
     		throw new IllegalArgumentException  ("Cannot move to next road because the status is not pending or waiting");
     	
-    	if (this.road != null || this.itinerary.size() - 1 == 0) {
+    	if (this.road != null)
     		this.road.exit(this); // exit current road
-        	this.road.enter(this);
-        	this.location = 0;
-    		}
     	
+    	if (this.lastSeenJunction == this.itinerary.size()-1)
+    	{
+    		this.status = VehicleStatus.ARRIVED;
+    		this.road = null;
+    		this.currentSpeed = 0;
+    	}
+    	else
+    	{
+    		this.road = itinerary.get(lastSeenJunction).roadTo(itinerary.get( lastSeenJunction + 1));
+    		this.location = 0;
+    		this.currentSpeed = 0;
+    		this.road.enter(this);
+    		this.lastSeenJunction++;
+    		this.status = VehicleStatus.TRAVELING;
+    	}
     }
 
     @Override
@@ -116,9 +141,6 @@ public class Vehicle extends SimulatedObject{
     }
 
     int getSpeed(){
-        if(this.status != VehicleStatus.TRAVELING){
-            return 0;
-        }
         return this.currentSpeed;
     }
 

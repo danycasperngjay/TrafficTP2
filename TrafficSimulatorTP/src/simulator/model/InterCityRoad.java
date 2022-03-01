@@ -4,7 +4,7 @@ import java.util.List;
 
 public class InterCityRoad extends Road{
 
-    InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception {
+    InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
     }
 
@@ -22,7 +22,7 @@ public class InterCityRoad extends Road{
         }
         this.totalContamination = (((100 - x) * tc) / 100);
     }
-
+    
     @Override
     void updateSpeedLimit() {
         if(getTotalCO2() > getContLimit()) {

@@ -25,13 +25,13 @@ public abstract class Road extends SimulatedObject {
         if (srcJunc == null){
         	throw new IllegalArgumentException ("Source Junction is null");
         } else {
-            srcJunc.addOutgoingRoad(this);
+            //srcJunc.addOutgoingRoad(this);
             this.sourceJunction = srcJunc;
         }
         if (destJunc == null){
         	throw new IllegalArgumentException ("Destination Junction is null");
         } else {
-            destJunc.addIncomingRoad(this);
+            //destJunc.addIncomingRoad(this);
             this.destinationJunction = destJunc;
         }
         if (length <= 0){
@@ -56,7 +56,9 @@ public abstract class Road extends SimulatedObject {
         }
         this.currentSpeedLimit = this.maximumSpeed;
         this.totalContamination = 0;
-        this.vehicles = new ArrayList<>();
+        this.vehicles = new ArrayList<Vehicle>();
+        sourceJunction.addOutgoingRoad(this);
+        destinationJunction.addIncomingRoad(this);
     }
 
     void enter(Vehicle v){
@@ -64,7 +66,7 @@ public abstract class Road extends SimulatedObject {
         	throw new IllegalArgumentException ("Error : Couldn't add the vehicle to the road");
         } else {
             this.vehicles.add(v);
-        }
+        } 
     }
 
     void exit(Vehicle v){
