@@ -63,7 +63,7 @@ public class Junction extends SimulatedObject {
             this._outRoadByJunction.put(r.getDest(), r);
         }
         else
-        	throw new IllegalArgumentException ("Invalid Incoming Road");
+        	throw new IllegalArgumentException ("Invalid Outgoing Road");
     }
 
     //Adds the vehicle to the queue of that road

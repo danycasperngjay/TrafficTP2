@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Vehicle extends SimulatedObject{
 	
-    private List<Junction> itinerary;
+    protected List<Junction> itinerary;
     private int maximumSpeed;
     private int currentSpeed;
     private VehicleStatus status;
