@@ -18,18 +18,15 @@ public class Vehicle extends SimulatedObject{
     private int totalContamination;
     private int totalTraveledDistance;
 
-    Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws Exception {
+    Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary){
         super(id);
-        if(id == null && id.isEmpty()) {
-            throw new Exception("ID invalid");
-        }
         if (itinerary.size() < 2){
-            throw new Exception("Itinerary is too small");
+        	throw new IllegalArgumentException ("Itinerary is too small");
         } else {
             this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         }
         if (maxSpeed <= 0){
-            throw new Exception("Max speed is negative");
+        	throw new IllegalArgumentException ("Max speed is negative");
         } else {
             this.maximumSpeed = maxSpeed;
         }
@@ -38,7 +35,7 @@ public class Vehicle extends SimulatedObject{
         this.road = null;
         this.location = 0;
         if (contClass < 0 || contClass > 10){
-            throw new Exception("Invalid contamination Class");
+        	throw new IllegalArgumentException ("Invalid contamination Class");
         } else {
             this.contaminationClass = contClass;
         }
@@ -47,23 +44,23 @@ public class Vehicle extends SimulatedObject{
 
     }
 
-    void setSpeed(int s) throws Exception{
+    void setSpeed(int s) {
         if (s < 0){
-            throw new Exception("Current speed negative");
+        	throw new IllegalArgumentException ("Current speed negative");
         } else {
             this.currentSpeed = Math.min(s, this.maximumSpeed);
         }
     }
 
-    void setContaminationClass(int c) throws Exception{
+    void setContaminationClass(int c){
         if(c < 0 || c > 10){
-            throw new Exception("Contamination speed is not between 0 and 10");
+        	throw new IllegalArgumentException ("Contamination speed is not between 0 and 10");
         }
         this.contaminationClass = c;
     }
 
     @Override
-    void advance(int time) throws Exception {
+    void advance(int time) {
         if(this.status != VehicleStatus.TRAVELING){
             return;
         }
@@ -84,10 +81,10 @@ public class Vehicle extends SimulatedObject{
         }
     }
 
-    void moveToNextRoad() throws Exception{
+    void moveToNextRoad() {
     	
     	if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING )
-    		throw new Exception ("Cannot move to next road because the status is not pending or waiting");
+    		throw new IllegalArgumentException  ("Cannot move to next road because the status is not pending or waiting");
     	
     	if (this.road != null || this.itinerary.size() - 1 == 0) {
     		this.road.exit(this); // exit current road

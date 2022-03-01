@@ -23,7 +23,7 @@ public class Junction extends SimulatedObject {
     Junction(String id, LightSwitchingStrategy _lss, DequeuingStrategy _dqs, int xCoor, int yCoor) {
 		super(id);
 		
-		//if(_lss == null || _dqs == null || xCoor <= 0 || yCoor <= 0) throw new IllegalArgumentException();
+		if(_lss == null || _dqs == null || xCoor <= 0 || yCoor <= 0) throw new IllegalArgumentException();
 		
 		this._lss = _lss;
 		this._dqs = _dqs;

@@ -20,37 +20,37 @@ public abstract class Road extends SimulatedObject {
     protected int totalContamination;
     private List<Vehicle> vehicles;
 
-    Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) throws Exception{
+    Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather){
         super(id);
         if (srcJunc == null){
-            throw new Exception ("Source Junction is null");
+        	throw new IllegalArgumentException ("Source Junction is null");
         } else {
             srcJunc.addOutgoingRoad(this);
             this.sourceJunction = srcJunc;
         }
         if (destJunc == null){
-            throw new Exception ("Destination Junction is null");
+        	throw new IllegalArgumentException ("Destination Junction is null");
         } else {
             destJunc.addIncomingRoad(this);
             this.destinationJunction = destJunc;
         }
         if (length <= 0){
-            throw new Exception("Length is negative");
+        	throw new IllegalArgumentException ("Length is negative");
         } else {
             this.length = length;
         }
         if (maxSpeed <= 0){
-            throw new Exception("Maximum speed is negative");
+        	throw new IllegalArgumentException ("Maximum speed is negative");
         } else {
             this.maximumSpeed = maxSpeed;
         }
         if(contLimit < 0){
-            throw new Exception("Contamination Alarm Limit negative or equals to zero");
+        	throw new IllegalArgumentException ("Contamination Alarm Limit negative or equals to zero");
         } else {
             this.contaminationAlarmLimit = contLimit;
         }
         if(weather == null){
-            throw new Exception("Weather invalid");
+        	throw new IllegalArgumentException ("Weather invalid");
         } else {
             this.weatherConditions = weather;
         }
@@ -59,9 +59,9 @@ public abstract class Road extends SimulatedObject {
         this.vehicles = new ArrayList<>();
     }
 
-    void enter(Vehicle v) throws Exception{
+    void enter(Vehicle v){
         if (v.getLocation() != 0 || v.getSpeed() != 0){
-            throw new Exception("Error : Couldn't add the vehicle to the road");
+        	throw new IllegalArgumentException ("Error : Couldn't add the vehicle to the road");
         } else {
             this.vehicles.add(v);
         }
@@ -71,30 +71,30 @@ public abstract class Road extends SimulatedObject {
         this.vehicles.remove(v);
     }
 
-    void setWeather(Weather w) throws Exception{
+    void setWeather(Weather w){
         if(w == null){
-            throw new Exception ("Weather invalid");
+        	throw new IllegalArgumentException ("Weather invalid");
         } else {
             this.weatherConditions = w;
         }
     }
 
-    void addContamination(int c) throws Exception{
+    void addContamination(int c){
         if(c < 0){
-            throw new Exception("Contamination is negative");
+        	throw new IllegalArgumentException ("Contamination is negative");
         } else {
             this.totalContamination += c;
         }
     }
 
-    abstract void reduceTotalContamination() throws Exception;
+    abstract void reduceTotalContamination();
 
     abstract void updateSpeedLimit();
 
     abstract int calculateVehicleSpeed(Vehicle v);
 
     @Override
-    void advance(int time) throws Exception {
+    void advance(int time) {
         reduceTotalContamination();
         updateSpeedLimit();
         for (Vehicle vehicle : this.vehicles) {

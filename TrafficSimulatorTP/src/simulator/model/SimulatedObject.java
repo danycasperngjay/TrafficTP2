@@ -7,7 +7,7 @@ public abstract class SimulatedObject {
 	protected String _id;
 
 	SimulatedObject(String id) {
-		if (id == null || id.length() == 9 || id == "") throw new IllegalArgumentException ("The 'id' is non valid");
+		if (id == null || id.length() == 9 || id == "") throw new IllegalArgumentException ("ID invalid");
 		_id = id;
 	}
 
@@ -20,7 +20,7 @@ public abstract class SimulatedObject {
 		return _id;
 	}
 
-	abstract void advance(int time) throws Exception;
+	abstract void advance(int time);
 
 	abstract public JSONObject report();
 }

@@ -9,7 +9,7 @@ public class InterCityRoad extends Road{
     }
 
     @Override
-    void reduceTotalContamination() throws Exception {
+    void reduceTotalContamination(){
         int tc = getTotalCO2();
         int x = 0;
         Weather w = getWeather();

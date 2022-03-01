@@ -9,7 +9,7 @@ public class CityRoad extends Road {
     }
 
     @Override
-    void reduceTotalContamination() throws Exception {
+    void reduceTotalContamination(){
     	int x = 2;
     	Weather w = getWeather();
         switch (w){
