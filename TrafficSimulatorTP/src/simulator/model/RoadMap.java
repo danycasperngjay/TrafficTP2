@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 public class RoadMap {
 	
 	private List<Vehicle> listVehicles;
@@ -55,8 +57,88 @@ public class RoadMap {
 				throw new IllegalArgumentException ("Cannot add road, it has the same ID");
 		}
 		
+		boolean srcJunctionexists = false;
+		boolean destJunctionexists = false;
+		for (Junction j : this.listJunctions)
+		{
+			if (j == r.getSrc())
+				srcJunctionexists = true;
+			if (j == r.getDest())
+				destJunctionexists = true;
+		}
+		if(!srcJunctionexists)
+			throw new IllegalArgumentException ("Source Junction not in List");
+		if(!destJunctionexists)
+			throw new IllegalArgumentException ("Destination Junction not in List");
+		
 		this.listRoads.add(r);
+		//modify road map
 	}
 	
+	void addJunction(Junction j) {
+		for (Junction x : this.listJunctions) {
+			if (x.getId() == j.getId())
+				throw new IllegalArgumentException ("Cannot add junction, it has the same ID");
+		}
+		
+		this.listJunctions.add(j);
+		//modify junction map
+	}
+	
+	
+	
+	public Junction getJunction(String id) {
+		for (Junction x : this.listJunctions) {
+			if (x.getId() == id)
+				return x;
+		}	
+		return null;
+	}
+	
+	public Road getRoad(String id) {
+		for (Road x : this.listRoads) {
+			if (x.getId() == id)
+				return x;
+		}	
+		return null;
+	}
+	
+	public Vehicle getVehicle(String id) {
+		for (Vehicle x : this.listVehicles) {
+			if (x.getId() == id)
+				return x;
+		}	
+		return null;		
+	}
+	
+	public List<Junction> getJunctions(){
+		return listJunctions;
+	}
 
+	public List<Road> getRoads(){
+		return listRoads;
+	}
+	
+	public List<Vehicle> getVehicles(){
+		return listVehicles;
+	}
+	
+	void reset() {
+		listVehicles.clear();
+		listRoads.clear();
+		listJunctions.clear();
+		
+		vehiclesMap.clear();
+		roadsMap.clear();
+		junctionsMap.clear();
+	}
+	
+	
+	public JSONObject report() {
+		
+		JSONObject jo = new JSONObject();
+		
+		
+		return jo;
+	}
 }
