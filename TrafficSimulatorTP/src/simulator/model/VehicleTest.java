@@ -79,10 +79,17 @@ class VehicleTest {
 		JSONObject jo = new JSONObject(s);
 		
 		JSONObject report = v1.report();
+		
+		System.out.println(jo.toString());
+		System.out.println(report.toString());
+		
 		assertTrue(jo.similar(report));
 		
 		assertEquals("v1", v1.getId());
-	}
+	
+		
+		
+	}	
 	
 	// when asking for the itinerary, it should be returned as read only
 	@Test
@@ -151,6 +158,11 @@ class VehicleTest {
 		JSONObject jo = new JSONObject(s);
 		
 		JSONObject report = v1.report();
+		
+		System.out.println(jo.toString());
+		
+		System.out.println(report.toString());
+		
 		assertTrue(jo.similar(report));
 	}
 

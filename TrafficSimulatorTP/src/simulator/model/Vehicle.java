@@ -72,18 +72,25 @@ public class Vehicle extends SimulatedObject{
         }
         //(A)
         //int newLocation = Math.min(this.location + this.currentSpeed, this.road.getLength());
-        int newLocation;
+        int newLocation = this.location;
         if ((this.location + this.currentSpeed) < this.road.getLength())
         	newLocation = (this.location + this.currentSpeed);
         else
         	newLocation = this.road.getLength();
-        this.location = newLocation;
+        
+        //Update Total travelled distance
+        if((totalTraveledDistance + currentSpeed) > road.getLength())
+        	this.totalTraveledDistance = road.getLength();
+        else
+        	this.totalTraveledDistance = this.totalTraveledDistance + this.currentSpeed;
+        
         
         //(B)
         int c = this.contaminationClass * (newLocation - this.location);
         this.totalContamination += c;
         this.road.addContamination(c);
         
+        this.location = newLocation;
         // (C)
         if (this.location == this.road.getLength()) {
             //method of class Junction : enters queue of junction
@@ -112,7 +119,6 @@ public class Vehicle extends SimulatedObject{
     	{
     		this.road = itinerary.get(lastSeenJunction).roadTo(itinerary.get( lastSeenJunction + 1));
     		this.location = 0;
-    		this.currentSpeed = 0;
     		this.road.enter(this);
     		this.lastSeenJunction++;
     		this.status = VehicleStatus.TRAVELING;
@@ -128,9 +134,9 @@ public class Vehicle extends SimulatedObject{
     	jo.put("distance", this.totalTraveledDistance);
     	jo.put("co2", this.totalContamination);
     	jo.put("class", this.contaminationClass);
-    	jo.put("status", this.status);
-    	if (this.status != VehicleStatus.PENDING || this.status != VehicleStatus.ARRIVED) {
-        	jo.put("road", this.road);
+    	jo.put("status", this.status.toString());
+    	if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.ARRIVED) {
+        	jo.put("road", this.road.getId());
         	jo.put("location", this.location);
     	}
         return jo;

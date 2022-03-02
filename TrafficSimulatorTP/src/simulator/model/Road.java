@@ -100,7 +100,7 @@ public abstract class Road extends SimulatedObject {
         reduceTotalContamination();
         updateSpeedLimit();
         for (Vehicle vehicle : this.vehicles) {
-            calculateVehicleSpeed(vehicle);
+            vehicle.setSpeed(calculateVehicleSpeed(vehicle));
             vehicle.advance(time);
         }
         this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation, Comparator.reverseOrder())).collect(Collectors.toList()); // Sort List 
