@@ -9,12 +9,12 @@ import java.util.List;
 public class Vehicle extends SimulatedObject{
 	
     protected List<Junction> itinerary;
-    private int maximumSpeed;
+    protected int maximumSpeed;
     private int currentSpeed;
     private VehicleStatus status;
     private Road road = null;
     private int location;
-    private int contaminationClass;
+    protected int contaminationClass;
     private int totalContamination;
     private int totalTraveledDistance;
     private int lastSeenJunction;

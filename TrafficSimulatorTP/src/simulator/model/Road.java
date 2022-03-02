@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 
 public abstract class Road extends SimulatedObject {
 
-    private Junction sourceJunction;
-    private Junction destinationJunction;
-    private int length;
-    private int maximumSpeed;
+    protected Junction sourceJunction;
+    protected Junction destinationJunction;
+    protected int length;
+    protected int maximumSpeed;
     protected int currentSpeedLimit;
-    private int contaminationAlarmLimit;
-    private Weather weatherConditions;
+    protected int contaminationAlarmLimit;
+    protected Weather weatherConditions;
     protected int totalContamination;
     private List<Vehicle> vehicles;
 
