@@ -6,6 +6,7 @@ public class NewJunctionEvent extends Event {
 	
 	public NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
 			super(time);
+			j = new Junction(id, lsStrategy, dqStrategy, xCoor, yCoor);
 			j._id = id;
 			j._lss = lsStrategy;
 			j._dqs = dqStrategy;

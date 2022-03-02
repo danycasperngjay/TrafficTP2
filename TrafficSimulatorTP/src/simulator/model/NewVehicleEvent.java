@@ -1,24 +1,33 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
 	
-	private RoadMap map;
 	private Vehicle v;
+	private List <Junction> iti;
+	private List <String> itinerary;
+	private int maxSpeed,contClass;
+	private String id;
 	
 	public NewVehicleEvent(int time, String id, int maxSpeed, int contClass, List<String> itinerary) {
 		super(time);
-		for (String _id : itinerary) {
-			v.itinerary.add(map.getJunction(_id));
-		}
-		v._id = id;
-		v.maximumSpeed = maxSpeed;
-		v.contaminationClass = contClass;
+		iti = new ArrayList<>();
+		this.itinerary = itinerary;	
+		this.id = id;
+		this.maxSpeed = maxSpeed;
+		this.contClass = contClass;
 	}
 	
 	@Override
 	void execute(RoadMap map) {
-		map.addVehicle(v);	
+		for (String _id : this.itinerary) {
+			iti.add(map.getJunction(_id));
+		}
+		v = new Vehicle(id, maxSpeed, contClass, iti);
+		
+		map.addVehicle(v);
+		v.moveToNextRoad();
 	}
 }

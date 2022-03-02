@@ -10,14 +10,15 @@ public class CityRoad extends Road {
 
     @Override
     void reduceTotalContamination(){
-    	int x = 2;
+    	int x = 0;
     	Weather w = getWeather();
         switch (w){
             case WINDY: x = 10; break;
             case STORM : x = 10; break;
             default: x = 2; break;
         }
-        this.totalContamination -= x;
+        if(this.totalContamination - x > -1)
+        	this.totalContamination -= x;
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RoadMap {
@@ -36,18 +37,11 @@ public class RoadMap {
 				throw new IllegalArgumentException ("Cannot add vehicle, it has the same ID");
 		}
 		
-		boolean connection = false;
-		for (int i = 0; i < v.itinerary.size(); i++)
+		for (int i = 0; i < v.getItinerary().size() - 1; i++)
 		{
-			for (int j = 0; j < v.itinerary.get(i + 1)._inRoads.size(); j++) {
-				//         first junction         road goto new junction          equal    any of the nextjunction   road in
-				if (v.itinerary.get(i)._outRoadByJunction.get(v.itinerary.get(i + 1)) == v.itinerary.get(i + 1)._inRoads.get(j) )
-					connection = true;
-			}
+			if(v.getItinerary().get(i).roadTo(v.getItinerary().get(i+1)) == null)
+				throw new IllegalArgumentException ("Roads don't connect!!");
 		}
-		if (!connection)
-			throw new IllegalArgumentException ("Itinerary non valid, roads not connected");
-		
 		this.listVehicles.add(v);
 		this.vehiclesMap.put(v.getId(), v);
 	}
@@ -89,11 +83,12 @@ public class RoadMap {
 	
 	
 	public Junction getJunction(String id) {
-		for (Junction x : this.listJunctions) {
-			if (x.getId() == id)
-				return x;
-		}	
-		return null;
+	//	for (Junction x : this.listJunctions) {
+		
+		//if (x.getId().equals(id))
+			//	return x;
+	//	}	
+		return junctionsMap.get(id);
 	}
 	
 	public Road getRoad(String id) {
@@ -139,32 +134,25 @@ public class RoadMap {
 		
 		JSONObject jo = new JSONObject();
 		
-		int i = 1;
-        jo.put("junctions", listJunctions);
-        for(Junction j  : this.listJunctions){
-        	
-        	jo.put("J", i);
-        	jo.put("Report",j.report());
-        	i++;
-        }
-        
-        i = 1;
-        jo.put("roads", listRoads);
-        for(Road r  : this.listRoads){
-        	
-        	jo.put("R", i);
-        	jo.put("Report",r.report());
-        	i++;
-        }
-        
-        i = 1;
-        jo.put("vehicles", listVehicles);
-        for(Vehicle v  : this.listVehicles){
-        	
-        	jo.put("V", i);
-        	jo.put("Report",v.report());
-        	i++;
-        }
+		JSONArray vehicles = new JSONArray();
+		JSONArray roads = new JSONArray();
+		JSONArray junctions = new JSONArray();
+		
+		for (Vehicle v  : listVehicles){
+			vehicles.put(v.report());
+		}
+		
+		for (Road r  : listRoads){
+			roads.put(r.report());
+		}
+		
+		for (Junction j  : listJunctions){
+			junctions.put(j.report());
+		}
+		
+		jo.put("junctions", junctions);
+		jo.put("roads", roads);
+		jo.put("vehicles", vehicles);
 		
 		return jo;
 	}

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
@@ -105,18 +106,20 @@ public class Junction extends SimulatedObject {
 	        jo.put("id", this._id);
 	        if (_greenLightIndex == -1)
 	        	jo.put("green", "none");
-	        jo.put("green", _inRoads.get(_greenLightIndex));
+	        else
+	        	jo.put("green", _inRoads.get(_greenLightIndex).getId());
 	        
-	        int i = 1;
-	        jo.put("queues", _queues);
-	        for(List<Vehicle> q : this._queues){
-	        	
-	        	jo.put("Q", i);
-	        	jo.put("road", q.get(0).getRoad());
-	        	jo.put("vehicles", q);
-	        	i++;
+	        
+	        JSONArray jun = new JSONArray();
+	        for(int i = 0; i < _queues.size(); i++) {
+	        	JSONObject jojo = new JSONObject ();
+	        	jojo.put("road",_inRoads.get(i).getId());
+	        	jojo.put("vehicles", _queues.get(i));
+	        	jun.put(jojo);        	
 	        }
-	       
+	        
+	        jo.put("queues", jun);
+	        
 		return jo;
 	}
 

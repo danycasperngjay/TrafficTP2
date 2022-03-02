@@ -1,5 +1,6 @@
 package simulator.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -103,7 +104,16 @@ public abstract class Road extends SimulatedObject {
             vehicle.setSpeed(calculateVehicleSpeed(vehicle));
             vehicle.advance(time);
         }
-        this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation, Comparator.reverseOrder())).collect(Collectors.toList()); // Sort List 
+       // this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation)).collect(Collectors.toList()); // Sort List 
+     
+        vehicles.sort((v1,v2) -> {
+        	if(v1.getLocation() > v2.getLocation())
+        		return -1;
+        	else if (v1.getLocation() < v2.getLocation())
+        		return 1;
+        	else
+        		return 0;
+        });
     }
 
     @Override
@@ -112,14 +122,12 @@ public abstract class Road extends SimulatedObject {
 
         jo.put("id", this._id);
         jo.put("speedlimit", this.currentSpeedLimit);
-        jo.put("weather", this.weatherConditions);
+        jo.put("weather", this.weatherConditions.toString());
         jo.put("co2", this.totalContamination);
 
-        List<Vehicle> vehiclesTraveling = new ArrayList<>();
+        JSONArray vehiclesTraveling = new JSONArray();
         for(Vehicle v : this.vehicles){
-            if(v.getStatus() == VehicleStatus.TRAVELING){
-                vehiclesTraveling.add(v);
-            }
+            vehiclesTraveling.put(v.getId());
         }
         jo.put("vehicles", vehiclesTraveling);
 
