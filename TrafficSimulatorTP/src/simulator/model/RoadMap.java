@@ -49,7 +49,7 @@ public class RoadMap {
 			throw new IllegalArgumentException ("Itinerary non valid, roads not connected");
 		
 		this.listVehicles.add(v);
-		//modify vehicle map
+		this.vehiclesMap.put(v.getId(), v);
 	}
 	
 	void addRoad(Road r) {
@@ -73,7 +73,7 @@ public class RoadMap {
 			throw new IllegalArgumentException ("Destination Junction not in List");
 		
 		this.listRoads.add(r);
-		//modify road map
+		this.roadsMap.put(r.getId(), r);
 	}
 	
 	void addJunction(Junction j) {
@@ -83,7 +83,7 @@ public class RoadMap {
 		}
 		
 		this.listJunctions.add(j);
-		//modify junction map
+		this.junctionsMap.put(j.getId(), j); 
 	}
 	
 	
