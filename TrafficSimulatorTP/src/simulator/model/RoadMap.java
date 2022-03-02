@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,15 +113,15 @@ public class RoadMap {
 	}
 	
 	public List<Junction> getJunctions(){
-		return listJunctions;
+		return Collections.unmodifiableList(listJunctions);
 	}
 
 	public List<Road> getRoads(){
-		return listRoads;
+		return Collections.unmodifiableList(listRoads);
 	}
 	
 	public List<Vehicle> getVehicles(){
-		return listVehicles;
+		return Collections.unmodifiableList(listVehicles);
 	}
 	
 	void reset() {
@@ -138,6 +139,32 @@ public class RoadMap {
 		
 		JSONObject jo = new JSONObject();
 		
+		int i = 1;
+        jo.put("junctions", listJunctions);
+        for(Junction j  : this.listJunctions){
+        	
+        	jo.put("J", i);
+        	jo.put("Report",j.report());
+        	i++;
+        }
+        
+        i = 1;
+        jo.put("roads", listRoads);
+        for(Road r  : this.listRoads){
+        	
+        	jo.put("R", i);
+        	jo.put("Report",r.report());
+        	i++;
+        }
+        
+        i = 1;
+        jo.put("vehicles", listVehicles);
+        for(Vehicle v  : this.listVehicles){
+        	
+        	jo.put("V", i);
+        	jo.put("Report",v.report());
+        	i++;
+        }
 		
 		return jo;
 	}
