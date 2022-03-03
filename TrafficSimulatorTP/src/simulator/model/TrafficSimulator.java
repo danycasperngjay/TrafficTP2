@@ -26,9 +26,9 @@ public class TrafficSimulator {
 		_events.add(e);
 		// Keep array sorted
         _events.sort((e1,e2) -> {
-        	if(e1.getTime() > e2.getTime())
+        if(e1.getTime() < e2.getTime())
         		return -1;
-        	else if (e1.getTime() < e2.getTime())
+        	else if (e1.getTime() > e2.getTime())
         		return 1;
         	else
         		return 0;
@@ -38,7 +38,7 @@ public class TrafficSimulator {
 	public void advance() {
 		_time++;
 		
-		while(_events.get(0).getTime() == _time)
+		while(!_events.isEmpty() && _events.get(0).getTime() == _time)
 			_events.remove(0).execute(_roadMap);
 		
 		for (Junction j : _roadMap.getJunctions())
@@ -65,30 +65,7 @@ public class TrafficSimulator {
 		
 		 jo.put("time", _time);
 		 
-		 JSONObject state = new JSONObject();
-		 
-		 
-			JSONArray vehicles = new JSONArray();
-			JSONArray roads = new JSONArray();
-			JSONArray junctions = new JSONArray();
-			
-			for (Vehicle v  : _roadMap.getVehicles()){
-				vehicles.put(v.report());
-			}
-			
-			for (Road r  : _roadMap.getRoads()){
-				roads.put(r.report());
-			}
-			
-			for (Junction j  : _roadMap.getJunctions()){
-				junctions.put(j.report());
-			}
-			
-			state.put("junctions",junctions);
-			state.put("roads",roads);
-		    state.put("vehicles",vehicles);
-		 
-		    jo.put("state", state);
+		 jo.put("state", _roadMap.report());
 		    
 		 return jo;
 	}
