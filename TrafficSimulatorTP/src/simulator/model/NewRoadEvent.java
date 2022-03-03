@@ -1,27 +1,34 @@
 package simulator.model;
 
-public class NewRoadEvent extends Event {
+public abstract class NewRoadEvent extends Event {
 	
-	private Road r;
+	private String id, sourceJunction, destinationJunction;
+	private int length, co2Limit, maxSpeed;
+	private Weather weather;
+	private Junction srcJunction,destJunction;
 
 
 	public NewRoadEvent(int time, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
 		super(time);
 		
-		r._id = id;
-		r.sourceJunction = map.getJunction(srcJun);
-		r.destinationJunction = map.getJunction(destJunc);
-		r.length = length;
-		r.contaminationAlarmLimit = co2Limit;
-		r.maximumSpeed = maxSpeed;
-		r.weatherConditions = weather;
-
+		this.id = id;
+		this.sourceJunction = srcJun;
+		this.destinationJunction = destJunc;
+		this.length = length;
+		this.co2Limit = co2Limit;
+		this.maxSpeed = maxSpeed;
+		this.weather = weather;
 	}
 	
 	@Override
 	void execute(RoadMap map) {
-		map.addRoad(r);	
+		
+		srcJunction = map.getJunction(sourceJunction);
+		destJunction = map.getJunction(destinationJunction);
+	
+		map.addRoad(newRoad(this.id,srcJunction,destJunction,this.maxSpeed,this.co2Limit,this.length,this.weather));	
 	}
 	
-	//abstract new
+	public abstract Road newRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather);
+	
 }
