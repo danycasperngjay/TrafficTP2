@@ -1,5 +1,4 @@
 package simulator.launcher;
-//hello
 
 import org.apache.commons.cli.*;
 import simulator.factories.Factory;
@@ -7,7 +6,6 @@ import simulator.model.Event;
 
 import java.io.IOException;
 
-//see if it is working
 public class Main {
 
 	private final static Integer _timeLimitDefaultValue = 10;
