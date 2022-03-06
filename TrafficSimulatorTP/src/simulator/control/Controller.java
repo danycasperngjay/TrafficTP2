@@ -30,7 +30,8 @@ public class Controller {
     public void loadEvents(InputStream in){
         JSONObject jo = new JSONObject(new JSONTokener(in));
         for(Object e : jo.getJSONArray("events")){
-            JSONObject jojo = new JSONObject(e.toString());
+            //exception?
+        	JSONObject jojo = new JSONObject(e.toString());
             this._sim.addEvent(this._eventsFactory.createInstance(jojo));
         }
     }
@@ -56,3 +57,4 @@ public class Controller {
     }
 
 }
+

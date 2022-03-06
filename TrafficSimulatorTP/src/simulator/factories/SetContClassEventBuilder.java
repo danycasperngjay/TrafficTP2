@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.NewSetContClassEvent;
-import simulator.model.Weather;
+
 
 
 public class SetContClassEventBuilder extends Builder<Event> {
