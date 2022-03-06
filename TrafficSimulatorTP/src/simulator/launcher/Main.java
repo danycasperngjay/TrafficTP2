@@ -3,6 +3,7 @@ package simulator.launcher;
 import org.apache.commons.cli.*;
 import org.json.JSONObject;
 
+import simulator.control.Controller;
 import simulator.factories.Builder;
 import simulator.factories.BuilderBasedFactory;
 import simulator.factories.Factory;
@@ -19,8 +20,14 @@ import simulator.factories.SetWeatherEventBuilder;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
+import simulator.model.TrafficSimulator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,7 +126,14 @@ public class Main {
 	}
 
 	private static void startBatchMode() throws IOException {
-		// TODO complete this method to start the simulation
+		InputStream in = new FileInputStream (new File (_inFile));
+		OutputStream out = new FileOutputStream(new File (_outFile));
+		TrafficSimulator ts = new TrafficSimulator();
+		Controller control = new Controller(ts, _eventsFactory);
+		
+		control.loadEvents(in);
+		in.close();
+		control.run(_timeLimitDefaultValue, out);
 	}
 
 	private static void start(String[] args) throws IOException {
