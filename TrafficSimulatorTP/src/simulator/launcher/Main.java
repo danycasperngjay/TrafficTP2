@@ -1,5 +1,6 @@
 package simulator.launcher;
 
+import netscape.javascript.JSObject;
 import org.apache.commons.cli.*;
 import simulator.factories.Factory;
 import simulator.model.Event;
@@ -77,9 +78,12 @@ public class Main {
 	}
 
 	private static void initFactories() {
-
-		// TODO complete this method to initialize _eventsFactory
-
+		_eventsFactory = new Factory<Event>() {
+			@Override
+			public Event createInstance(JSONObject info) {
+				Event e = info.;
+			}
+		};
 	}
 
 	private static void startBatchMode() throws IOException {
