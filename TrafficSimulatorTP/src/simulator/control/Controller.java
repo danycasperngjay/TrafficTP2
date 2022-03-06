@@ -10,6 +10,7 @@ import java.io.PrintStream;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+
 public class Controller {
 
     private TrafficSimulator _sim;
@@ -30,7 +31,6 @@ public class Controller {
     public void loadEvents(InputStream in){
         JSONObject jo = new JSONObject(new JSONTokener(in));
         for(Object e : jo.getJSONArray("events")){
-            //exception?
         	JSONObject jojo = new JSONObject(e.toString());
             this._sim.addEvent(this._eventsFactory.createInstance(jojo));
         }

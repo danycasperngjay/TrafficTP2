@@ -14,7 +14,7 @@ import simulator.model.NewSetContClassEvent;
 
 public class SetContClassEventBuilder extends Builder<Event> {
 
-	SetContClassEventBuilder() {
+	public SetContClassEventBuilder() {
 		super("set_cont_class");
 	}
 

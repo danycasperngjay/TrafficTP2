@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy> {
 
-	RoundRobinStrategyBuilder() {
+	public RoundRobinStrategyBuilder() {
 		super("round_robin_lss");
 	}
 
