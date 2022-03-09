@@ -1,9 +1,9 @@
 package simulator.model;
 
-
+import java.util.Collections;
 import java.util.List;
 
-
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
@@ -23,13 +23,13 @@ public class TrafficSimulator {
 	public void addEvent(Event e) {
 		if(e.getTime() <= _time)
         	throw new IllegalArgumentException ("We cannot add events for the past!");
-		_events.add(e);
+		
 		// Keep array sorted
-		for (Event o : _events) {
-			if (e.compareTo(o) == -1)
-				
-		}
-		_events.sort(e.compareTo(o));
+//				for (Event o : _events) {
+//					if (e.compareTo(o) == -1)
+//						_events.add(_events.indexOf(o),e);
+//				}
+			_events.add(e);
 //        _events.sort((e1,e2) -> {
 //        if(e1.getTime() < e2.getTime())
 //        		return -1;
@@ -63,7 +63,6 @@ public class TrafficSimulator {
 		_time = 0;
 	}
 	
-	//NOT FINISHED
 	public JSONObject report() {
 		
 		 JSONObject jo = new JSONObject();

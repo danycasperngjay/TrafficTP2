@@ -23,7 +23,8 @@ public class NewVehicleEvent extends Event {
 	@Override
 	void execute(RoadMap map) {
 		for (String _id : this.itinerary) {
-			iti.add(map.getJunction(_id));
+			if(map.getJunction(_id) != null)
+				iti.add(map.getJunction(_id));
 		}
 		v = new Vehicle(id, maxSpeed, contClass, iti);
 		

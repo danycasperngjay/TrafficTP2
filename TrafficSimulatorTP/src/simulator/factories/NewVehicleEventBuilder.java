@@ -26,8 +26,8 @@ public class NewVehicleEventBuilder extends Builder<Event>  {
 		iti = data.getJSONArray("itinerary");
 		List<String> itinerary = new ArrayList<>();  
         if (iti != null && !iti.isEmpty()) {    
-            for (Object s : iti)    
-               itinerary.add(s.toString());   
+            for (int i = 0; i < iti.length();i++)    
+               itinerary.add(iti.getString(i));   
         }
 		return new NewVehicleEvent(time, id, maxSpeed, contClass, itinerary);
 	}
