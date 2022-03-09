@@ -19,7 +19,7 @@ import simulator.model.NewInterCityRoadEvent;
 import simulator.model.NewJunctionEvent;
 import simulator.model.NewVehicleEvent;
 import simulator.model.RoundRobinStrategy;
-import simulator.model.NewSetContClassEvent;
+import simulator.model.SetContClassEvent;
 import simulator.model.SetWeatherEvent;
 
 class BuilderBasedFactoryTest {
@@ -256,7 +256,7 @@ class BuilderBasedFactoryTest {
 				+ "      }\n"
 				+ "    }";
 
-		assertTrue( eFactory.createInstance(new JSONObject(inputJSon)) instanceof NewSetContClassEvent);
+		assertTrue( eFactory.createInstance(new JSONObject(inputJSon)) instanceof SetContClassEvent);
 	}
 
 	@Test

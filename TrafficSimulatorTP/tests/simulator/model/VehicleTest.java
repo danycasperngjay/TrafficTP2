@@ -24,12 +24,12 @@ class VehicleTest {
 		assertEquals(1, v1.getContClass());
 
 		// setContClass changes the contamination class
-		v1.setContaminationClass(4);
+		v1.setContClass(4);
 		assertEquals(4, v1.getContClass());
 
 		// contamination class must be between 0 and 10 (inclusive)
-		assertThrows(Exception.class, () -> v1.setContaminationClass(11));
-		assertThrows(Exception.class, () -> v1.setContaminationClass(-1));
+		assertThrows(Exception.class, () -> v1.setContClass(11));
+		assertThrows(Exception.class, () -> v1.setContClass(-1));
 	}
 
 	@Test
@@ -79,17 +79,10 @@ class VehicleTest {
 		JSONObject jo = new JSONObject(s);
 		
 		JSONObject report = v1.report();
-		
-		System.out.println(jo.toString());
-		System.out.println(report.toString());
-		
 		assertTrue(jo.similar(report));
 		
 		assertEquals("v1", v1.getId());
-	
-		
-		
-	}	
+	}
 	
 	// when asking for the itinerary, it should be returned as read only
 	@Test
@@ -146,10 +139,10 @@ class VehicleTest {
 
 		// move the vehicle in road 'r1'
 		r1.advance(0);
-		
+
 		// the last advance should move vehicle 'v1' for 50 units
 		assertEquals(50, v1.getLocation());
-	
+		
 		// check the vehicle's contamination
 		assertEquals(50,v1.getTotalCO2());
 
@@ -158,11 +151,6 @@ class VehicleTest {
 		JSONObject jo = new JSONObject(s);
 		
 		JSONObject report = v1.report();
-		
-		System.out.println(jo.toString());
-		
-		System.out.println(report.toString());
-		
 		assertTrue(jo.similar(report));
 	}
 

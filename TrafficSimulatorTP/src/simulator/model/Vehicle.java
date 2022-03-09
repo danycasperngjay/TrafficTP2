@@ -58,7 +58,7 @@ public class Vehicle extends SimulatedObject{
         }
     }
 
-    void setContaminationClass(int c){
+    void setContClass(int c){
         if(c < 0 || c > 10){
         	throw new IllegalArgumentException ("Contamination speed is not between 0 and 10");
         }
