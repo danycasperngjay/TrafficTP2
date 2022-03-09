@@ -113,9 +113,14 @@ public class Junction extends SimulatedObject {
 	        JSONArray jun = new JSONArray();
 	        for(int i = 0; i < _queues.size(); i++) {
 	        	JSONObject jojo = new JSONObject ();
-	        	jojo.put("road",_inRoads.get(i).getId());
-	        	jojo.put("vehicles", _queues.get(i));
-	        	jun.put(jojo);        	
+	        	jojo.put("road",_inRoads.get(i).getId());    
+	        	JSONArray vehi = new JSONArray();
+	        	for (Vehicle v: _queues.get(i))
+	        	{
+	        		vehi.put(v.getId());
+	        	}
+	        	jojo.put("vehicles", vehi);
+	        	jun.put(jojo);
 	        }
 	        
 	        jo.put("queues", jun);

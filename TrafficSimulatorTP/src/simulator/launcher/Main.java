@@ -1,8 +1,6 @@
 package simulator.launcher;
 
 import org.apache.commons.cli.*;
-import org.json.JSONObject;
-
 import simulator.control.Controller;
 import simulator.factories.Builder;
 import simulator.factories.BuilderBasedFactory;
@@ -37,6 +35,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null;
+	private static int _timeLimit;
 
 	private static void parseArgs(String[] args) {
 
@@ -52,6 +51,7 @@ public class Main {
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
+			parseTimeOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -78,6 +78,7 @@ public class Main {
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
+		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").desc("LALALA").build());
 
 		return cmdLineOptions;
 	}
@@ -88,6 +89,14 @@ public class Main {
 			formatter.printHelp(Main.class.getCanonicalName(), cmdLineOptions, true);
 			System.exit(0);
 		}
+	}
+	
+	private static void parseTimeOption (CommandLine line) throws ParseException {
+		
+		if (!line.hasOption("t"))
+			_timeLimit  = _timeLimitDefaultValue;
+		else
+			_timeLimit = Integer.parseInt(line.getOptionValue("t"));
 	}
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
@@ -127,13 +136,18 @@ public class Main {
 
 	private static void startBatchMode() throws IOException {
 		InputStream in = new FileInputStream (new File (_inFile));
-		OutputStream out = new FileOutputStream(new File (_outFile));
+		OutputStream out = null; 
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller control = new Controller(ts, _eventsFactory);
 		
+		if (_outFile == null)
+			out = System.out;
+		else
+			out = new FileOutputStream(new File (_outFile));
+		
 		control.loadEvents(in);
 		in.close();
-		control.run(_timeLimitDefaultValue, out);
+		control.run(_timeLimit, out);
 	}
 
 	private static void start(String[] args) throws IOException {

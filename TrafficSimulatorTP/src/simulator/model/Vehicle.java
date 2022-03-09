@@ -79,14 +79,14 @@ public class Vehicle extends SimulatedObject{
         	newLocation = this.road.getLength();
         
         //Update Total travelled distance
-        if((totalTraveledDistance + currentSpeed) > road.getLength())
-        	this.totalTraveledDistance = road.getLength();
-        else
-        	this.totalTraveledDistance = this.totalTraveledDistance + this.currentSpeed;
-        
+        //if((totalTraveledDistance + currentSpeed) > road.getLength())
+        	//this.totalTraveledDistance = road.getLength();
+        //else
+        	//this.totalTraveledDistance = this.totalTraveledDistance + this.currentSpeed;
+        totalTraveledDistance += newLocation - this.location;
         
         //(B)
-        int c = this.contaminationClass * (newLocation - this.location);
+        int c = this.contaminationClass * totalTraveledDistance; // (newLocation - this.location);
         this.totalContamination += c;
         this.road.addContamination(c);
         
@@ -97,7 +97,7 @@ public class Vehicle extends SimulatedObject{
         	road.getDest().enter(this);
             this.status = VehicleStatus.WAITING;
             this.currentSpeed = 0;
-            this.location = 0;
+            //this.location = 0;
         }
     }
 
