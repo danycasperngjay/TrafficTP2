@@ -24,11 +24,7 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 		
 		for (int i = 0; i < roads.size(); i++) //checks all the roads
 		{
-			index = currGreen + 1 + i;
-			
-			//Check index doesn't go out of list
-			if (index >= roads.size())
-				index = index - roads.size();
+			index = (currGreen + 1 + i) % roads.size();
 			
 			if (qs.get(index).size() > largest)
 			{

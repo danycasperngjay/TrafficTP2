@@ -13,8 +13,7 @@ public class MoveFirstStrategy implements DequeuingStrategy {
 		aux = new ArrayList<>();
 	
 		if (q.isEmpty())
-    		return q;
-		aux.add(q.get(0));
+			aux.add(q.get(0));
 
 		return aux;
 	}

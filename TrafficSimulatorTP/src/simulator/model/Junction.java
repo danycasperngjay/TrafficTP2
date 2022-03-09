@@ -83,12 +83,8 @@ public class Junction extends SimulatedObject {
         	List<Vehicle> l = _dqs.dequeue(q);
         	
         	for (Vehicle v : l) {
-   	            try {
 					v.moveToNextRoad();
 					q.remove(v);
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
    		  	}
         }
         int newGreen = _lss.chooseNextGreen(_inRoads, _queues, _greenLightIndex, _lastSwitchingTime, time);

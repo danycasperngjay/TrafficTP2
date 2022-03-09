@@ -19,6 +19,8 @@ public class CityRoad extends Road {
         }
         if(this.totalContamination - x > -1)
         	this.totalContamination -= x;
+        else
+        	this.totalContamination = 0;
     }
 
     @Override

@@ -32,25 +32,23 @@ public class RoadMap {
 
 	void addVehicle(Vehicle v) {
 		
-		for (Vehicle x : this.listVehicles) {
-			if (x.getId() == v.getId())
-				throw new IllegalArgumentException ("Cannot add vehicle, it has the same ID");
+		if (vehiclesMap.containsKey(v.getId()))
+			throw new IllegalArgumentException ("Cannot add vehicle, it has the same ID");
+		else {	
+			for (int i = 0; i < v.getItinerary().size() - 1; i++)
+			{
+				if((v.getItinerary().get(i).roadTo(v.getItinerary().get(i+1)) == null) && (!roadsMap.containsValue(v.getRoad())))
+					throw new IllegalArgumentException ("Roads don't connect or road doesn't exist!!");
+			}
+			this.listVehicles.add(v);
+			this.vehiclesMap.put(v.getId(), v);
 		}
-		
-		for (int i = 0; i < v.getItinerary().size() - 1; i++)
-		{
-			if(v.getItinerary().get(i).roadTo(v.getItinerary().get(i+1)) == null)
-				throw new IllegalArgumentException ("Roads don't connect!!");
-		}
-		this.listVehicles.add(v);
-		this.vehiclesMap.put(v.getId(), v);
 	}
 	
 	void addRoad(Road r) {
-		for (Road x : this.listRoads) {
-			if (x.getId() == r.getId())
-				throw new IllegalArgumentException ("Cannot add road, it has the same ID");
-		}
+		
+		if (roadsMap.containsKey(r.getId()))
+			throw new IllegalArgumentException ("Cannot add road, it has the same ID");
 		
 		boolean srcJunctionexists = false;
 		boolean destJunctionexists = false;
@@ -71,40 +69,28 @@ public class RoadMap {
 	}
 	
 	void addJunction(Junction j) {
-		for (Junction x : this.listJunctions) {
-			if (x.getId() == j.getId())
-				throw new IllegalArgumentException ("Cannot add junction, it has the same ID");
+
+		if (junctionsMap.containsKey(j.getId()))
+			throw new IllegalArgumentException ("Cannot add junction, it has the same ID");
+		else {
+			this.listJunctions.add(j);
+			this.junctionsMap.put(j.getId(), j); 
 		}
-		
-		this.listJunctions.add(j);
-		this.junctionsMap.put(j.getId(), j); 
 	}
 	
 	
 	
 	public Junction getJunction(String id) {
-	//	for (Junction x : this.listJunctions) {
-		
-		//if (x.getId().equals(id))
-			//	return x;
-	//	}	
 		return junctionsMap.get(id);
 	}
 	
 	public Road getRoad(String id) {
-		for (Road x : this.listRoads) {
-			if (x.getId() == id)
-				return x;
-		}	
-		return null;
+		return roadsMap.get(id);
 	}
 	
 	public Vehicle getVehicle(String id) {
-		for (Vehicle x : this.listVehicles) {
-			if (x.getId() == id)
-				return x;
-		}	
-		return null;		
+
+		return vehiclesMap.get(id);		
 	}
 	
 	public List<Junction> getJunctions(){
