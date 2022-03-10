@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PalamGame/PalamGame.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_cli_1_4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/control/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/launcher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/launcher/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TrafficSimulatorTPgood.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficSimulatorTPgood.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +35,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="simulator.launcher.Main" />
       <module name="TrafficSimulatorTPgood" />
+      <option name="PROGRAM_PARAMETERS" value="-i resources/examples/ex1.json -t 10" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="simulator.launcher.*" />
@@ -68,6 +74,7 @@
       <workItem from="1645717272997" duration="11020000" />
       <workItem from="1646475486123" duration="2827000" />
       <workItem from="1646564397568" duration="1612000" />
+      <workItem from="1646918607970" duration="599000" />
     </task>
     <servers />
   </component>

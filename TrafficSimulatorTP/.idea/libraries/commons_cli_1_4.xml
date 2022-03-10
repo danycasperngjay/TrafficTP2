@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="commons-cli-1.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-cli-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/json.jar!/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/json.jar!/" />
+    </SOURCES>
+  </library>
+</component>
