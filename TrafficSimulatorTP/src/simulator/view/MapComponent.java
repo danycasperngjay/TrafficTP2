@@ -75,7 +75,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	private void drawRoads(Graphics g) {
 		for (Road r : _map.getRoads()) {
-
+//
 			// the road goes from (x1,y1) to (x2,y2)
 			int x1 = r.getSrc().getX();
 			int y1 = r.getSrc().getY();
