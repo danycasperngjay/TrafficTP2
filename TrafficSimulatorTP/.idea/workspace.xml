@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PalamGame/PalamGame.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_cli_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/simulator/model/TrafficSimObserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrafficSimulatorTPgood.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TrafficSimulatorTPgood.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/control/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/control/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/launcher/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/control/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/launcher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/launcher/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/view/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/MainWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +46,11 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="simulator.model" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="simulator.launcher.Main" />
@@ -75,6 +85,7 @@
       <workItem from="1646475486123" duration="2827000" />
       <workItem from="1646564397568" duration="1612000" />
       <workItem from="1646918607970" duration="599000" />
+      <workItem from="1647525325723" duration="1694000" />
     </task>
     <servers />
   </component>

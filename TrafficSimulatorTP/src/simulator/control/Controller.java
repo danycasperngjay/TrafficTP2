@@ -1,14 +1,15 @@
 package simulator.control;
 
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import simulator.factories.Factory;
 import simulator.model.Event;
+import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 
 public class Controller {
@@ -50,6 +51,10 @@ public class Controller {
         }
         p.println( "]");
         p.println("}");
+    }
+
+    public void addObserver(TrafficSimObserver o){
+        _sim.addObserver(o);
     }
 
     public void reset(){

@@ -2,34 +2,22 @@ package simulator.launcher;
 
 import org.apache.commons.cli.*;
 import simulator.control.Controller;
-import simulator.factories.Builder;
-import simulator.factories.BuilderBasedFactory;
-import simulator.factories.Factory;
-import simulator.factories.MostCrowdedStrategyBuilder;
-import simulator.factories.MoveAllStrategyBuilder;
-import simulator.factories.MoveFirstStrategyBuilder;
-import simulator.factories.NewCityRoadEventBuilder;
-import simulator.factories.NewInterCityRoadEventBuilder;
-import simulator.factories.NewJunctionEventBuilder;
-import simulator.factories.NewVehicleEventBuilder;
-import simulator.factories.RoundRobinStrategyBuilder;
-import simulator.factories.SetContClassEventBuilder;
-import simulator.factories.SetWeatherEventBuilder;
+import simulator.factories.*;
 import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
+	enum ExeMode { GUI, BATCH };
+	private static ExeMode _mode = ExeMode.GUI;
 
 	private final static Integer _timeLimitDefaultValue = 10;
 	private static String _inFile = null;
@@ -149,9 +137,34 @@ public class Main {
 		control.run(_timeLimit, out);
 	}
 
+	private static void startGUIMode() throws IOException {
+		InputStream in = new FileInputStream (new File(_inFile));
+		OutputStream out = _outFile == null ? System.out : new FileOutputStream(_outFile);
+		TrafficSimulator ts = new TrafficSimulator();
+		Controller control = new Controller(ts, _eventsFactory);
+		control.loadEvents(in);
+		//control.run(_timeLimit, out);
+		in.close();
+
+		SwingUtilities.invokeLater( () -> new MainWindow(control));
+
+		System.out.println("Done!");
+	}
+
 	private static void start(String[] args) throws IOException {
 		initFactories();
 		parseArgs(args);
+
+		switch(_mode){
+			case GUI :
+				startGUIMode();
+				break;
+			case BATCH:
+				startBatchMode();
+				break;
+			default :
+				break;
+		}
 		startBatchMode();
 	}
 

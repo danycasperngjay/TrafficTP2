@@ -1,12 +1,10 @@
 package simulator.model;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import simulator.misc.SortedArrayList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrafficSimulator {
 	
@@ -14,12 +12,19 @@ public class TrafficSimulator {
 	List<Event> _events;
 	int _time;
 
+	List<TrafficSimObserver> obs;
+
 	public TrafficSimulator() {
 		_roadMap = new RoadMap();
 		_events = new SortedArrayList<>();
 		_time = 0;
+		obs = new ArrayList<TrafficSimObserver>();
 	}
-	
+
+	public void addObserver(TrafficSimObserver o){
+		obs.add(o);
+	}
+
 	public void addEvent(Event e) {
 		if(e.getTime() <= _time)
         	throw new IllegalArgumentException ("We cannot add events for the past!");
@@ -54,6 +59,10 @@ public class TrafficSimulator {
 		for (Road r : _roadMap.getRoads())
 		{
 			r.advance(_time);
+		}
+
+		for(TrafficSimObserver o : obs){
+			o.onAdvanceEnd(_roadMap, _events, _time);
 		}
 	}
 	
