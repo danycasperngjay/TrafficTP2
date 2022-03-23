@@ -138,7 +138,7 @@ public class Vehicle extends SimulatedObject{
         return jo;
     }
 
-    int getLocation(){
+    public int getLocation(){
         return this.location;
     }
 
@@ -150,11 +150,11 @@ public class Vehicle extends SimulatedObject{
         return this.maximumSpeed;
     }
 
-    int getContClass(){
+    public int getContClass(){
         return this.contaminationClass;
     }
 
-    VehicleStatus getStatus(){
+    public VehicleStatus getStatus(){
         return this.status;
     }
 
@@ -166,7 +166,7 @@ public class Vehicle extends SimulatedObject{
         return this.itinerary;
     }
 
-    Road getRoad() {
+    public Road getRoad() {
         return this.road;
     }
 

@@ -104,7 +104,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	private void drawVehicles(Graphics g) {
-		for (Vehicle v : _map.getVehilces()) {
+		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
 
 				Road r = v.getRoad();

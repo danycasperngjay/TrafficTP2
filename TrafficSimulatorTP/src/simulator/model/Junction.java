@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +123,25 @@ public class Junction extends SimulatedObject {
 	        jo.put("queues", jun);
 	        
 		return jo;
+	}
+
+	public int getX() {
+		
+		return this.xCoor;
+	}
+
+	public int getY() {
+	
+		return this.yCoor;
+	}
+
+	public int getGreenLightIndex() {
+		return this._greenLightIndex;
+	}
+
+	public List<Road> getInRoads() {
+		// TODO Auto-generated method stub
+		return this._inRoads;
 	}
 
 }
