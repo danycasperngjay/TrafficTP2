@@ -6,6 +6,9 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 import javax.swing.*;
+
+
+
 import java.awt.*;
 import java.util.List;
 
@@ -33,6 +36,23 @@ public class MainWindow extends JFrame implements TrafficSimObserver {
     		JPanel mapsPanel = new JPanel();
     		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
     		viewsPanel.add(mapsPanel);
+    		// tables
+    		JPanel eventsView =
+    		createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
+    		eventsView.setPreferredSize(new Dimension(500, 200));
+    		tablesPanel.add(eventsView);
+    		// TODO add other tables
+    		// ...
+    		// maps
+    		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
+    		mapView.setPreferredSize(new Dimension(500, 400));
+    		mapsPanel.add(mapView);
+    		// TODO add a map for MapByRoadComponent
+    		// ...
+    		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    		this.pack();
+    		this.setVisible(true);
+    		}
 //        log = new JTextArea();
 //        log.setPreferredSize(new Dimension(400, 200));
 //        mainPanel.add(log);
@@ -43,9 +63,14 @@ public class MainWindow extends JFrame implements TrafficSimObserver {
 //            control.run(1, null);
 //        });
 
-        pack();
-        setVisible(true);
+
+    private JPanel createViewPanel(JComponent c, String title) {
+    	JPanel p = new JPanel( new BorderLayout() );
+    	// TODO add a framed border to p with title
+    	p.add(new JScrollPane(c));
+    	return p;
     }
+
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
