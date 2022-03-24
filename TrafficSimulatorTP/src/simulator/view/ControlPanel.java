@@ -41,43 +41,34 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	ticks();
 	}
 	private void loadEvents() {
-		
-		//Icon icon = new ImageIcon("open.png");
-		// Icon icon = new ImageIcon("open.png");
-	    Icon icon = new ImageIcon("open.png");
-
-		 JButton load = new JButton(icon);
-		 load.setBounds(40,80,200,50);
-		 load.setVisible(true);
-		 this.add(load);
-		 
-
-		// load.setIcon(new ImageIcon(ControlPanel.class.getResource("/resources/icons/open.png")));
-		 
+	
+	    Icon icon = new ImageIcon("resources/icons/open.png");
+		JButton loadB = new JButton(icon);
+		this.add(loadB); 
 	}
 	
 	private void changeContClass() {
-		
-		 JButton load = new JButton("Cont");
-		 this.add(load);
+	    Icon icon = new ImageIcon("resources/icons/co2class.png");
+		JButton co2B = new JButton(icon);
+		this.add(co2B);
 	}
 
 	private void changeWeather() {
-		
-		 JButton load = new JButton("weather");
-		 this.add(load);
+	    Icon icon = new ImageIcon("resources/icons/weather.png");
+		JButton weatherB = new JButton(icon);
+		this.add(weatherB);
 	}
 	
 	private void run() {
-		
-		 JButton load = new JButton("run");
-		 this.add(load);
+	    Icon icon = new ImageIcon("resources/icons/run.png");
+		JButton runB = new JButton(icon);
+		this.add(runB);
 	}
 	
 	private void stop() {
-		
-		 JButton load = new JButton("stop");
-		 this.add(load);
+	    Icon icon = new ImageIcon("resources/icons/stop.png");
+		JButton stopB = new JButton(icon);
+		this.add(stopB);
 	}
 	
 	private void ticks() {
