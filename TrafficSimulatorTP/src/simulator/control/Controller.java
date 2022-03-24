@@ -56,10 +56,19 @@ public class Controller {
     public void addObserver(TrafficSimObserver o){
         _sim.addObserver(o);
     }
+    
+    public void removeObserver(TrafficSimObserver o){
+        _sim.removeObserver(o);
+    }
+    
+    public void addEvent(Event e){
+        _sim.addEvent(e);
+    }
 
     public void reset(){
         this._sim.reset();
     }
+    
 
 }
 
