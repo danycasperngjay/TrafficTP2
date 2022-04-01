@@ -1,13 +1,12 @@
 package simulator.model;
 
-import java.awt.RenderingHints;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class Junction extends SimulatedObject {
 
@@ -125,23 +124,16 @@ public class Junction extends SimulatedObject {
 		return jo;
 	}
 
-	public int getX() {
-		
-		return this.xCoor;
-	}
-
-	public int getY() {
-	
-		return this.yCoor;
-	}
-
-	public int getGreenLightIndex() {
-		return this._greenLightIndex;
-	}
-
-	public List<Road> getInRoads() {
-		// TODO Auto-generated method stub
-		return this._inRoads;
-	}
+	//public getters
+	public List<Road> getInRoads() {return this._inRoads; }
+	public List<List<Vehicle>> getQueues(){ return this._queues; }
+	public Map<Road, List<Vehicle>> getQueueByRoad(){ return this._queueByRoad; }
+	public Map<Junction, Road> getOutRoadByJunction(){ return this._outRoadByJunction; }
+	public int getGreenLightIndex() {return this._greenLightIndex; }
+	public int getLastSwitchingTime(){ return this._lastSwitchingTime; }
+	public LightSwitchingStrategy getLightSwitchingStrategy(){ return this._lss; }
+	public DequeuingStrategy getDequeuingStrategy(){ return this._dqs; }
+	public int getX() { return this.xCoor; }
+	public int getY() { return this.yCoor; }
 
 }

@@ -30,5 +30,9 @@ public abstract class NewRoadEvent extends Event {
 	}
 	
 	public abstract Road newRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather);
-	
+
+	public String toString(){
+		return "New Road with Destination Junction '" + destJunction._id + "' and Source Junction '" + srcJunction._id + "'";
+	}
+
 }

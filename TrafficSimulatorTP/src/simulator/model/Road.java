@@ -5,9 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class Road extends SimulatedObject {
 
@@ -139,35 +137,27 @@ public abstract class Road extends SimulatedObject {
     public int getLength() {
         return length;
     }
-
     public Junction getDest(){
         return destinationJunction;
     }
-
     public Junction getSrc(){
         return sourceJunction;
     }
-
     public Weather getWeather(){
         return weatherConditions;
     }
-
     public int getContLimit(){
         return contaminationAlarmLimit;
     }
-
     public int getMaxSpeed(){
         return maximumSpeed;
     }
-
     public int getTotalCO2(){
         return totalContamination;
     }
-
     public int getSpeedLimit(){
         return currentSpeedLimit;
     }
-
     public List<Vehicle> getVehicles(){
         return Collections.unmodifiableList(vehicles);
     }

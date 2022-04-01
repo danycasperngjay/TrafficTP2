@@ -1,6 +1,7 @@
 package simulator.model;
-import java.util.List;
 import simulator.misc.Pair;
+
+import java.util.List;
 
 public class SetWeatherEvent extends Event {
 	
@@ -16,13 +17,16 @@ public class SetWeatherEvent extends Event {
 	
 	@Override
 	void execute(RoadMap map) {
-		 for (Pair<String,Weather> x : weatherEvent) {
-			 if (map.getRoad(x.getFirst()) == null)
-				 throw new IllegalArgumentException ("Couldn't Find Road");
-			 else
-				 map.getRoad(x.getFirst()).setWeather(x.getSecond());
-		 }
-		
+		for (Pair<String, Weather> x : weatherEvent) {
+			if (map.getRoad(x.getFirst()) == null)
+				throw new IllegalArgumentException("Couldn't Find Road");
+			else
+				map.getRoad(x.getFirst()).setWeather(x.getSecond());
+		}
+	}
+
+	public String toString(){
+		return "New Road Map '" + _time + "'";
 	}
 
 }

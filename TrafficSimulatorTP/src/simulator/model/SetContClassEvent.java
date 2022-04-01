@@ -1,6 +1,7 @@
 package simulator.model;
-import java.util.List;
 import simulator.misc.Pair;
+
+import java.util.List;
 
 public class SetContClassEvent extends Event {
 	
@@ -22,4 +23,9 @@ public class SetContClassEvent extends Event {
 				 map.getVehicle(x.getFirst()).setContClass(x.getSecond());
 		 }
 	}
+
+	public String toString(){
+		return "New Contamination Class '" + _time + "'";
+	}
+
 } 
