@@ -1,13 +1,41 @@
 package simulator.view;
 
-import java.awt.Component;
+import simulator.model.Event;
+import simulator.model.RoadMap;
+import simulator.model.TrafficSimObserver;
 
-import simulator.control.Controller;
+import javax.swing.*;
+import java.util.List;
 
-public class StatusBar extends Component {
+public class StatusBar extends JPanel implements TrafficSimObserver {
 
-	public StatusBar(Controller _ctrl) {
-		// TODO Auto-generated constructor stub
+	@Override
+	public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
+		//TODO
 	}
 
+	@Override
+	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
+		//TODO
+	}
+
+	@Override
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		//TODO
+	}
+
+	@Override
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		//TODO
+	}
+
+	@Override
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		//TODO
+	}
+
+	@Override
+	public void onError(String err) {
+		//TODO
+	}
 }

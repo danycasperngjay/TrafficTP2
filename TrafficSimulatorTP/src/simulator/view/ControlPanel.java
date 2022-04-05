@@ -1,22 +1,14 @@
 package simulator.view;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-
-import java.util.List;
-
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import javax.swing.border.LineBorder;
-
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.util.List;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver {
 
@@ -40,8 +32,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	stop();
     	ticks();
 	}
+
 	private void loadEvents() {
-	
 	    Icon icon = new ImageIcon("resources/icons/open.png");
 		JButton loadB = new JButton(icon);
 		this.add(loadB); 
@@ -72,9 +64,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void ticks() {
-		
 		 JButton load = new JButton("ticks");
 		 this.add(load);
+	}
+
+	private void exit(){
+		Icon icon = new ImageIcon("resources/icons/exit.png");
+		JButton exitB = new JButton(icon);
+		this.add(exitB);
 	}
 	
 	@Override
