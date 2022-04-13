@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/control/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator/view/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/StatusBar.java" afterDir="false" />
     </list>
@@ -80,7 +84,9 @@
       <workItem from="1646564397568" duration="1612000" />
       <workItem from="1646918607970" duration="599000" />
       <workItem from="1647525325723" duration="1938000" />
-      <workItem from="1648816639270" duration="6097000" />
+      <workItem from="1648816639270" duration="7132000" />
+      <workItem from="1649777684430" duration="103000" />
+      <workItem from="1649778213184" duration="17957000" />
     </task>
     <servers />
   </component>
