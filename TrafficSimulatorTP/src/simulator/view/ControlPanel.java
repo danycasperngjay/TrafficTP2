@@ -18,7 +18,7 @@ import java.util.List;
 public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	
-	Controller ctrl;
+	private Controller ctrl;
 	
 	public ControlPanel(Controller _ctrl) {
     	super();
@@ -74,6 +74,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		co2B.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
+				//try jtable
+				//JTable table = new JTable();
+
 
 				String[] vehiclePossibilities = new String[ctrl.getSimulator().getRoadMap().getVehicles().size()];
 				for(int i = 0; i < ctrl.getSimulator().getRoadMap().getVehicles().size(); i++){
@@ -139,17 +143,38 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void ticks() {
 		 JLabel ticksLabel = new JLabel("Ticks: ");
 		 this.add(ticksLabel);
-		 //change to choose number button
-		 JTextField ticks = new JTextField(4);
-		 ticks.setPreferredSize(new Dimension(100, 35));
-		 this.add(ticks);
-		 //add increase decrease button
-		//...
 
+		JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+		ticksSpinner.setPreferredSize(new Dimension(80, 40));
+
+		this.add(ticksSpinner);
 
 	}
 
-	//Done : works
+	//idk what this is
+	/*private void run_sim(int n) {
+		if (n > 0 && !_stopped) {
+			try {
+				_ctrl.run(1);
+			} catch (Exception e) {
+// TODO show error message
+				_stopped = true;
+				return;
+			}
+			SwingUtilities.invokeLater(() -> run_sim(n - 1));
+		} else {
+			enableToolBar(true);
+			_stopped = true;
+		}
+	}
+
+
+	private void stop() {
+		_stopped = true;
+	}
+
+	 */
+	//fix : works but position of button is not right : needs to be on the right
 	private void exit(){
 		Icon icon = new ImageIcon("resources/icons/exit.png");
 		JButton exitB = new JButton(icon);

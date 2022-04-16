@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/simulator/view/MapByRoadComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/model/TrafficSimulator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/control/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/TrafficSimulator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TrafficSimulatorTPgood/simulator/view/ControlPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/StatusBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,20 @@
       <recent name="simulator.model" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="JTableExamples" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="extra.jtable.JTableExamples" />
+      <module name="TrafficSimulatorTPgood" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="extra.jtable.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="simulator.launcher.Main" />
       <module name="TrafficSimulatorTPgood" />
@@ -67,6 +79,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.JTableExamples" />
       </list>
     </recent_temporary>
   </component>
@@ -86,7 +99,7 @@
       <workItem from="1647525325723" duration="1938000" />
       <workItem from="1648816639270" duration="7132000" />
       <workItem from="1649777684430" duration="103000" />
-      <workItem from="1649778213184" duration="17957000" />
+      <workItem from="1649778213184" duration="34220000" />
     </task>
     <servers />
   </component>
