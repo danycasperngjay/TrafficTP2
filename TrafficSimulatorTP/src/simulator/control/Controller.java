@@ -37,6 +37,15 @@ public class Controller {
         }
     }
 
+    public void run(int n) {
+    	for (int i = 0; i < n-1;i++) {
+    		_sim.advance();
+    	}
+    	if (n>0)
+    		_sim.advance();
+    	
+    }
+    
     public void run(int n, OutputStream out){
         PrintStream p = new PrintStream(out);;
         p.println( "{ states: [");
