@@ -138,13 +138,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				Frame f = new Frame();
 
 				ChangeWeatherDialog w = new ChangeWeatherDialog(f, ctrl);
-
-				//setLayout(new FlowLayout());
-
-				//int n = JOptionPane.showOptionDialog(new JFrame(), "Schedule an event " +
-				//				"to change the weather of a road after a given number of simulation" +
-				//				"ticks from now.", "Change Road Weather",
-				//		JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				w.init();
 
 			}
 		});
