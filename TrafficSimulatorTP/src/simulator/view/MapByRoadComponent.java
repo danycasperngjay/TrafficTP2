@@ -33,7 +33,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     MapByRoadComponent(Controller ctrl){
         initGUI();
         ctrl.addObserver(this);
-        this.setPreferredSize(new Dimension(300, 200));
+        //this._map = ctrl.getSimulator().getRoadMap();
+        //this.setPreferredSize(new Dimension(300, 200));
     }
 
     private void initGUI(){
@@ -73,7 +74,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
         g.setColor(_BG_COLOR);
         g.clearRect(0, 0, getWidth(), getHeight());
 
-        if (_map == null || _map.getJunctions().size() == 0) {
+        if (_map == null || _map.getJunctions().size() == 0) 
+        	{
             g.setColor(Color.red);
             g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
         } else {
@@ -101,6 +103,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
         drawRoads(g);
         drawVehicles(g);
         drawJunctions(g);
+        drawWeather(g);
+        drawContLevel(g);
     }
 
 
@@ -224,13 +228,13 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     }
 
     @Override
-    public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
+    public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+    	 update(map);
     }
 
     @Override
     public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-        update(map);
+       
     }
 
     @Override
