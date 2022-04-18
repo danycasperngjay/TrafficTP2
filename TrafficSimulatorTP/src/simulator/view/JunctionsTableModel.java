@@ -17,6 +17,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     public JunctionsTableModel(Controller ctrl){
         _ctrl = ctrl;
+        ctrl.addObserver(this);
         _junctions = null;
     }
 

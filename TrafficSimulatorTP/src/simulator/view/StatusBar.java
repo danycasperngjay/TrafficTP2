@@ -18,6 +18,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	public StatusBar(Controller ctrl) {
 		this._currentTime = 0; //get current time;
 		this._ctrl = ctrl;
+		ctrl.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		init();
 	}

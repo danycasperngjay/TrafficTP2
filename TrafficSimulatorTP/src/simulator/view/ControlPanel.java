@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public ControlPanel(Controller _ctrl) {
     	super();
 		ctrl = _ctrl;
-		_ctrl.addObserver(this);
+		ctrl.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
     	init();
 	}
@@ -48,9 +48,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		loadB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser eventsFile = new JFileChooser();
+				JFileChooser eventsFile = new JFileChooser("resources/examples");
 
-				if (e.getSource() == loadB) {
+				//if (e.getSource() == loadB) {
 					int loadDialog = eventsFile.showOpenDialog(loadB);
 					if (loadDialog == JFileChooser.APPROVE_OPTION) {
 						try {
@@ -58,6 +58,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						InputStream input = new FileInputStream(fileSelected);
 						ctrl.reset();
 						ctrl.loadEvents(input);
+						System.out.println("estoy aqui");
 						}
 						catch (Exception ex) 
 						{
@@ -65,7 +66,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						}
 					}
 				}
-			}
+			//}
 		});
 		this.add(loadB);
 	}
@@ -178,7 +179,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	 */
-	//fix : works but position of button is not right : needs to be on the right
 	private void exit(){
 		Icon icon = new ImageIcon("resources/icons/exit.png");
 		JButton exitB = new JButton(icon);

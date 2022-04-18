@@ -18,6 +18,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
     public VehiclesTableModel(Controller ctrl){
         _ctrl = ctrl;
+        ctrl.addObserver(this);
         _vehicles = null;
     }
 
