@@ -69,14 +69,20 @@ public class MainWindow extends JFrame implements TrafficSimObserver {
 			tablesPanel.add(junctionsView);
 			junctionsView.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Junctions",
 					TitledBorder.LEFT, TitledBorder.TOP));
-		// TODO add other tables
-    		// ...
+
     		// maps
     		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
-    		mapView.setPreferredSize(new Dimension(500, 400));
+    		mapView.setPreferredSize(new Dimension(500, 200));
     		mapsPanel.add(mapView);
+			mapView.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Map", TitledBorder.LEFT,
+					TitledBorder.TOP));
     		// TODO add a map for MapByRoadComponent
-    		// ...
+    		JPanel mapByRoadView = createViewPanel(new MapComponent(_ctrl), "Map By Road");
+			mapByRoadView.setPreferredSize(new Dimension(500, 200));
+		   	mapsPanel.add(mapByRoadView);
+			mapByRoadView.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Map By Road", TitledBorder.LEFT,
+							TitledBorder.TOP));
+
     		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     		this.pack();
     		this.setVisible(true);
