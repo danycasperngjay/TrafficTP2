@@ -7,6 +7,8 @@ import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
 
 import javax.swing.table.AbstractTableModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
@@ -25,24 +27,13 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	public EventsTableModel(Controller ctrl) {
 		_ctrl = ctrl;
 		_ctrl.addObserver(this);
-		_events = ctrl.getSimulator().getEvents();
+		_events = new ArrayList<>();
 	}
 
 	public void update() {
 		// We need to notify changes, otherwise the table does not refresh.
 		fireTableDataChanged();
 	}
-
-	public void setEventsList(TrafficSimulator s) {
-		_events = s.getEvents();
-		update();
-	}
-
-	@Override
-	public boolean isCellEditable(int row, int column) {
-		return false;
-	}
-
 	//this is for the column header
 	@Override
 	public String getColumnName(int col) {
@@ -58,7 +49,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	@Override
 	// the number of row, like those in the events list
 	public int getRowCount() {
-		return _events == null ? 0 : _events.size();
+		return _events.size();
 	}
 
 	@Override
@@ -73,7 +64,6 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		switch (columnIndex) {
 			case 0:
 				s = _events.get(rowIndex).getTime();
-				;
 				break;
 			case 1:
 				s = _events.get(rowIndex).toString();
@@ -84,11 +74,15 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
+		List<Event> aux = new ArrayList<>();
+		
 		for (Event e : events) {
-			if (e.getTime() < time)
-				_events.remove(e);
+			if (e.getTime() > time)
+				aux.add(e);
 		}
-
+		_events = aux;
+		update();
+		
 	}
 
 	@Override
@@ -105,12 +99,13 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-
+		events.clear();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-
+		_events = events;
+		update();
 	}
 
 	@Override
