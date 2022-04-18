@@ -133,6 +133,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void run() {
 	    Icon icon = new ImageIcon("resources/icons/run.png");
 		JButton runB = new JButton(icon);
+		runB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//_stopped = false;
+				//run_sim((int)spinner.getValue())
+			}
+			
+		});
 		this.add(runB);
 	}
 

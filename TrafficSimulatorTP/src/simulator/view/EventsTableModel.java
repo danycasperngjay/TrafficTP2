@@ -30,7 +30,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	public void update() {
 		// We need to notify changes, otherwise the table does not refresh.
-		fireTableDataChanged();;
+		fireTableDataChanged();
 	}
 
 	public void setEventsList(TrafficSimulator s) {
@@ -84,6 +84,10 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
+		for (Event e : events) {
+			if (e.getTime() < time)
+				_events.remove(e);
+		}
 
 	}
 
@@ -94,6 +98,8 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		_events = events;
+		update();
 
 	}
 
