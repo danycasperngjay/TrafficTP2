@@ -21,7 +21,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
     public VehiclesTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _vehicles = new ArrayList<>();;
+        _vehicles = ctrl.getSimulator().getRoadMap().getVehicles();
     }
 
     public void update() {
@@ -94,13 +94,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-		List<Vehicle> aux = new ArrayList<>();
-		
-		for (Vehicle v : _vehicles) {
-			if (!v.getStatus().toString().equalsIgnoreCase("ARRIVED"))
-				aux.add(v);
-		}
-		_vehicles = aux;
+
 		update();
     }
 
@@ -121,7 +115,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
     @Override
     public void onRegister(RoadMap map, List<Event> events, int time) {
-
+    	update();
     }
 
     @Override
