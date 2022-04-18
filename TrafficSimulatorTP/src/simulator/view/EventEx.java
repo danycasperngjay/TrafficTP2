@@ -1,4 +1,4 @@
-package extra.jtable;
+package simulator.view;
 
 public class EventEx {
 

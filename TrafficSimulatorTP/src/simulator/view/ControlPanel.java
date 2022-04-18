@@ -7,7 +7,6 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +21,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	public ControlPanel(Controller _ctrl) {
     	super();
-		_ctrl = ctrl;
+		ctrl = _ctrl;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.setBorder(new LineBorder(Color.GREEN));
     	init();
-    	
 	}
 	
 	private void init() {
