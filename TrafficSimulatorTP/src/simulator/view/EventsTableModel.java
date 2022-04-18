@@ -24,8 +24,8 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	public EventsTableModel(Controller ctrl) {
 		_ctrl = ctrl;
-		ctrl.addObserver(this);
-		_events = null;
+		_ctrl.addObserver(this);
+		_events = ctrl.getSimulator().getEvents();
 	}
 
 	public void update() {

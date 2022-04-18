@@ -58,7 +58,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						InputStream input = new FileInputStream(fileSelected);
 						ctrl.reset();
 						ctrl.loadEvents(input);
-						System.out.println("estoy aqui");
 						}
 						catch (Exception ex) 
 						{
