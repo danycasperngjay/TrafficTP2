@@ -24,6 +24,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public ControlPanel(Controller _ctrl) {
     	super();
 		ctrl = _ctrl;
+		_ctrl.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
     	init();
 	}
