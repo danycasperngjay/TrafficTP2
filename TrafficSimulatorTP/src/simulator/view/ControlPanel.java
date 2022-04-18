@@ -33,6 +33,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	run();
     	stop();
     	ticks();
+    	this.add(Box.createHorizontalStrut(500));
 		exit();
 	}
 
