@@ -20,6 +20,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	
 	private Controller ctrl;
+	private boolean _stopped;
+	
+    private JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+
 	
 	public ControlPanel(Controller _ctrl) {
     	super();
@@ -34,7 +38,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	changeContClass();
     	changeWeather();
     	run();
-    	stop();
+    	stopB();
     	ticks();
     	this.add(Box.createHorizontalStrut(1000));
 		exit();
@@ -58,7 +62,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						InputStream input = new FileInputStream(fileSelected);
 						ctrl.reset();
 						ctrl.loadEvents(input);
-						System.out.println("estoy aqui");
 						}
 						catch (Exception ex) 
 						{
@@ -153,13 +156,26 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void run() {
 	    Icon icon = new ImageIcon("resources/icons/run.png");
 		JButton runB = new JButton(icon);
+		runB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_stopped = false;
+				run_sim((int)ticksSpinner.getValue());
+			}
+			
+		});
 		this.add(runB);
 	}
 
 	//action performed not done
-	private void stop() {
+	private void stopB() {
 	    Icon icon = new ImageIcon("resources/icons/stop.png");
 		JButton stopB = new JButton(icon);
+		stopB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				stop();
+			}});
 		this.add(stopB);
 	}
 
@@ -168,26 +184,24 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		 JLabel ticksLabel = new JLabel("Ticks: ");
 		 this.add(ticksLabel);
 
-		JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 		ticksSpinner.setPreferredSize(new Dimension(80, 40));
 
 		this.add(ticksSpinner);
 
 	}
 
-	//idk what this is
-	/*private void run_sim(int n) {
+	private void run_sim(int n) {
 		if (n > 0 && !_stopped) {
 			try {
-				_ctrl.run(1);
+				ctrl.run(1);
 			} catch (Exception e) {
-// TODO show error message
+				// TODO show error message
 				_stopped = true;
 				return;
 			}
 			SwingUtilities.invokeLater(() -> run_sim(n - 1));
 		} else {
-			enableToolBar(true);
+			//enableToolBar(true);
 			_stopped = true;
 		}
 	}
@@ -197,7 +211,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		_stopped = true;
 	}
 
-	 */
+	 
 	private void exit(){
 		Icon icon = new ImageIcon("resources/icons/exit.png");
 		JButton exitB = new JButton(icon);

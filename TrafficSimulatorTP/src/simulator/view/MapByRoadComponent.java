@@ -33,7 +33,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     MapByRoadComponent(Controller ctrl){
         initGUI();
         ctrl.addObserver(this);
-        this.setPreferredSize(new Dimension(300, 200));
+        //this._map = ctrl.getSimulator().getRoadMap();
+        //this.setPreferredSize(new Dimension(300, 200));
     }
 
     private void initGUI(){
@@ -73,7 +74,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
         g.setColor(_BG_COLOR);
         g.clearRect(0, 0, getWidth(), getHeight());
 
-        if (_map == null || _map.getJunctions().size() == 0) {
+        if (_map == null || _map.getJunctions().size() == 0) 
+        	{
             g.setColor(Color.red);
             g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
         } else {
@@ -101,6 +103,8 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
         drawRoads(g);
         drawVehicles(g);
         drawJunctions(g);
+        drawWeather(g);
+        drawContLevel(g);
     }
 
 
@@ -119,24 +123,33 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     private void drawJunctions(Graphics g){
         for (Junction j : _map.getJunctions()) {
 
-            int x = j.getX();
+            int x = 50;
             int y = j.getY();
-
-            if (j == _map.getRoad(j.getId()).getSrc()) {
+            
+            for (Road r : _map.getRoads()) {
+     
+            
+            if (j == r.getSrc()) {
                 //circle representing the junction
                 g.setColor(_JUNCTION_COLOR);
-            } else {
+                g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+            }  
+            if (j == r.getDest()) {
                 if (j.getGreenLightIndex() != -1) {
+                	x = 350;
                     g.setColor(_GREEN_LIGHT_COLOR);
+                    g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
                 } else {
+                	x = 350;
                     g.setColor(_RED_LIGHT_COLOR);
+                    g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
                 }
             }
-            g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+            
             //junction's identifier
             g.setColor(_JUNCTION_LABEL_COLOR);
-            g.drawString(j.getId(), x, y);
-
+            g.drawString(j.getId(), x, y -15 );
+            }
         }
     }
 
@@ -180,15 +193,15 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
             //adding the weather image corresponding to the weather condition
             if(w == Weather.SUNNY){
-                g.drawImage(_sun, x+10, y, 32, 32, this);
+                g.drawImage(_sun, x+450, y, 32, 32, this);
             } else if(w == Weather.CLOUDY){
-                g.drawImage(_cloud, x+10, y, 32, 32, this);
+                g.drawImage(_cloud, x+450, y, 32, 32, this);
             } else if(w == Weather.STORM){
-                g.drawImage(_storm, x+10, y, 32, 32, this);
+                g.drawImage(_storm, x+450, y, 32, 32, this);
             } else if(w == Weather.RAINY){
-                g.drawImage(_rain, x+10, y, 32, 32, this);
+                g.drawImage(_rain, x+450, y, 32, 32, this);
             } else{
-                g.drawImage(_wind, x+10, y, 32, 32, this);
+                g.drawImage(_wind, x+450, y, 32, 32, this);
             }
 
         }
@@ -205,12 +218,12 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
             //image corresponding to the contamination level
             switch(c){
-                case 0 : g.drawImage(_cont_0, x+20, y, 32, 32, this);
-                case 1 : g.drawImage(_cont_1, x+20, y, 32, 32, this);
-                case 2 : g.drawImage(_cont_2, x+20, y, 32, 32, this);
-                case 3 : g.drawImage(_cont_3, x+20, y, 32, 32, this);
-                case 4 : g.drawImage(_cont_4, x+20, y, 32, 32, this);
-                case 5 : g.drawImage(_cont_5, x+20, y, 32, 32, this);
+                case 0 : g.drawImage(_cont_0, x+500, y, 32, 32, this);
+                case 1 : g.drawImage(_cont_1, x+500, y, 32, 32, this);
+                case 2 : g.drawImage(_cont_2, x+500, y, 32, 32, this);
+                case 3 : g.drawImage(_cont_3, x+500, y, 32, 32, this);
+                case 4 : g.drawImage(_cont_4, x+500, y, 32, 32, this);
+                case 5 : g.drawImage(_cont_5, x+500, y, 32, 32, this);
                 default : return;
             }
         }
@@ -224,13 +237,13 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     }
 
     @Override
-    public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
+    public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+    	 update(map);
     }
 
     @Override
     public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-        update(map);
+       
     }
 
     @Override

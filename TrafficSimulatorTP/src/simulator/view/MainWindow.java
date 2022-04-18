@@ -76,6 +76,9 @@ public class MainWindow extends JFrame implements TrafficSimObserver {
     		mapsPanel.add(mapView);
 			mapView.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Map", TitledBorder.LEFT,
 					TitledBorder.TOP));
+
+    		// TODO add a map for MapByRoadComponent
+
     		JPanel mapByRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road");
 			mapByRoadView.setPreferredSize(new Dimension(500, 200));
 		   	mapsPanel.add(mapByRoadView);
