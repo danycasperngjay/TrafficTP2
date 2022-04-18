@@ -46,7 +46,12 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> , Traffi
 	
 	public void advance() {
 		_time++;
-		onAdvanceStart(_roadMap, _events, _time);
+		//onAdvanceStart(_roadMap, _events, _time);
+		
+		for (TrafficSimObserver o: obs)
+		{
+			o.onAdvanceStart(_roadMap, _events, _time);
+		}
 		
 		while(!_events.isEmpty() && _events.get(0).getTime() == _time)
 			_events.remove(0).execute(_roadMap);
@@ -64,7 +69,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> , Traffi
 		for(TrafficSimObserver o : obs){
 			o.onAdvanceEnd(_roadMap, _events, _time);
 		}
-		onAdvanceEnd(_roadMap, _events, _time);
+		//onAdvanceEnd(_roadMap, _events, _time);
 	}
 	
 	public void reset() {
