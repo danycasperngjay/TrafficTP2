@@ -63,7 +63,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
                 if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.PENDING){
                     s = "Pending";
                 } else if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.TRAVELING){
-                    s = _vehicles.get(rowIndex).getRoad() + "" + _vehicles.get(rowIndex).getLocation();
+                    s = _vehicles.get(rowIndex).getRoad() + ":" + _vehicles.get(rowIndex).getLocation();
                 } else if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.WAITING){
                     s = "Waiting:" + _vehicles.get(rowIndex).getLastSeenJunction();
                 } else {
