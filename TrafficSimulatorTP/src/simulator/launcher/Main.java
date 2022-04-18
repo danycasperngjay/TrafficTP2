@@ -138,13 +138,21 @@ public class Main {
 	}
 
 	private static void startGUIMode() throws IOException {
-		InputStream in = new FileInputStream (new File(_inFile));
-		OutputStream out = _outFile == null ? System.out : new FileOutputStream(_outFile);
+		
+
 		TrafficSimulator ts = new TrafficSimulator();
 		Controller control = new Controller(ts, _eventsFactory);
-		control.loadEvents(in);
+		
+		if (_inFile != null) {
+			
+			InputStream in = new FileInputStream (new File(_inFile));
+			control.loadEvents(in);
+			in.close();
+		}
+		
+		//OutputStream out = _outFile == null ? System.out : new FileOutputStream(_outFile);
 		//control.run(_timeLimit, out);
-		in.close();
+		
 
 		SwingUtilities.invokeLater( () -> new MainWindow(control));
 
@@ -165,7 +173,7 @@ public class Main {
 			default :
 				break;
 		}
-		startBatchMode();
+		//startBatchMode();
 	}
 
 	// example command lines:
