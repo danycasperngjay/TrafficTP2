@@ -16,7 +16,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	JLabel newEvents = new JLabel();
 	
 	public StatusBar(Controller ctrl) {
-		this._currentTime = 0; //get current time;
+		this._currentTime = ctrl.getSimulator().getTime(); //get current time;
 		this._ctrl = ctrl;
 		ctrl.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -24,10 +24,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	}
 
 	private void init() {
-		JLabel time = new JLabel ("Time:");
+		JLabel time = new JLabel ("Time: " + _currentTime);
 		this.add(time);
-		JLabel timer = new JLabel (String.valueOf(this._currentTime));
-		this.add(timer);
 		this.add(Box.createHorizontalStrut(20));
 		newEvents.setText("Welcome to Traffic Simulator ! :)");
 		this.add(newEvents);

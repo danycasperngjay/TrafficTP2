@@ -4,6 +4,8 @@ import simulator.control.Controller;
 import simulator.model.*;
 
 import javax.swing.table.AbstractTableModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver {
@@ -19,24 +21,13 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
     public RoadsTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _roads = null;
+        _roads = new ArrayList<>();;
     }
 
     public void update() {
         // We need to notify changes, otherwise the table does not refresh.
         fireTableDataChanged();;
     }
-
-    public void setVehiclesList(RoadMap rm) {
-        _roads = rm.getRoads();
-        update();
-    }
-
-    @Override
-    public boolean isCellEditable(int row, int column) {
-        return false;
-    }
-
     //this is for the column header
     @Override
     public String getColumnName(int col) {
@@ -52,7 +43,7 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
     @Override
     // the number of row, like those in the events list
     public int getRowCount() {
-        return _roads == null ? 0 : _roads.size();
+        return _roads.size();
     }
 
     @Override
@@ -92,7 +83,7 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
+    	update();
     }
 
     @Override
@@ -107,7 +98,7 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
-
+    	_roads.clear();
     }
 
     @Override

@@ -4,6 +4,8 @@ import simulator.control.Controller;
 import simulator.model.*;
 
 import javax.swing.table.AbstractTableModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
@@ -18,22 +20,12 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
     public JunctionsTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _junctions = null;
+        _junctions = new ArrayList<>();;
     }
 
     public void update() {
         // We need to notify changes, otherwise the table does not refresh.
         fireTableDataChanged();;
-    }
-
-    public void setVehiclesList(RoadMap rm) {
-        _junctions = rm.getJunctions();
-        update();
-    }
-
-    @Override
-    public boolean isCellEditable(int row, int column) {
-        return false;
     }
 
     //this is for the column header
@@ -51,7 +43,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
     @Override
     // the number of row, like those in the events list
     public int getRowCount() {
-        return _junctions == null ? 0 : _junctions.size();
+        return _junctions.size();
     }
 
     @Override
@@ -87,7 +79,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
+    	update();
     }
 
     @Override
@@ -102,7 +94,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
-
+    	_junctions.clear();
     }
 
     @Override

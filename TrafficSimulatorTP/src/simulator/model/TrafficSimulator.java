@@ -148,5 +148,8 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> , Traffi
 	//getters
 	public RoadMap getRoadMap(){ return this._roadMap; }
 	public List<Event> getEvents(){ return this._events; }
+	public int getTime() { return this._time;}
+		
+	
 
 }
