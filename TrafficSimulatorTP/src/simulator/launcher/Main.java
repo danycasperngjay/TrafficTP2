@@ -88,12 +88,13 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && _mode == ExeMode.BATCH) {
 			throw new ParseException("An events file is missing");
 		}
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
+		if(_mode != ExeMode.GUI)
 		_outFile = line.getOptionValue("o");
 	}
 
