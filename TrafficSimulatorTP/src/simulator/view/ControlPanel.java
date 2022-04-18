@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -33,7 +35,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	run();
     	stop();
     	ticks();
-    	this.add(Box.createHorizontalStrut(500));
+    	this.add(Box.createHorizontalStrut(1000));
 		exit();
 	}
 
@@ -48,15 +50,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				JFileChooser eventsFile = new JFileChooser();
 
 				if (e.getSource() == loadB) {
-					//change null to parent component
-					int loadDialog = eventsFile.showOpenDialog(null);
+					int loadDialog = eventsFile.showOpenDialog(loadB);
 					if (loadDialog == JFileChooser.APPROVE_OPTION) {
+						try {
 						File fileSelected = eventsFile.getSelectedFile();
+						InputStream input = new FileInputStream(fileSelected);
 						ctrl.reset();
-						//put input that reads file selected (GOOGLE) : needs to load events into the simulator
-						//ctrl.loadEvents(fileSelected);
-					} else {
-						JOptionPane.showMessageDialog(null, "File does not exist.");
+						ctrl.loadEvents(input);
+						}
+						catch (Exception ex) 
+						{
+							JOptionPane.showMessageDialog(null, "File does not exist.");
+						}
 					}
 				}
 			}
