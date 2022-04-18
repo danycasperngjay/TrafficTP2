@@ -123,10 +123,13 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     private void drawJunctions(Graphics g){
         for (Junction j : _map.getJunctions()) {
 
-            int x = j.getX();
+            int x = 30;
             int y = j.getY();
-
-            if (j == _map.getRoad(j.getId()).getSrc()) {
+            
+            for (Road r : _map.getRoads()) {
+     
+            
+            if (j == r.getSrc()) {
                 //circle representing the junction
                 g.setColor(_JUNCTION_COLOR);
             } else {
@@ -140,7 +143,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
             //junction's identifier
             g.setColor(_JUNCTION_LABEL_COLOR);
             g.drawString(j.getId(), x, y);
-
+            }
         }
     }
 
