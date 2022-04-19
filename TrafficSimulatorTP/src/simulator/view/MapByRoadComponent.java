@@ -39,7 +39,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
     private void initGUI(){
         //initialising image of the car
-        _car = loadImage("car_front.png");
+        _car = loadImage("car.png");
         //initialising images of the different weathers
         _sun = loadImage("sun.png");
         _rain = loadImage("rain.png");
@@ -109,121 +109,114 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 
     private void drawRoads(Graphics g) {
-        int i = 0; //index of the road
+        
         for (Road r : _map.getRoads()) {
-            //the line for the i-th road
-            g.drawLine( 50, (i+1)*50, getWidth()-100, (i+1)*50);
-
-            //road identifier
-            g.drawString(r.getId(), 10, (i+1)*10);
-            i++; //index increases to change roads
+        	int index = _map.getRoads().indexOf(r);
+        	int x = 50;
+            int y = index*100 + 70;
+            
+        	g.setColor(Color.BLACK);
+			g.drawLine(x, y, x + 400, y);
+            g.drawString(r.getId(), x + 200, y - 15);
         }
     }
 
     private void drawJunctions(Graphics g){
-        for (Junction j : _map.getJunctions()) {
+    	for (Road r : _map.getRoads()) {
 
+    		int index = _map.getRoads().indexOf(r);
             int x = 50;
-            int y = j.getY();
-            
-            for (Road r : _map.getRoads()) {
-     
-            
-            if (j == r.getSrc()) {
-                //circle representing the junction
-                g.setColor(_JUNCTION_COLOR);
-                g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
-            }  
-            if (j == r.getDest()) {
-                if (j.getGreenLightIndex() != -1) {
-                	x = 350;
-                    g.setColor(_GREEN_LIGHT_COLOR);
-                    g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
-                } else {
-                	x = 350;
+            int y = index*100 + 70;
+           
+             //circle representing the src junction
+             g.setColor(_JUNCTION_COLOR);
+             g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+             
+             g.setColor(_JUNCTION_LABEL_COLOR);
+             g.drawString(r.getSrc().getId(), x, y -15 );
+
+             // Dest Junction
+             x += 400;
+             if (r.getDest().getGreenLightIndex() != -1) {
+            	 if(r.getDest().getInRoads().get(r.getDest().getGreenLightIndex()) == r)
+                    g.setColor(_GREEN_LIGHT_COLOR);   }
+             else 
                     g.setColor(_RED_LIGHT_COLOR);
-                    g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
-                }
-            }
-            
-            //junction's identifier
-            g.setColor(_JUNCTION_LABEL_COLOR);
-            g.drawString(j.getId(), x, y -15 );
-            }
-        }
-    }
 
+             g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+             g.setColor(_JUNCTION_LABEL_COLOR);
+             g.drawString(r.getDest().getId(), x, y -15 );            
+            }
+        }    
     private void drawVehicles(Graphics g) {
+    	for (Road r : _map.getRoads()) {
 
-        for (Vehicle v : _map.getVehicles()) {
-            if (v.getStatus() != VehicleStatus.ARRIVED) {
-                Road r = v.getRoad();
-
-                //coordinates of the vehicle on the corresponding road
-                int x1 = r.getSrc().getX();
-                int y1 = r.getSrc().getY();
-                int x2 = r.getDest().getX();
-                int y2 = r.getDest().getY();
-
-                int vX = x1 + (int) ((x2 - x1) * (double) v.getLocation() / (double) r.getLength());
-                int vY = y1 + (int) ((y2 - y1) * (double) v.getLocation() / (double) r.getLength());
-
+    		int index = _map.getRoads().indexOf(r);
+            int x = 50;
+            int y = index*100 + 70;
+            int s = 25;
+            for (Vehicle v : r.getVehicles()) {
+            	if (v.getStatus() != VehicleStatus.ARRIVED) {
+            		
+            		x = 400*v.getLocation()/v.getRoad().getLength();
                 //label of the vehicle (depending on its contamination class)
                 int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
                 g.setColor(new Color(0, vLabelColor, 0));
 
                 //image of the car
-                g.drawImage(_car, vX, vY - 6, 16, 16, this);
+                g.drawImage(_car, x + 20, y - 10, s, s, this);
 
                 //vehicle's identifier
-                g.drawString(v.getId(), vX, vY - 6);
-
+                g.drawString(v.getId(), x + 27, y - 10);
+            	}
             }
-        }
+    	}
     }
+    
 
     private void drawWeather(Graphics g){
         for (Road r : _map.getRoads()){
             //get weather of the road
             Weather w = r.getWeather();
-
+            int index = _map.getRoads().indexOf(r);
             //coordinates of the junctions (in order to position the weather on their right)
-            int x = r.getDest().getX();
-            int y = r.getDest().getY();
-
+            int s = 35;
+            int x = 550;
+            int y = index*100 + 50;
             //adding the weather image corresponding to the weather condition
             if(w == Weather.SUNNY){
-                g.drawImage(_sun, x+450, y, 32, 32, this);
+                g.drawImage(_sun, x, y, s, s, this);
             } else if(w == Weather.CLOUDY){
-                g.drawImage(_cloud, x+450, y, 32, 32, this);
+                g.drawImage(_cloud, x, y, s, s, this);
             } else if(w == Weather.STORM){
-                g.drawImage(_storm, x+450, y, 32, 32, this);
+                g.drawImage(_storm, x, y, s, s, this);
             } else if(w == Weather.RAINY){
-                g.drawImage(_rain, x+450, y, 32, 32, this);
+                g.drawImage(_rain, x, y, s, s, this);
             } else{
-                g.drawImage(_wind, x+450, y, 32, 32, this);
+                g.drawImage(_wind, x, y, s, s, this);
             }
-
         }
     }
 
     private void drawContLevel(Graphics g){
         for(Road r : _map.getRoads()) {
             //coordinates of the junctions (in order to position the contamination levels on their right(after the weather))
-            int x = r.getDest().getX();
-            int y = r.getDest().getY();
+        	int index = _map.getRoads().indexOf(r);
+        	int s = 35;
+            int x = 650;
+            int y = index*100 + 50;
 
             //calculation of the contamination level on the r road
             int c = (int) Math.floor(Math.min((double) r.getTotalCO2() / (1.0 + (double) r.getContLimit()), 1.0) / 0.19);
 
             //image corresponding to the contamination level
             switch(c){
-                case 0 : g.drawImage(_cont_0, x+500, y, 32, 32, this);
-                case 1 : g.drawImage(_cont_1, x+500, y, 32, 32, this);
-                case 2 : g.drawImage(_cont_2, x+500, y, 32, 32, this);
-                case 3 : g.drawImage(_cont_3, x+500, y, 32, 32, this);
-                case 4 : g.drawImage(_cont_4, x+500, y, 32, 32, this);
-                case 5 : g.drawImage(_cont_5, x+500, y, 32, 32, this);
+                case 0 : g.drawImage(_cont_0, x, y, s, s, this);
+                case 1 : g.drawImage(_cont_1, x, y, s, s, this);
+                case 2 : g.drawImage(_cont_2, x, y, s, s, this);
+                case 3 : g.drawImage(_cont_3, x, y, s, s, this);
+                case 4 : g.drawImage(_cont_4, x, y, s, s, this);
+                case 5 : g.drawImage(_cont_5, x, y, s, s, this);
                 default : return;
             }
         }
