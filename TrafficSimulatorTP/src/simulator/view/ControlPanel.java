@@ -83,34 +83,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				//try jtable
-				//JTable table = new JTable();
+				Frame f = new Frame();
+				ChangeCO2ClassDialog c = new ChangeCO2ClassDialog(f, ctrl);
 
+				c.setVisible(true);
 
-				String[] vehiclePossibilities = new String[ctrl.getSimulator().getRoadMap().getVehicles().size()];
-				for(int i = 0; i < ctrl.getSimulator().getRoadMap().getVehicles().size(); i++){
-					vehiclePossibilities[i] = "v" + Integer.toString(i+1);
-				}
-
-				String v = (String) JOptionPane.showInputDialog(null, "Vehicle",
-						"Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.\n"
-						, JOptionPane.INFORMATION_MESSAGE, null, vehiclePossibilities, vehiclePossibilities[0]);
-
-				int[] contClassPossibilities = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-				//String c = (String) JOptionPane.showInputDialog(null, );
-
-				//change to choose number button
-				JTextField ticks = new JTextField(4);
-				ticks.setPreferredSize(new Dimension(100, 35));
-
-
-
-				Object[] fields = {
-					"Vehicle:", v,
-						"CO2 Class:", contClassPossibilities,
-						"Ticks:", ticks
-				};
 
 				//fix options : c bizarre
 				//JOptionPane.showConfirmDialog(null, fields, "Schedule an event " +

@@ -13,19 +13,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
+public class  ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver {
 
     private static final long serialVersionUID = 1L;
 
     private Controller _ctrl;
 
-    public ChangeWeatherDialog(Frame parent, Controller ctrl){
-        super(parent, "Change Road Weather");
+    public ChangeCO2ClassDialog(Frame parent, Controller ctrl){
+        super(parent, "Change CO2 Class");
         _ctrl = ctrl;
 
 
         //position of the window
-        setLocation(500, 500);
+        setLocation(400, 400);
 
         init();
 
@@ -33,54 +33,53 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
 
     public void init(){
 
-        String[] roadList = {};
+        String[] vehiclesList = {};
 
-        JPanel changeWeather = new JPanel();
-        changeWeather.setLayout(new FlowLayout());
-        changeWeather.setPreferredSize(new Dimension(500, 200));
-        this.setContentPane(changeWeather);
+        JPanel changeCO2 = new JPanel();
+        changeCO2.setLayout(new FlowLayout());
+        this.setContentPane(changeCO2);
 
         //instructions
-        JLabel instructions = new JLabel("Schedule an event to change the weather of a road " +
+        JLabel instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
                 "after a given number of simulation ticks from now.");
-        changeWeather.add(instructions, BorderLayout.PAGE_START);
+        changeCO2.add(instructions, BorderLayout.PAGE_START);
 
-        //select road
-        JLabel road = new JLabel("Road:");
-        changeWeather.add(road, BorderLayout.LINE_START);
-        ArrayList<String> roadChoices = new ArrayList<>();
+        //select vehicle
+        JLabel vehicle = new JLabel("Vehicle:");
+        changeCO2.add(vehicle, BorderLayout.LINE_START);
+        ArrayList<String> vehicleChoices = new ArrayList<>();
         for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
-            roadChoices.add(r.toString());
+            vehicleChoices.add(r.toString());
         }
-        roadList = roadChoices.toArray(new String[0]);
-        JComboBox<String> comboRoad = new JComboBox<String> (roadList);
-        comboRoad.setPreferredSize(new Dimension(100, 40));
-        changeWeather.add(comboRoad, BorderLayout.LINE_START);
+        vehiclesList = vehicleChoices.toArray(new String[0]);
+        JComboBox<String> comboRoad = new JComboBox<String> (vehiclesList);
+        comboRoad.setPreferredSize(new Dimension(60, 20));
+        changeCO2.add(comboRoad, BorderLayout.LINE_START);
 
-        //select a weather
-        JLabel weather = new JLabel("Weather:");
-        changeWeather.add(weather, BorderLayout.CENTER);
-        String[] weatherChoices = {"SUNNY", "WINDY", "CLOUDY", "STORMY", "RAINY"};
-        JComboBox<String> comboWeather = new JComboBox<String>(weatherChoices);
-        comboWeather.setPreferredSize(new Dimension(100, 40));
-        changeWeather.add(comboWeather, BorderLayout.CENTER);
+        //select a CO2 class
+        JLabel co2Class = new JLabel("CO2 Class:");
+        changeCO2.add(co2Class, BorderLayout.CENTER);
+        String[] co2Choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        JComboBox<String> comboCO2 = new JComboBox<String>(co2Choices);
+        co2Class.setPreferredSize(new Dimension(60, 20));
+        changeCO2.add(comboCO2, BorderLayout.CENTER);
 
         //ticks
         JLabel ticksLabel = new JLabel("Ticks: ");
-        changeWeather.add(ticksLabel, BorderLayout.LINE_END);
+        changeCO2.add(ticksLabel, BorderLayout.LINE_END);
         JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
         ticksSpinner.setPreferredSize(new Dimension(80, 40));
-        changeWeather.add(ticksSpinner, BorderLayout.LINE_END);
+        changeCO2.add(ticksSpinner, BorderLayout.LINE_END);
 
         //ok and cancel buttons
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                changeWeather.setVisible(false);
+                changeCO2.setVisible(false);
             }
         });
-        changeWeather.add(cancel, BorderLayout.PAGE_END);
+        changeCO2.add(cancel, BorderLayout.PAGE_END);
 
         JButton ok = new JButton("Ok");
         ok.addActionListener(new ActionListener() {
@@ -89,7 +88,7 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
                 //idk
             }
         });
-        changeWeather.add(ok, BorderLayout.PAGE_END);
+        changeCO2.add(ok, BorderLayout.PAGE_END);
 
     }
 
