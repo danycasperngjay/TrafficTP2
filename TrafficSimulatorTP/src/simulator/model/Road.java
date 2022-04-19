@@ -162,4 +162,9 @@ public abstract class Road extends SimulatedObject {
         return Collections.unmodifiableList(vehicles);
     }
 
+    //public method
+    public void changeWeather(Weather w){
+        this.weatherConditions = w;
+    }
+
 }

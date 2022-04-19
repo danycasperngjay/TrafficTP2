@@ -2,9 +2,7 @@ package simulator.view;
 
 import simulator.control.Controller;
 import simulator.model.Event;
-import simulator.model.Road;
-import simulator.model.RoadMap;
-import simulator.model.TrafficSimObserver;
+import simulator.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +84,14 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //idk
+                Road selectedRoad = (Road) comboRoad.getSelectedItem();
+                Weather selectedWeather = (Weather) comboWeather.getSelectedItem();
+                for(Road r : _ctrl.getSimulator().getRoadMap().getRoads()){
+                    if(r == selectedRoad ){
+                        //after N ticks 
+                        r.changeWeather(selectedWeather);
+                    }
+                }
             }
         });
         changeWeather.add(ok, BorderLayout.PAGE_END);
