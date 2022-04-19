@@ -23,6 +23,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private boolean _stopped;
 	
     private JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+	private JButton loadB = new JButton();
+	JButton co2B = new JButton();
+	JButton weatherB = new JButton();
+	JButton runB = new JButton();
+
+
+	JToolBar toolBar = new JToolBar();
 
 	
 	public ControlPanel(Controller _ctrl) {
@@ -34,6 +41,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void init() {
+		this.add(toolBar);
 		loadEvents();
     	changeContClass();
     	changeWeather();
@@ -43,17 +51,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	this.add(Box.createHorizontalStrut(1000));
 		exit();
 	}
+	
+	
 
 	private void loadEvents() {
 	    Icon icon = new ImageIcon("resources/icons/open.png");
-		JButton loadB = new JButton(icon);
+		loadB.setIcon(icon);
 
-		//FIX
 		loadB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser eventsFile = new JFileChooser("resources/examples");
-
 				//if (e.getSource() == loadB) {
 					int loadDialog = eventsFile.showOpenDialog(loadB);
 					if (loadDialog == JFileChooser.APPROVE_OPTION) {
@@ -69,15 +77,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						}
 					}
 				}
-			//}
 		});
-		this.add(loadB);
+		toolBar.add(loadB);
+		toolBar.addSeparator();
 	}
 
 	//fix
 	private void changeContClass() {
 	    Icon icon = new ImageIcon("resources/icons/co2class.png");
-		JButton co2B = new JButton(icon);
+	    co2B.setIcon(icon);
 
 		co2B.addActionListener(new ActionListener() {
 			@Override
@@ -100,14 +108,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 		});
 
-		this.add(co2B);
+		toolBar.add(co2B);
 	}
 
 	//do action performed : same concept as changecontclass
 	private void changeWeather() {
 	    Icon icon = new ImageIcon("resources/icons/weather.png");
-		JButton weatherB = new JButton(icon);
-
+		weatherB.setIcon(icon);
+		
 		weatherB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -117,22 +125,25 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 		});
 
-		this.add(weatherB);
+		toolBar.add(weatherB);
+		toolBar.addSeparator();
 	}
 
 	//action performed not done
 	private void run() {
 	    Icon icon = new ImageIcon("resources/icons/run.png");
-		JButton runB = new JButton(icon);
+		runB.setIcon(icon);
+		
 		runB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_stopped = false;
+				enableToolBar(_stopped);
 				run_sim((int)ticksSpinner.getValue());
 			}
 			
 		});
-		this.add(runB);
+		toolBar.add(runB);
 	}
 
 	//action performed not done
@@ -144,17 +155,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			public void actionPerformed(ActionEvent e) {
 				stop();
 			}});
-		this.add(stopB);
+		toolBar.add(stopB);
+		toolBar.addSeparator();
 	}
 
-	// action performed not done + fix
 	private void ticks() {
 		 JLabel ticksLabel = new JLabel("Ticks: ");
 		 this.add(ticksLabel);
-
-		ticksSpinner.setPreferredSize(new Dimension(80, 40));
-
-		this.add(ticksSpinner);
+		 ticksSpinner.setPreferredSize(new Dimension(80, 40));
+		 this.add(ticksSpinner);
 
 	}
 
@@ -169,11 +178,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 			SwingUtilities.invokeLater(() -> run_sim(n - 1));
 		} else {
-			//enableToolBar(true);
+			enableToolBar(true);
 			_stopped = true;
 		}
 	}
 
+	private void enableToolBar(boolean b) {
+			loadB.setEnabled(b);
+			co2B.setEnabled(b);
+			weatherB.setEnabled(b);
+			runB.setEnabled(b);
+	}
 
 	private void stop() {
 		_stopped = true;
