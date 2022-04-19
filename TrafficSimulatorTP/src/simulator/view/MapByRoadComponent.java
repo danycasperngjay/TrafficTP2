@@ -208,20 +208,23 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
             //calculation of the contamination level on the r road
             int c = (int) Math.floor(Math.min((double) r.getTotalCO2() / (1.0 + (double) r.getContLimit()), 1.0) / 0.19);
-            System.out.println(c);
-            //if (c )
             //image corresponding to the contamination level
-            switch(c){
-                case 3 : g.drawImage(_cont_0, x, y, s, s, this);
-                case 1 : g.drawImage(_cont_1, x, y, s, s, this);
-                case 2 : g.drawImage(_cont_2, x, y, s, s, this);
-                case 0 : g.drawImage(_cont_3, x, y, s, s, this);
-                case 4 : g.drawImage(_cont_4, x, y, s, s, this);
-                case 5 : g.drawImage(_cont_5, x, y, s, s, this);
-                default : return;
+                if (c == 0)
+                	g.drawImage(_cont_0, x, y, s, s, this);
+                else if (c == 1)
+                	g.drawImage(_cont_1, x, y, s, s, this);
+                else if (c == 2) 
+                	g.drawImage(_cont_2, x, y, s, s, this);
+                else if (c == 3) 
+                	g.drawImage(_cont_3, x, y, s, s, this);
+                else if (c == 4) 
+                	g.drawImage(_cont_4, x, y, s, s, this);
+                else  
+                	g.drawImage(_cont_5, x, y, s, s, this);
+                
             }
         }
-    }
+    
 
     public void update(RoadMap map) {
         SwingUtilities.invokeLater(() -> {
