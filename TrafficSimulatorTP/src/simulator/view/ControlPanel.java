@@ -134,12 +134,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		weatherB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				Frame f = new Frame();
-
-				ChangeWeatherDialog w = new ChangeWeatherDialog(f, ctrl);
-				w.init();
-
+				Frame parent = new Frame();
+				ChangeWeatherDialog w = new ChangeWeatherDialog(parent, ctrl);
+				w.setVisible(true);
 			}
 		});
 
