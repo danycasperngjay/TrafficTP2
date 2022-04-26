@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
+public class ChangeWeatherDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  ChangeCO2ClassDialog extends JDialog implements TrafficSimObserver {
+public class  ChangeCO2ClassDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 

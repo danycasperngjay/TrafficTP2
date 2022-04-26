@@ -6,7 +6,7 @@ import simulator.misc.SortedArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	
 	RoadMap _roadMap;
 	List<Event> _events;
@@ -104,42 +104,6 @@ public class TrafficSimulator {
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
 		obs.remove(o);
-		
-	}
-
-	@Override
-	public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
 		
 	}
 }

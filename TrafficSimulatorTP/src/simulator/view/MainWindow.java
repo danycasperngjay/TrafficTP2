@@ -11,7 +11,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
-public class MainWindow extends JFrame implements TrafficSimObserver {
+public class MainWindow extends JFrame {
 
 
 	private Controller _ctrl;
@@ -106,40 +106,4 @@ public class MainWindow extends JFrame implements TrafficSimObserver {
     	p.add(new JScrollPane(c));
     	return p;
     }
-
-
-    @Override
-    public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
-    }
-
-	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
-		
-	}
 }
