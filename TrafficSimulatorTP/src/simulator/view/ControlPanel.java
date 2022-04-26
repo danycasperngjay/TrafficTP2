@@ -24,9 +24,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
     private JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 	private JButton loadB = new JButton();
-	JButton co2B = new JButton();
-	JButton weatherB = new JButton();
-	JButton runB = new JButton();
+	private JButton co2B = new JButton();
+	private JButton weatherB = new JButton();
+	private JButton runB = new JButton();
+	private JButton stopB = new JButton();
 
 
 	JToolBar toolBar = new JToolBar();
@@ -57,12 +58,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void loadEvents() {
 	    Icon icon = new ImageIcon("resources/icons/open.png");
 		loadB.setIcon(icon);
+		loadB.setToolTipText("Loads the file");
 
 		loadB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser eventsFile = new JFileChooser("resources/examples");
-				//if (e.getSource() == loadB) {
 					int loadDialog = eventsFile.showOpenDialog(loadB);
 					if (loadDialog == JFileChooser.APPROVE_OPTION) {
 						try {
@@ -78,14 +79,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 					}
 				}
 		});
+		
 		toolBar.add(loadB);
 		toolBar.addSeparator();
 	}
 
-	//fix
+
 	private void changeContClass() {
 	    Icon icon = new ImageIcon("resources/icons/co2class.png");
 	    co2B.setIcon(icon);
+	    co2B.setToolTipText("Change the contamination class of a vehicle");
 
 		co2B.addActionListener(new ActionListener() {
 			@Override
@@ -96,7 +99,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 				c.setVisible(true);
 
-
+				// Remove all this comments?
 				//fix options : c bizarre
 				//JOptionPane.showConfirmDialog(null, fields, "Schedule an event " +
 				//		"to change the CO2 class of a vehicle after a given number of simulation ticks from now.\n",
@@ -111,10 +114,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(co2B);
 	}
 
-	//do action performed : same concept as changecontclass
+	//parent class?? fix that
 	private void changeWeather() {
 	    Icon icon = new ImageIcon("resources/icons/weather.png");
 		weatherB.setIcon(icon);
+		weatherB.setToolTipText("Change the weather of a road");
 		
 		weatherB.addActionListener(new ActionListener() {
 			@Override
@@ -129,10 +133,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.addSeparator();
 	}
 
-	//action performed not done
+	
 	private void run() {
 	    Icon icon = new ImageIcon("resources/icons/run.png");
 		runB.setIcon(icon);
+		runB.setToolTipText("Run the simulation");
 		
 		runB.addActionListener(new ActionListener() {
 			@Override
@@ -146,15 +151,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		toolBar.add(runB);
 	}
 
-	//action performed not done
+	
 	private void stopB() {
 	    Icon icon = new ImageIcon("resources/icons/stop.png");
-		JButton stopB = new JButton(icon);
+		stopB.setIcon(icon);
+		stopB.setToolTipText("Stop the simulation");
+		
 		stopB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				stop();
-			}});
+			}
+		});
 		toolBar.add(stopB);
 		toolBar.addSeparator();
 	}
@@ -198,6 +206,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void exit(){
 		Icon icon = new ImageIcon("resources/icons/exit.png");
 		JButton exitB = new JButton(icon);
+		exitB.setToolTipText("Exit the simulation");
+		
 		exitB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

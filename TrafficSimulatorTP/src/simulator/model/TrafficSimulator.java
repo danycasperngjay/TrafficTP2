@@ -46,7 +46,6 @@ public class TrafficSimulator {
 	
 	public void advance() {
 		_time++;
-		//onAdvanceStart(_roadMap, _events, _time);
 		try {
 		for (TrafficSimObserver o: obs)
 		{
@@ -75,7 +74,6 @@ public class TrafficSimulator {
 				o.onError(e.getMessage());
 			}
 		}
-		//onAdvanceEnd(_roadMap, _events, _time);
 	}
 	
 	public void reset() {
