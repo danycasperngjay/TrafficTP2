@@ -6,7 +6,7 @@ import simulator.misc.SortedArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrafficSimulator implements Observable<TrafficSimObserver> , TrafficSimObserver{
+public class TrafficSimulator {
 	
 	RoadMap _roadMap;
 	List<Event> _events;
@@ -144,12 +144,4 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> , Traffi
 		// TODO Auto-generated method stub
 		
 	}
-
-	//getters
-	public RoadMap getRoadMap(){ return this._roadMap; }
-	public List<Event> getEvents(){ return this._events; }
-	public int getTime() { return this._time;}
-		
-	
-
 }

@@ -77,10 +77,5 @@ public class Controller {
     public void reset(){
         this._sim.reset();
     }
-
-    //getters
-    public TrafficSimulator getSimulator(){ return this._sim; }
-
-
 }
 
