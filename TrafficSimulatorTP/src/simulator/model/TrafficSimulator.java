@@ -12,7 +12,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	List<Event> _events;
 	int _time;
 
-	List<TrafficSimObserver> obs;
+	List<TrafficSimObserver> obs; // observers
 
 	public TrafficSimulator() {
 		_roadMap = new RoadMap();
@@ -23,17 +23,24 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 
 	public void addEvent(Event e) {
 		if(e.getTime() <= _time) {
-			onError("We cannot add events for the past ! !");
+			
+			for(TrafficSimObserver o: obs) {
+				o.onError("We cannot add events for the past ! !");
+			}
 			throw new IllegalArgumentException ("We cannot add events for the past!");
 		}
 		
-		// Keep array sorted
-//				for (Event o : _events) {
-//					if (e.compareTo(o) == -1)
-//						_events.add(_events.indexOf(o),e);
-//				}
 			_events.add(e);
-			onEventAdded(_roadMap, _events, e, _time);
+			
+			for(TrafficSimObserver o: obs) {
+			o.onEventAdded(_roadMap, _events, e, _time);
+			}
+			
+// Keep array sorted
+//			for (Event o : _events) {
+//				if (e.compareTo(o) == -1)
+//					_events.add(_events.indexOf(o),e);
+//			}
 //        _events.sort((e1,e2) -> {
 //        if(e1.getTime() < e2.getTime())
 //        		return -1;
@@ -80,7 +87,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		_events.clear();
 		_roadMap.reset();
 		_time = 0;
-		onReset(_roadMap, _events, _time);
+		for(TrafficSimObserver o: obs) {
+		o.onReset(_roadMap, _events, _time);
+		}
 	}
 	
 	public JSONObject report() {
@@ -98,12 +107,13 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	@Override
 	public void addObserver(TrafficSimObserver o){
 		obs.add(o);
-		onRegister(_roadMap, _events, _time); //????
+		for(TrafficSimObserver ob: obs) {
+		ob.onRegister(_roadMap, _events, _time); 
+		}
 	}
 	
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
-		obs.remove(o);
-		
+		obs.remove(o);		
 	}
 }
