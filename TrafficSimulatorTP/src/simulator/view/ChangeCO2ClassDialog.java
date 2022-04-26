@@ -22,6 +22,13 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
+    //new?
+    private JPanel changeCO2;
+    private JLabel instructions;
+    private JPanel buttons;
+    private JLabel vehicleTitle;
+    //private DefaultComboBoxModel<Vehicle>
+
     private Controller _ctrl;
 
     public ChangeCO2ClassDialog(Frame parent, Controller ctrl){
@@ -41,35 +48,53 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
         String[] vehiclesList = {};
 
-        JPanel changeCO2 = new JPanel();
+        changeCO2 = new JPanel();
         changeCO2.setLayout(new FlowLayout());
         this.setContentPane(changeCO2);
 
         //instructions
-        JLabel instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
+        instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
                 "after a given number of simulation ticks from now.");
         changeCO2.add(instructions, BorderLayout.PAGE_START);
         
         changeCO2.add(Box.createVerticalGlue());
         //select vehicle
-        JLabel vehicle = new JLabel("Vehicle:");
-        changeCO2.add(vehicle, BorderLayout.LINE_START);
-        ArrayList<String> vehicleChoices = new ArrayList<>();
-        for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
-            vehicleChoices.add(r.toString());
-        }
-        vehiclesList = vehicleChoices.toArray(new String[0]);
-        JComboBox<String> comboVehicle = new JComboBox<String> (vehiclesList);
-        comboVehicle.setPreferredSize(new Dimension(60, 20));
-        changeCO2.add(comboVehicle, BorderLayout.LINE_START);
+        //JLabel vehicle = new JLabel("Vehicle:");
+        //changeCO2.add(vehicle, BorderLayout.LINE_START);
+        //ArrayList<String> vehicleChoices = new ArrayList<>();
+        //for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
+        //    vehicleChoices.add(r.toString());
+        //}
+        //vehiclesList = vehicleChoices.toArray(new String[0]);
+        //JComboBox<String> comboVehicle = new JComboBox<String> (vehiclesList);
+        //comboVehicle.setPreferredSize(new Dimension(60, 20));
+        //changeCO2.add(comboVehicle, BorderLayout.LINE_START);
+
+        //new panel
+        buttons = new JPanel();
+        buttons.setAlignmentX(CENTER_ALIGNMENT);
+        changeCO2.add(buttons);
+
+        //select vehicle
+        vehicleTitle = new JLabel("Vehicle:", JLabel.CENTER);
+        DefaultComboBoxModel<Vehicle> vehicleBox = new DefaultComboBoxModel<>();
+        JComboBox<Vehicle> vehicles = new JComboBox<>(vehicleBox);
+        vehicles.setVisible(true);
+        buttons.add(vehicleTitle);
+        buttons.add(vehicles);
 
         //select a CO2 class
-        JLabel co2Class = new JLabel("CO2 Class:");
-        changeCO2.add(co2Class, BorderLayout.CENTER);
-        String[] co2Choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        JComboBox<String> comboCO2 = new JComboBox<String>(co2Choices);
-        co2Class.setPreferredSize(new Dimension(60, 20));
-        changeCO2.add(comboCO2, BorderLayout.CENTER);
+        //JLabel co2Class = new JLabel("CO2 Class:");
+        //changeCO2.add(co2Class, BorderLayout.CENTER);
+        //String[] co2Choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        //JComboBox<String> comboCO2 = new JComboBox<String>(co2Choices);
+        //co2Class.setPreferredSize(new Dimension(60, 20));
+        //changeCO2.add(comboCO2, BorderLayout.CENTER);
+
+        //select a co2 class
+        JLabel CO2Title = new JLabel("CO2 Class:", JLabel.CENTER);
+        DefaultComboBoxModel<Integer> co2Box = new DefaultComboBoxModel<>();
+        JComboBox<Integer> co2s = new JComboBox<>(co2Box);
 
         //ticks
         JLabel ticksLabel = new JLabel("Ticks: ");
@@ -110,34 +135,4 @@ public class  ChangeCO2ClassDialog extends JDialog {
         changeCO2.add(ok, BorderLayout.PAGE_END);
     }
 
-
-    @Override
-    public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-
-    }
-
-    @Override
-    public void onReset(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onRegister(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onError(String err) {
-
-    }
 }

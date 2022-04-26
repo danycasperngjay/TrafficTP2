@@ -66,6 +66,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Help").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks").build());
+		//cmdLineOptions.addOption(Option.builder("m").longOpt("mode").desc("").build());
 
 		return cmdLineOptions;
 	}

@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e87838c5-1446-4f35-a1a6-5bb9acb20854" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/model/Road.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/Road.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/ChangeWeatherDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ChangeWeatherDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/launcher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/launcher/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/model/TrafficSimObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/model/TrafficSimObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/simulator/view/ChangeCO2ClassDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ChangeCO2ClassDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +108,7 @@
       <workItem from="1649778213184" duration="35602000" />
       <workItem from="1650287231377" duration="19604000" />
       <workItem from="1650328033198" duration="3461000" />
+      <workItem from="1650995973755" duration="2854000" />
     </task>
     <servers />
   </component>
