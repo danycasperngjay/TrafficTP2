@@ -1,6 +1,7 @@
 package simulator.view;
 
 import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.*;
 
@@ -20,13 +21,11 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
     public ChangeWeatherDialog(Frame parent, Controller ctrl){
         super(parent, "Change Road Weather");
         _ctrl = ctrl;
-
-
         //position of the window
         setLocation(500, 500);
-
+        setPreferredSize(new Dimension(1050, 200));
+        setSize(getPreferredSize());
         init();
-
     }
 
     public void init(){
@@ -69,17 +68,19 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
         JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
         ticksSpinner.setPreferredSize(new Dimension(80, 40));
         changeWeather.add(ticksSpinner, BorderLayout.LINE_END);
-
+        
+        changeWeather.add(Box.createVerticalStrut(20));
         //ok and cancel buttons
         JButton cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeWeather.setVisible(false);
+                ChangeWeatherDialog.this.setVisible(false);
             }
         });
         changeWeather.add(cancel, BorderLayout.PAGE_END);
-
+       
         JButton ok = new JButton("Ok");
         ok.addActionListener(new ActionListener() {
             @Override
@@ -88,10 +89,15 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
                 Weather selectedWeather = (Weather) comboWeather.getSelectedItem();
                 for(Road r : _ctrl.getSimulator().getRoadMap().getRoads()){
                     if(r == selectedRoad ){
-                        //after N ticks 
-                        r.changeWeather(selectedWeather);
+                    	List<Pair<String,Weather>> weatherEvent = new ArrayList<>();
+                    	Pair<String,Weather> weatherPair = new Pair<String, Weather> (r.toString(),selectedWeather);
+                    	weatherEvent.add(weatherPair);
+                    	SetWeatherEvent setw = new SetWeatherEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), weatherEvent);
+                    	_ctrl.getSimulator().addEvent(setw);
                     }
                 }
+            changeWeather.setVisible(false);
+            ChangeWeatherDialog.this.setVisible(false);
             }
         });
         changeWeather.add(ok, BorderLayout.PAGE_END);
@@ -102,6 +108,7 @@ public class ChangeWeatherDialog extends JDialog implements TrafficSimObserver {
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
 
+    	
     }
 
     @Override
