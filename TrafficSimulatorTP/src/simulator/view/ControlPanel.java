@@ -2,8 +2,10 @@ package simulator.view;
 
 
 import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.RoadMap;
+import simulator.model.SetContClassEvent;
 import simulator.model.TrafficSimObserver;
 
 import javax.swing.*;
@@ -13,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +35,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	JToolBar toolBar = new JToolBar();
 
+	private RoadMap rm;
+	private int t; //time
+
 	
 	public ControlPanel(Controller _ctrl) {
     	super();
@@ -45,7 +51,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.add(toolBar);
 		loadEvents();
     	changeContClass();
-    	changeWeather();
+    	//changeWeather();
     	run();
     	stopB();
     	ticks();
@@ -94,10 +100,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				Frame f = new Frame();
-				ChangeCO2ClassDialog c = new ChangeCO2ClassDialog(f, ctrl);
+				//Frame f = new Frame();
+				//ChangeCO2ClassDialog c = new ChangeCO2ClassDialog(f, ctrl);
 
-				c.setVisible(true);
+				//c.setVisible(true);
 
 				// Remove all this comments?
 				//fix options : c bizarre
@@ -108,30 +114,51 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				//JOptionPane.showInputDialog(null, "CO2 Class: ", contClassPossibilities);
 				//JOptionPane.showInputDialog("Ticks: ", ticks);
 				//JOptionPane.showMessageDialog(null, JOptionPane.OK_CANCEL_OPTION);
+
+				changeCO2();
+
 			}
 		});
 
 		toolBar.add(co2B);
 	}
 
-	//parent class?? fix that
-	private void changeWeather() {
-	    Icon icon = new ImageIcon("resources/icons/weather.png");
-		weatherB.setIcon(icon);
-		weatherB.setToolTipText("Change the weather of a road");
-		
-		weatherB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frame parent = new Frame();
-				ChangeWeatherDialog w = new ChangeWeatherDialog(parent, ctrl);
-				w.setVisible(true);
-			}
-		});
+	//created new method because we can't use Swint.getWindowAncester in the actionlistener
+	protected void changeCO2(){
+		int state = 0;
+		ChangeCO2ClassDialog changeCO2 = new ChangeCO2ClassDialog((Frame) SwingUtilities.getWindowAncestor(this), ctrl);
 
-		toolBar.add(weatherB);
-		toolBar.addSeparator();
+		state = changeCO2.start(rm);
+		if(state != 0){
+			List<Pair<String, Integer>> c = new ArrayList<>();
+			c.add(new Pair<String, Integer>(changeCO2.getVehicle().getId(), changeCO2.getCO2Class()));
+			try{
+				ctrl.addEvent(new SetContClassEvent(t+changeCO2.getTicks(), c));
+			} catch(Exception e){
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "An error occured while changing the co2(" + e + ")");
+			}
+		}
+
 	}
+
+	//parent class?? fix that
+	//private void changeWeather() {
+	  //  Icon icon = new ImageIcon("resources/icons/weather.png");
+		//weatherB.setIcon(icon);
+		//weatherB.setToolTipText("Change the weather of a road");
+		
+//		weatherB.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Frame parent = new Frame();
+//				ChangeWeatherDialog w = new ChangeWeatherDialog(parent, ctrl);
+//				w.setVisible(true);
+//			}
+//		});
+//
+//		toolBar.add(weatherB);
+///		toolBar.addSeparator();
+	//}
 
 	
 	private void run() {
@@ -223,31 +250,61 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	@Override
 	public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				rm = roadMap;
+				t = time;
+			}
+		});
 		
 	}
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				rm = map;
+				t = time;
+			}
+		});
 		
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				rm = map;
+				t = time;
+			}
+		});
 		
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				rm = map;
+				t = time;
+			}
+		});
 		
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				rm = map;
+				t = time;
+			}
+		});
 		
 	}
 

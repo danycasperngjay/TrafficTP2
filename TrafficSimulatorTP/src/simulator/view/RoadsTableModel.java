@@ -1,10 +1,13 @@
 package simulator.view;
 
 import simulator.control.Controller;
-import simulator.model.*;
+import simulator.model.Event;
+import simulator.model.Road;
+import simulator.model.RoadMap;
+import simulator.model.TrafficSimObserver;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +24,20 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
     public RoadsTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _roads = ctrl.getSimulator().getRoadMap().getRoads();
+        //_roads = ctrl.getSimulator().getRoadMap().getRoads();
+        _roads = new ArrayList<Road>();
     }
 
     public void update() {
         // We need to notify changes, otherwise the table does not refresh.
         fireTableDataChanged();;
     }
+
+    public void setRoadsList(List<Road> roads){
+        _roads = roads;
+        update();
+    }
+
     //this is for the column header
     @Override
     public String getColumnName(int col) {
@@ -83,27 +93,49 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-    	update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setRoadsList(roadMap.getRoads());
+            }
+        });
+
     }
 
     @Override
     public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setRoadsList(map.getRoads());
+            }
+        });
     }
 
     @Override
     public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setRoadsList(map.getRoads());
+            }
+        });
     }
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
     	_roads.clear();
+        update();
     }
 
     @Override
     public void onRegister(RoadMap map, List<Event> events, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setRoadsList(map.getRoads());
+            }
+        });
     }
 
     @Override

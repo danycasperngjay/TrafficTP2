@@ -1,22 +1,13 @@
 package simulator.view;
 
 import simulator.control.Controller;
-import simulator.misc.Pair;
-import simulator.model.Event;
-import simulator.model.Road;
 import simulator.model.RoadMap;
-import simulator.model.SetContClassEvent;
-import simulator.model.SetWeatherEvent;
-import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
-import simulator.model.Weather;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class  ChangeCO2ClassDialog extends JDialog {
 
@@ -25,9 +16,26 @@ public class  ChangeCO2ClassDialog extends JDialog {
     //new?
     private JPanel changeCO2;
     private JLabel instructions;
+
     private JPanel buttons;
+
     private JLabel vehicleTitle;
-    //private DefaultComboBoxModel<Vehicle>
+    private DefaultComboBoxModel<Vehicle> vehicleBox;
+    private JComboBox<Vehicle> vehicles;
+
+    private JLabel CO2Title;
+    private DefaultComboBoxModel<Integer> co2Box;
+    private JComboBox<Integer> co2s;
+
+    private JLabel ticksTitle;
+    private JSpinner ticks;
+
+    private JPanel OkCancel;
+    private JButton cancel;
+    private JButton ok;
+
+    private int state = 0;
+
 
     private Controller _ctrl;
 
@@ -77,8 +85,8 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
         //select vehicle
         vehicleTitle = new JLabel("Vehicle:", JLabel.CENTER);
-        DefaultComboBoxModel<Vehicle> vehicleBox = new DefaultComboBoxModel<>();
-        JComboBox<Vehicle> vehicles = new JComboBox<>(vehicleBox);
+        vehicleBox = new DefaultComboBoxModel<>();
+        vehicles = new JComboBox<>(vehicleBox);
         vehicles.setVisible(true);
         buttons.add(vehicleTitle);
         buttons.add(vehicles);
@@ -92,47 +100,98 @@ public class  ChangeCO2ClassDialog extends JDialog {
         //changeCO2.add(comboCO2, BorderLayout.CENTER);
 
         //select a co2 class
-        JLabel CO2Title = new JLabel("CO2 Class:", JLabel.CENTER);
-        DefaultComboBoxModel<Integer> co2Box = new DefaultComboBoxModel<>();
-        JComboBox<Integer> co2s = new JComboBox<>(co2Box);
+        CO2Title = new JLabel("CO2 Class:", JLabel.CENTER);
+        co2Box = new DefaultComboBoxModel<>();
+        co2s = new JComboBox<>(co2Box);
+        co2s.setVisible(true);
+        buttons.add(CO2Title);
+        buttons.add(co2s);
 
         //ticks
-        JLabel ticksLabel = new JLabel("Ticks: ");
-        changeCO2.add(ticksLabel, BorderLayout.LINE_END);
-        JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-        ticksSpinner.setPreferredSize(new Dimension(80, 40));
-        changeCO2.add(ticksSpinner, BorderLayout.LINE_END);
+        //JLabel ticksLabel = new JLabel("Ticks: ");
+        //changeCO2.add(ticksLabel, BorderLayout.LINE_END);
+        //JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+        //ticksSpinner.setPreferredSize(new Dimension(80, 40));
+        //changeCO2.add(ticksSpinner, BorderLayout.LINE_END);
+
+        //ticks
+        ticksTitle = new JLabel("Ticks: ", JLabel.CENTER);
+        ticks = new JSpinner(new SpinnerNumberModel(10, 1, 99999, 1));
+        ticks.setMinimumSize(new Dimension(80, 30));
+        ticks.setMaximumSize(new Dimension(200, 30));
+        ticks.setPreferredSize(new Dimension(80, 30));
+        buttons.add(ticksTitle);
+        buttons.add(ticks);
+
+        //OkCancel Panel
+        OkCancel = new JPanel();
+        OkCancel.setAlignmentX(CENTER_ALIGNMENT);
+        changeCO2.add(OkCancel, BorderLayout.PAGE_END);
 
         //ok and cancel buttons
-        JButton cancel = new JButton("Cancel");
+        cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                state = 0;
                 changeCO2.setVisible(false);
             	ChangeCO2ClassDialog.this.setVisible(false);
             }
         });
-        changeCO2.add(cancel, BorderLayout.PAGE_END);
+        OkCancel.add(cancel);
 
-        JButton ok = new JButton("Ok");
+        ok = new JButton("Ok");
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Vehicle selectedVehicle = (Vehicle) comboVehicle.getSelectedItem();
-                String selectedCO2 = (String) comboCO2.getSelectedItem();
-                for(Vehicle v : _ctrl.getSimulator().getRoadMap().getVehicles()){
-                    if(v == selectedVehicle ){
-                    	List<Pair<String,Integer>> contClass = new ArrayList<>();
-                    	Pair<String,Integer> pair = new Pair<String,Integer> (v.toString(),Integer.parseInt(selectedCO2));
-                    	contClass.add(pair);
-                    	SetContClassEvent setc = new SetContClassEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), contClass);
-                    	_ctrl.getSimulator().addEvent(setc);
-                    }
+            	//Vehicle selectedVehicle = (Vehicle) comboVehicle.getSelectedItem();
+                //String selectedCO2 = (String) comboCO2.getSelectedItem();
+                //for(Vehicle v : _ctrl.getSimulator().getRoadMap().getVehicles()){
+                //    if(v == selectedVehicle ){
+                //    	List<Pair<String,Integer>> contClass = new ArrayList<>();
+                //    	Pair<String,Integer> pair = new Pair<String,Integer> (v.toString(),Integer.parseInt(selectedCO2));
+                //    	contClass.add(pair);
+                //    	SetContClassEvent setc = new SetContClassEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), contClass);
+                //    	_ctrl.getSimulator().addEvent(setc);
+                //    }
+                //}
+                //ChangeCO2ClassDialog.this.setVisible(false);
+
+                if(vehicleBox.getSelectedItem() != null && co2Box.getSelectedItem() != null){
+                    state = 0;
+                    ChangeCO2ClassDialog.this.setVisible(false);
                 }
-                ChangeCO2ClassDialog.this.setVisible(false);
+
             }
         });
-        changeCO2.add(ok, BorderLayout.PAGE_END);
+        OkCancel.add(ok);
+    }
+
+    public int start(RoadMap map){
+        for(Vehicle v : map.getVehicles()){
+            vehicleBox.addElement(v);
+        }
+        for(int i = 0; i < 11; i++){
+            co2Box.addElement(i);
+        }
+
+        setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
+        setVisible(true);
+
+        return state;
+
+    }
+
+    public Integer getTicks(){
+        return (Integer) ticks.getValue();
+    }
+
+    public Integer getCO2Class(){
+        return (Integer) co2Box.getSelectedItem();
+    }
+
+    public Vehicle getVehicle(){
+        return (Vehicle) vehicleBox.getSelectedItem();
     }
 
 }

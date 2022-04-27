@@ -4,10 +4,9 @@ import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
-import simulator.model.TrafficSimulator;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,12 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		// We need to notify changes, otherwise the table does not refresh.
 		fireTableDataChanged();
 	}
+
+	public void setEventsList(List<Event> events){
+		_events = events;
+		update();
+	}
+
 	//this is for the column header
 	@Override
 	public String getColumnName(int col) {
@@ -87,25 +92,39 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setEventsList(events);
+			}
+		});
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		_events = events;
-		update();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setEventsList(events);
+			}
+		});
 
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		events.clear();
+		update();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		_events = events;
-		update();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setEventsList(events);
+			}
+		});
 	}
 
 	@Override

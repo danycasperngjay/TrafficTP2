@@ -1,10 +1,13 @@
 package simulator.view;
 
 import simulator.control.Controller;
-import simulator.model.*;
+import simulator.model.Event;
+import simulator.model.Junction;
+import simulator.model.RoadMap;
+import simulator.model.TrafficSimObserver;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +23,18 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
     public JunctionsTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _junctions = ctrl.getSimulator().getRoadMap().getJunctions();
+        //_junctions = ctrl.getSimulator().getRoadMap().getJunctions();
+        _junctions = new ArrayList<Junction>();
     }
 
     public void update() {
         // We need to notify changes, otherwise the table does not refresh.
         fireTableDataChanged();;
+    }
+
+    public void setJunctionList(List<Junction> junctions){
+        _junctions = junctions;
+        update();
     }
 
     //this is for the column header
@@ -85,27 +94,48 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
-    	update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setJunctionList(roadMap.getJunctions());
+            }
+        });
     }
 
     @Override
     public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setJunctionList(map.getJunctions());
+            }
+        });
     }
 
     @Override
     public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setJunctionList(map.getJunctions());
+            }
+        });
     }
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
     	_junctions.clear();
+        update();
     }
 
     @Override
     public void onRegister(RoadMap map, List<Event> events, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setJunctionList(map.getJunctions());
+            }
+        });
     }
 
     @Override

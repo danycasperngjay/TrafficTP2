@@ -1,16 +1,14 @@
 package simulator.view;
 
 import simulator.control.Controller;
-import simulator.misc.Pair;
-import simulator.model.Event;
-import simulator.model.*;
+import simulator.model.Road;
+import simulator.model.Weather;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChangeWeatherDialog extends JDialog {
 
@@ -46,9 +44,9 @@ public class ChangeWeatherDialog extends JDialog {
         JLabel road = new JLabel("Road:");
         changeWeather.add(road, BorderLayout.LINE_START);
         ArrayList<String> roadChoices = new ArrayList<>();
-        for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
-            roadChoices.add(r.toString());
-        }
+        //for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
+          //  roadChoices.add(r.toString());
+        //}
         roadList = roadChoices.toArray(new String[0]);
         JComboBox<String> comboRoad = new JComboBox<String> (roadList);
         comboRoad.setPreferredSize(new Dimension(100, 40));
@@ -87,15 +85,15 @@ public class ChangeWeatherDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 Road selectedRoad = (Road) comboRoad.getSelectedItem();
                 Weather selectedWeather = (Weather) comboWeather.getSelectedItem();
-                for(Road r : _ctrl.getSimulator().getRoadMap().getRoads()){
-                    if(r == selectedRoad ){
-                    	List<Pair<String,Weather>> weatherEvent = new ArrayList<>();
-                    	Pair<String,Weather> weatherPair = new Pair<String, Weather> (r.toString(),selectedWeather);
-                    	weatherEvent.add(weatherPair);
-                    	SetWeatherEvent setw = new SetWeatherEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), weatherEvent);
-                    	_ctrl.getSimulator().addEvent(setw);
-                    }
-                }
+                //for(Road r : _ctrl.getSimulator().getRoadMap().getRoads()){
+                  //  if(r == selectedRoad ){
+                    //	List<Pair<String,Weather>> weatherEvent = new ArrayList<>();
+                    //	Pair<String,Weather> weatherPair = new Pair<String, Weather> (r.toString(),selectedWeather);
+                    //	weatherEvent.add(weatherPair);
+                    //	SetWeatherEvent setw = new SetWeatherEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), weatherEvent);
+                    //	_ctrl.getSimulator().addEvent(setw);
+                    //}
+                //}
             changeWeather.setVisible(false);
             ChangeWeatherDialog.this.setVisible(false);
             }
@@ -105,34 +103,5 @@ public class ChangeWeatherDialog extends JDialog {
     }
 
 
-    @Override
-    public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
 
-    	
-    }
-
-    @Override
-    public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-
-    }
-
-    @Override
-    public void onReset(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onRegister(RoadMap map, List<Event> events, int time) {
-
-    }
-
-    @Override
-    public void onError(String err) {
-
-    }
 }

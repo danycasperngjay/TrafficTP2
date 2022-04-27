@@ -3,8 +3,8 @@ package simulator.view;
 import simulator.control.Controller;
 import simulator.model.*;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +21,20 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
     public VehiclesTableModel(Controller ctrl){
         _ctrl = ctrl;
         ctrl.addObserver(this);
-        _vehicles = ctrl.getSimulator().getRoadMap().getVehicles();
+        //_vehicles = ctrl.getSimulator().getRoadMap().getVehicles();
+        _vehicles = new ArrayList<Vehicle>();
     }
 
     public void update() {
         // We need to notify changes, otherwise the table does not refresh.
         fireTableDataChanged();;
     }
+
+    public void setVehicleList(List<Vehicle> vehicle){
+        _vehicles = vehicle;
+        update();
+    }
+
     //this is for the column header
     @Override
     public String getColumnName(int col) {
@@ -95,27 +102,48 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
     @Override
     public void onAdvanceEnd(RoadMap roadMap, List<Event> events, int time) {
 
-		update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVehicleList(roadMap.getVehicles());
+            }
+        });
     }
 
     @Override
     public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVehicleList(map.getVehicles());
+            }
+        });
     }
 
     @Override
     public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-    	update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVehicleList(map.getVehicles());
+            }
+        });
     }
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
     	_vehicles.clear();
+        update();
     }
 
     @Override
     public void onRegister(RoadMap map, List<Event> events, int time) {
-    	update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVehicleList(map.getVehicles());
+            }
+        });
     }
 
     @Override
