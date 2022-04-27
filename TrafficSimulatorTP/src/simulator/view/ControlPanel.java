@@ -3,10 +3,8 @@ package simulator.view;
 
 import simulator.control.Controller;
 import simulator.misc.Pair;
+import simulator.model.*;
 import simulator.model.Event;
-import simulator.model.RoadMap;
-import simulator.model.SetContClassEvent;
-import simulator.model.TrafficSimObserver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +49,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.add(toolBar);
 		loadEvents();
     	changeContClass();
-    	//changeWeather();
+    	changeWeather();
     	run();
     	stopB();
     	ticks();
@@ -141,24 +139,37 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
-	//parent class?? fix that
-	//private void changeWeather() {
-	  //  Icon icon = new ImageIcon("resources/icons/weather.png");
-		//weatherB.setIcon(icon);
-		//weatherB.setToolTipText("Change the weather of a road");
+	private void changeWeather() {
+	    Icon icon = new ImageIcon("resources/icons/weather.png");
+		weatherB.setIcon(icon);
+		weatherB.setToolTipText("Change the weather of a road");
 		
-//		weatherB.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Frame parent = new Frame();
-//				ChangeWeatherDialog w = new ChangeWeatherDialog(parent, ctrl);
-//				w.setVisible(true);
-//			}
-//		});
-//
-//		toolBar.add(weatherB);
-///		toolBar.addSeparator();
-	//}
+		weatherB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeW();
+			}
+		});
+
+		toolBar.add(weatherB);
+		toolBar.addSeparator();
+	}
+
+	protected void changeW(){
+		int state = 0;
+		ChangeWeatherDialog changeWeatherDialog = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this), ctrl);
+
+		state = changeWeatherDialog.start(rm);
+		if(state != 0){
+			List<Pair<String, Weather>> w = new ArrayList<>();
+			w.add(new Pair<String, Weather>(changeWeatherDialog.getRoad().getId(), changeWeatherDialog.getWeather()));
+			try{
+				ctrl.addEvent(new SetWeatherEvent(t+changeWeatherDialog.getTicks(), w));
+			} catch(Exception e){
+				JOptionPane.showMessageDialog((Frame) SwingUtilities.getWindowAncestor(this), "An error occured when we change teh weather (" + e + ")");
+			}
+		}
+	}
 
 	
 	private void run() {

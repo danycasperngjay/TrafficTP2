@@ -6,10 +6,6 @@
       <change beforePath="$PROJECT_DIR$/src/simulator/view/ChangeCO2ClassDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ChangeCO2ClassDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator/view/ChangeWeatherDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ChangeWeatherDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/ControlPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/EventsTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/EventsTableModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/JunctionsTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/JunctionsTableModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/RoadsTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/RoadsTableModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simulator/view/VehiclesTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/simulator/view/VehiclesTableModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +108,7 @@
       <workItem from="1649778213184" duration="35602000" />
       <workItem from="1650287231377" duration="19604000" />
       <workItem from="1650328033198" duration="3461000" />
-      <workItem from="1650995973755" duration="8301000" />
+      <workItem from="1650995973755" duration="11327000" />
     </task>
     <servers />
   </component>

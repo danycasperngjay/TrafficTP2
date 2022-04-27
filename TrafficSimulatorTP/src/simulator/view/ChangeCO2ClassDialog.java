@@ -116,7 +116,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
         //ticks
         ticksTitle = new JLabel("Ticks: ", JLabel.CENTER);
-        ticks = new JSpinner(new SpinnerNumberModel(10, 1, 99999, 1));
+        ticks = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
         ticks.setMinimumSize(new Dimension(80, 30));
         ticks.setMaximumSize(new Dimension(200, 30));
         ticks.setPreferredSize(new Dimension(80, 30));
@@ -126,7 +126,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
         //OkCancel Panel
         OkCancel = new JPanel();
         OkCancel.setAlignmentX(CENTER_ALIGNMENT);
-        changeCO2.add(OkCancel, BorderLayout.PAGE_END);
+        changeCO2.add(OkCancel);
 
         //ok and cancel buttons
         cancel = new JButton("Cancel");
@@ -165,6 +165,11 @@ public class  ChangeCO2ClassDialog extends JDialog {
             }
         });
         OkCancel.add(ok);
+
+        setPreferredSize(new Dimension(500, 220));
+        pack();
+        setResizable(false);
+        setVisible(false);
     }
 
     public int start(RoadMap map){

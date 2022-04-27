@@ -2,17 +2,39 @@ package simulator.view;
 
 import simulator.control.Controller;
 import simulator.model.Road;
+import simulator.model.RoadMap;
 import simulator.model.Weather;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ChangeWeatherDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
+
+    private JPanel changeWeather;
+    private JLabel instructions;
+
+    private JLabel roadTitle;
+    private DefaultComboBoxModel<Road> roadDefaultBox;
+    private JComboBox<Road> roads;
+
+    private JLabel weatherTitle;
+    private DefaultComboBoxModel<Weather> weatherDefaultBox;
+    private JComboBox<Weather> weathers;
+
+    private JLabel ticksTitle;
+    private JSpinner ticks;
+
+    private JPanel buttons;
+    private JPanel okCancel;
+    private JButton cancel;
+    private JButton ok;
+
+    private int state = 0;
+
 
     private Controller _ctrl;
 
@@ -28,80 +50,106 @@ public class ChangeWeatherDialog extends JDialog {
 
     public void init(){
 
-        String[] roadList = {};
-
-        JPanel changeWeather = new JPanel();
+        changeWeather = new JPanel();
         changeWeather.setLayout(new FlowLayout());
         changeWeather.setPreferredSize(new Dimension(500, 200));
         this.setContentPane(changeWeather);
 
         //instructions
-        JLabel instructions = new JLabel("Schedule an event to change the weather of a road " +
+        instructions = new JLabel("Schedule an event to change the weather of a road " +
                 "after a given number of simulation ticks from now.");
         changeWeather.add(instructions, BorderLayout.PAGE_START);
+        changeWeather.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        //buttons panel
+        buttons = new JPanel();
+        buttons.setAlignmentX(CENTER_ALIGNMENT);
+        changeWeather.add(buttons);
 
         //select road
-        JLabel road = new JLabel("Road:");
-        changeWeather.add(road, BorderLayout.LINE_START);
-        ArrayList<String> roadChoices = new ArrayList<>();
-        //for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
-          //  roadChoices.add(r.toString());
-        //}
-        roadList = roadChoices.toArray(new String[0]);
-        JComboBox<String> comboRoad = new JComboBox<String> (roadList);
-        comboRoad.setPreferredSize(new Dimension(100, 40));
-        changeWeather.add(comboRoad, BorderLayout.LINE_START);
+        roadTitle = new JLabel("Road:", JLabel.CENTER);
+        roadDefaultBox = new DefaultComboBoxModel<Road>();
+        roads = new JComboBox<Road>(roadDefaultBox);
+        roads.setVisible(true);
+        buttons.add(roadTitle);
+        buttons.add(roads);
 
         //select a weather
-        JLabel weather = new JLabel("Weather:");
-        changeWeather.add(weather, BorderLayout.CENTER);
-        String[] weatherChoices = {"SUNNY", "WINDY", "CLOUDY", "STORMY", "RAINY"};
-        JComboBox<String> comboWeather = new JComboBox<String>(weatherChoices);
-        comboWeather.setPreferredSize(new Dimension(100, 40));
-        changeWeather.add(comboWeather, BorderLayout.CENTER);
+        weatherTitle = new JLabel("Weather:", JLabel.CENTER);
+        weatherDefaultBox = new DefaultComboBoxModel<Weather>();
+        weathers = new JComboBox<Weather>(weatherDefaultBox);
+        weathers.setVisible(true);
+        buttons.add(weatherTitle);
+        buttons.add(weathers);
 
         //ticks
-        JLabel ticksLabel = new JLabel("Ticks: ");
-        changeWeather.add(ticksLabel, BorderLayout.LINE_END);
-        JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-        ticksSpinner.setPreferredSize(new Dimension(80, 40));
-        changeWeather.add(ticksSpinner, BorderLayout.LINE_END);
+        ticksTitle = new JLabel("Ticks: ", JLabel.CENTER);
+        ticks = new JSpinner(new SpinnerNumberModel(10, 1, 1000, 1));
+        ticks.setMinimumSize(new Dimension(80, 30));
+        ticks.setMaximumSize(new Dimension(200, 30));
+        ticks.setPreferredSize(new Dimension(80, 30));
+        buttons.add(ticksTitle);
+        buttons.add(ticks);
+
+        //ok Cancel panel
+        okCancel = new JPanel();
+        okCancel.setAlignmentX(CENTER_ALIGNMENT);
+        changeWeather.add(okCancel);
         
-        changeWeather.add(Box.createVerticalStrut(20));
         //ok and cancel buttons
-        JButton cancel = new JButton("Cancel");
+        cancel = new JButton("Cancel");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                changeWeather.setVisible(false);
+                state = 0;
                 ChangeWeatherDialog.this.setVisible(false);
             }
         });
-        changeWeather.add(cancel, BorderLayout.PAGE_END);
+        okCancel.add(cancel);
        
-        JButton ok = new JButton("Ok");
+        ok = new JButton("Ok");
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Road selectedRoad = (Road) comboRoad.getSelectedItem();
-                Weather selectedWeather = (Weather) comboWeather.getSelectedItem();
-                //for(Road r : _ctrl.getSimulator().getRoadMap().getRoads()){
-                  //  if(r == selectedRoad ){
-                    //	List<Pair<String,Weather>> weatherEvent = new ArrayList<>();
-                    //	Pair<String,Weather> weatherPair = new Pair<String, Weather> (r.toString(),selectedWeather);
-                    //	weatherEvent.add(weatherPair);
-                    //	SetWeatherEvent setw = new SetWeatherEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), weatherEvent);
-                    //	_ctrl.getSimulator().addEvent(setw);
-                    //}
-                //}
-            changeWeather.setVisible(false);
-            ChangeWeatherDialog.this.setVisible(false);
+                if(weatherDefaultBox.getSelectedItem() != null && roadDefaultBox.getSelectedItem() != null){
+                    state = 0;
+                    ChangeWeatherDialog.this.setVisible(false);
+                }
             }
         });
-        changeWeather.add(ok, BorderLayout.PAGE_END);
+        okCancel.add(ok);
+
+        setPreferredSize(new Dimension(500, 220));
+        pack();
+        setResizable(false);
+        setVisible(false);
 
     }
 
+    public int start(RoadMap map){
+        for(Road r : map.getRoads()){
+            roadDefaultBox.addElement(r);
+        }
+        for(Weather w : Weather.values()){
+            weatherDefaultBox.addElement(w);
+        }
 
+        setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
+        setVisible(true);
+
+        return state;
+    }
+
+    public Integer getTicks(){
+        return (Integer) ticks.getValue();
+    }
+
+    public Weather getWeather(){
+        return (Weather) weatherDefaultBox.getSelectedItem();
+    }
+
+    public Road getRoad(){
+        return (Road) roadDefaultBox.getSelectedItem();
+    }
 
 }
