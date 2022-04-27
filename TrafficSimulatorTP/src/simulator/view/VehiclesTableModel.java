@@ -20,9 +20,9 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
     public VehiclesTableModel(Controller ctrl){
         _ctrl = ctrl;
-        ctrl.addObserver(this);
-        //_vehicles = ctrl.getSimulator().getRoadMap().getVehicles();
         _vehicles = new ArrayList<Vehicle>();
+        ctrl.addObserver(this);
+
     }
 
     public void update() {
@@ -132,8 +132,12 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
-    	_vehicles.clear();
-        update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVehicleList(map.getVehicles());
+            }
+        });
     }
 
     @Override

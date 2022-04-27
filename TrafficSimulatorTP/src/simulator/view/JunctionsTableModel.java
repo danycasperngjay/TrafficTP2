@@ -22,9 +22,9 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     public JunctionsTableModel(Controller ctrl){
         _ctrl = ctrl;
-        ctrl.addObserver(this);
-        //_junctions = ctrl.getSimulator().getRoadMap().getJunctions();
         _junctions = new ArrayList<Junction>();
+        ctrl.addObserver(this);
+
     }
 
     public void update() {
@@ -124,8 +124,12 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
-    	_junctions.clear();
-        update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setJunctionList(map.getJunctions());
+            }
+        });
     }
 
     @Override

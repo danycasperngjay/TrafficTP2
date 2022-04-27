@@ -25,8 +25,9 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	public EventsTableModel(Controller ctrl) {
 		_ctrl = ctrl;
-		_ctrl.addObserver(this);
 		_events = new ArrayList<>();
+		_ctrl.addObserver(this);
+
 	}
 
 	public void update() {
@@ -113,8 +114,12 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		events.clear();
-		update();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				setEventsList(events);
+			}
+		});
 	}
 
 	@Override

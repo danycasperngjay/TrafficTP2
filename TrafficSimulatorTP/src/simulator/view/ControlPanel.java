@@ -99,21 +99,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				//Frame f = new Frame();
-				//ChangeCO2ClassDialog c = new ChangeCO2ClassDialog(f, ctrl);
-
-				//c.setVisible(true);
-
-				// Remove all this comments?
-				//fix options : c bizarre
-				//JOptionPane.showConfirmDialog(null, fields, "Schedule an event " +
-				//		"to change the CO2 class of a vehicle after a given number of simulation ticks from now.\n",
-				//		JOptionPane.OK_CANCEL_OPTION);
-				//JOptionPane.showInputDialog(null, "Vehicle: ", vehiclePossibilities);
-				//JOptionPane.showInputDialog(null, "CO2 Class: ", contClassPossibilities);
-				//JOptionPane.showInputDialog("Ticks: ", ticks);
-				//JOptionPane.showMessageDialog(null, JOptionPane.OK_CANCEL_OPTION);
-
 				changeCO2();
 
 			}
@@ -219,7 +204,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			try {
 				ctrl.run(1);
 			} catch (Exception e) {
-				// TODO show error message
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						JOptionPane.showMessageDialog(null, "An error occurs");
+					}
+				});
 				_stopped = true;
 				return;
 			}
@@ -322,7 +312,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onError(String err) {
-		// TODO Auto-generated method stub
 		
 	}
 

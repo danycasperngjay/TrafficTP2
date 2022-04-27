@@ -23,9 +23,9 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 
     public RoadsTableModel(Controller ctrl){
         _ctrl = ctrl;
-        ctrl.addObserver(this);
-        //_roads = ctrl.getSimulator().getRoadMap().getRoads();
         _roads = new ArrayList<Road>();
+        ctrl.addObserver(this);
+
     }
 
     public void update() {
@@ -124,8 +124,12 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 
     @Override
     public void onReset(RoadMap map, List<Event> events, int time) {
-    	_roads.clear();
-        update();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setRoadsList(map.getRoads());
+            }
+        });
     }
 
     @Override
