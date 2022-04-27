@@ -43,7 +43,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
         super(parent, "Change CO2 Class");
         _ctrl = ctrl;
         init();
-
     }
 
     public void init(){
