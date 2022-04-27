@@ -42,12 +42,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
     public ChangeCO2ClassDialog(Frame parent, Controller ctrl){
         super(parent, "Change CO2 Class");
         _ctrl = ctrl;
-
-
-        //position of the window
-        setLocation(400, 400);
-        setPreferredSize(new Dimension(1050, 200));
-        setSize(getPreferredSize());
         init();
 
     }
@@ -166,7 +160,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
         });
         OkCancel.add(ok);
 
-        setPreferredSize(new Dimension(500, 220));
+        setPreferredSize(new Dimension(700, 300));
         pack();
         setResizable(false);
         setVisible(false);
@@ -180,7 +174,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
             co2Box.addElement(i);
         }
 
-        setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
+        setLocation(getParent().getLocation().x + 350, getParent().getLocation().y + 350);
         setVisible(true);
 
         return state;

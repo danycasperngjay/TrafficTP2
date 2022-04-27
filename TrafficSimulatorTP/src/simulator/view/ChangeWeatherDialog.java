@@ -41,10 +41,6 @@ public class ChangeWeatherDialog extends JDialog {
     public ChangeWeatherDialog(Frame parent, Controller ctrl){
         super(parent, "Change Road Weather");
         _ctrl = ctrl;
-        //position of the window
-        setLocation(500, 500);
-        setPreferredSize(new Dimension(1050, 200));
-        setSize(getPreferredSize());
         init();
     }
 
@@ -52,7 +48,7 @@ public class ChangeWeatherDialog extends JDialog {
 
         changeWeather = new JPanel();
         changeWeather.setLayout(new FlowLayout());
-        changeWeather.setPreferredSize(new Dimension(500, 200));
+        changeWeather.setPreferredSize(new Dimension(700, 300));
         this.setContentPane(changeWeather);
 
         //instructions
@@ -119,7 +115,7 @@ public class ChangeWeatherDialog extends JDialog {
         });
         okCancel.add(ok);
 
-        setPreferredSize(new Dimension(500, 220));
+        setPreferredSize(new Dimension(700, 300));
         pack();
         setResizable(false);
         setVisible(false);
@@ -134,7 +130,7 @@ public class ChangeWeatherDialog extends JDialog {
             weatherDefaultBox.addElement(w);
         }
 
-        setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
+        setLocation(getParent().getLocation().x + 350, getParent().getLocation().y + 350);
         setVisible(true);
 
         return state;
