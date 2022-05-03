@@ -1,7 +1,5 @@
 package simulator.model;
 
-import java.util.List;
-
 public class InterCityRoad extends Road{
 
     InterCityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {

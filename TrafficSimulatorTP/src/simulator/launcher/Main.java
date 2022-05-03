@@ -37,6 +37,7 @@ public class Main {
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
+			parseViewOption(line);
 			parseInFileOption(line);
 			parseOutFileOption(line);
 			parseTimeOption(line);
@@ -66,7 +67,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Help").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks").build());
-		//cmdLineOptions.addOption(Option.builder("m").longOpt("mode").desc("").build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").desc("").build());
 
 		return cmdLineOptions;
 	}
@@ -97,6 +98,14 @@ public class Main {
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		if(_mode != ExeMode.GUI)
 		_outFile = line.getOptionValue("o");
+	}
+	
+	private static void parseViewOption(CommandLine line) {
+
+		if (line.hasOption("m"))
+		{
+			_mode = ExeMode.valueOf(line.getOptionValue("m").toUpperCase());
+		}
 	}
 
 	private static void initFactories() {

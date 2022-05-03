@@ -40,12 +40,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public ControlPanel(Controller _ctrl) {
     	super();
 		ctrl = _ctrl;
-		ctrl.addObserver(this);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
     	init();
+		ctrl.addObserver(this);
 	}
 	
 	private void init() {
+		setLayout(new BorderLayout());
 		this.add(toolBar);
 		loadEvents();
     	changeContClass();
@@ -53,14 +54,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
     	run();
     	stopB();
     	ticks();
-    	this.add(Box.createHorizontalStrut(1000));
+    	toolBar.add(Box.createGlue());
 		exit();
 	}
 	
 	
 
 	private void loadEvents() {
-		updateUI();
+	//	updateUI();
 	    Icon icon = new ImageIcon("resources/icons/open.png");
 		loadB.setIcon(icon);
 		loadB.setToolTipText("Loads the file");
@@ -113,6 +114,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		ChangeCO2ClassDialog changeCO2 = new ChangeCO2ClassDialog((Frame) SwingUtilities.getWindowAncestor(this), ctrl);
 
 		state = changeCO2.start(rm);
+		System.out.println(state);
 		if(state != 0){
 			List<Pair<String, Integer>> c = new ArrayList<>();
 			c.add(new Pair<String, Integer>(changeCO2.getVehicle().getId(), changeCO2.getCO2Class()));
@@ -193,9 +195,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private void ticks() {
 		 JLabel ticksLabel = new JLabel("Ticks: ");
-		 this.add(ticksLabel);
+		 toolBar.add(ticksLabel);
 		 ticksSpinner.setPreferredSize(new Dimension(80, 40));
-		 this.add(ticksSpinner);
+		 ticksSpinner.setMaximumSize(new Dimension(80, 40));
+		 toolBar.add(ticksSpinner);
 
 	}
 
@@ -247,7 +250,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				}
 			}
 		});
-		this.add(exitB);
+		toolBar.add(exitB);
 	}
 	
 	@Override

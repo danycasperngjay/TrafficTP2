@@ -34,13 +34,13 @@ public class  ChangeCO2ClassDialog extends JDialog {
     private JButton cancel;
     private JButton ok;
 
-    private int state = 0;
+   volatile private int state = 0;
 
 
     private Controller _ctrl;
 
     public ChangeCO2ClassDialog(Frame parent, Controller ctrl){
-        super(parent, "Change CO2 Class");
+        super(parent, true);
         _ctrl = ctrl;
         init();
     }
@@ -127,7 +127,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 state = 0;
-                changeCO2.setVisible(false);
+             //   changeCO2.setVisible(false);
             	ChangeCO2ClassDialog.this.setVisible(false);
             }
         });
@@ -151,7 +151,8 @@ public class  ChangeCO2ClassDialog extends JDialog {
                 //ChangeCO2ClassDialog.this.setVisible(false);
 
                 if(vehicleBox.getSelectedItem() != null && co2Box.getSelectedItem() != null){
-                    state = 0;
+                    state = 1;
+                    System.out.println(state);
                     ChangeCO2ClassDialog.this.setVisible(false);
                 }
 
@@ -175,7 +176,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
         setLocation(getParent().getLocation().x + 350, getParent().getLocation().y + 350);
         setVisible(true);
-
+        System.out.println(state);
         return state;
 
     }

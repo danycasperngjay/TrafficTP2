@@ -39,7 +39,8 @@ public class ChangeWeatherDialog extends JDialog {
     private Controller _ctrl;
 
     public ChangeWeatherDialog(Frame parent, Controller ctrl){
-        super(parent, "Change Road Weather");
+        super(parent, true);
+        setTitle("...");
         _ctrl = ctrl;
         init();
     }
@@ -108,7 +109,7 @@ public class ChangeWeatherDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(weatherDefaultBox.getSelectedItem() != null && roadDefaultBox.getSelectedItem() != null){
-                    state = 0;
+                    state = 1;
                     ChangeWeatherDialog.this.setVisible(false);
                 }
             }

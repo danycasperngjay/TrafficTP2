@@ -38,11 +38,9 @@ public class Controller {
     }
 
     public void run(int n) {
-    	for (int i = 0; i < n-1;i++) {
+    	for (int i = 0; i < n;i++) {
     		_sim.advance();
     	}
-    	if (n>0)
-    		_sim.advance();
     	
     }
     
