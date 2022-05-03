@@ -42,6 +42,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
     public ChangeCO2ClassDialog(Frame parent, Controller ctrl){
         super(parent, true);
         _ctrl = ctrl;
+        setTitle("Change CO2 Class");
         init();
     }
 
@@ -50,13 +51,13 @@ public class  ChangeCO2ClassDialog extends JDialog {
         String[] vehiclesList = {};
 
         changeCO2 = new JPanel();
-        changeCO2.setLayout(new FlowLayout());
+        changeCO2.setLayout(new BorderLayout());
         this.setContentPane(changeCO2);
 
         //instructions
         instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
-                "after a given number of simulation ticks from now.");
-        changeCO2.add(instructions, BorderLayout.PAGE_START);
+                "after a given number of simulation ticks from now.", JLabel.CENTER);
+        changeCO2.add(instructions, BorderLayout.NORTH);
         
         changeCO2.add(Box.createVerticalGlue());
         //select vehicle
@@ -74,7 +75,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
         //new panel
         buttons = new JPanel();
         buttons.setAlignmentX(CENTER_ALIGNMENT);
-        changeCO2.add(buttons);
+        changeCO2.add(buttons, BorderLayout.CENTER);
 
         //select vehicle
         vehicleTitle = new JLabel("Vehicle:", JLabel.CENTER);
@@ -119,7 +120,7 @@ public class  ChangeCO2ClassDialog extends JDialog {
         //OkCancel Panel
         OkCancel = new JPanel();
         OkCancel.setAlignmentX(CENTER_ALIGNMENT);
-        changeCO2.add(OkCancel);
+        changeCO2.add(OkCancel, BorderLayout.SOUTH);
 
         //ok and cancel buttons
         cancel = new JButton("Cancel");
@@ -160,9 +161,9 @@ public class  ChangeCO2ClassDialog extends JDialog {
         });
         OkCancel.add(ok);
 
-        setPreferredSize(new Dimension(700, 300));
+        setPreferredSize(new Dimension(700, 200));
         pack();
-        setResizable(false);
+        setResizable(true);
         setVisible(false);
     }
 

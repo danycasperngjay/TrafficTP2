@@ -34,13 +34,11 @@ public class ChangeWeatherDialog extends JDialog {
     private JButton ok;
 
     private int state = 0;
-
-
     private Controller _ctrl;
 
     public ChangeWeatherDialog(Frame parent, Controller ctrl){
         super(parent, true);
-        setTitle("...");
+        setTitle("Change Road Weather");
         _ctrl = ctrl;
         init();
     }
@@ -48,20 +46,20 @@ public class ChangeWeatherDialog extends JDialog {
     public void init(){
 
         changeWeather = new JPanel();
-        changeWeather.setLayout(new FlowLayout());
+        changeWeather.setLayout(new BorderLayout());
         changeWeather.setPreferredSize(new Dimension(700, 300));
-        this.setContentPane(changeWeather);
+        //changeWeather.setBackground(new Color(100,24,3));;
+        //this.setContentPane(changeWeather);
+        this.add(changeWeather);
 
         //instructions
         instructions = new JLabel("Schedule an event to change the weather of a road " +
-                "after a given number of simulation ticks from now.");
-        changeWeather.add(instructions, BorderLayout.PAGE_START);
-        changeWeather.add(Box.createRigidArea(new Dimension(0, 20)));
+                "after a given number of simulation ticks from now.", JLabel.CENTER);
+        changeWeather.add(instructions, BorderLayout.NORTH);
 
         //buttons panel
         buttons = new JPanel();
-        buttons.setAlignmentX(CENTER_ALIGNMENT);
-        changeWeather.add(buttons);
+        changeWeather.add(buttons,BorderLayout.CENTER);
 
         //select road
         roadTitle = new JLabel("Road:", JLabel.CENTER);
@@ -90,8 +88,8 @@ public class ChangeWeatherDialog extends JDialog {
 
         //ok Cancel panel
         okCancel = new JPanel();
-        okCancel.setAlignmentX(CENTER_ALIGNMENT);
-        changeWeather.add(okCancel);
+        //okCancel.setAlignmentX(CENTER_ALIGNMENT);
+        changeWeather.add(okCancel, BorderLayout.SOUTH);
         
         //ok and cancel buttons
         cancel = new JButton("Cancel");
@@ -116,9 +114,9 @@ public class ChangeWeatherDialog extends JDialog {
         });
         okCancel.add(ok);
 
-        setPreferredSize(new Dimension(700, 300));
+        setPreferredSize(new Dimension(700, 200));
         pack();
-        setResizable(false);
+        setResizable(true);
         setVisible(false);
 
     }
