@@ -5,10 +5,13 @@ import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.Weather;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class ChangeWeatherDialog extends JDialog {
 
@@ -44,11 +47,18 @@ public class ChangeWeatherDialog extends JDialog {
     }
 
     public void init(){
-
+    	
+    	//window Icon
+   	 try {
+			this.setIconImage(ImageIO.read(new File("resources/icons/weather.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+   	 	
+   	 	//main panel
         changeWeather = new JPanel();
         changeWeather.setLayout(new BorderLayout());
         changeWeather.setPreferredSize(new Dimension(700, 300));
-        //changeWeather.setBackground(new Color(100,24,3));;
         //this.setContentPane(changeWeather);
         this.add(changeWeather);
 

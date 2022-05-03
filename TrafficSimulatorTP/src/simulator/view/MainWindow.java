@@ -5,10 +5,13 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class MainWindow extends JFrame {
@@ -24,6 +27,14 @@ public class MainWindow extends JFrame {
     }
 
     private void initGUI() {
+    	//window Icon
+   	 try {
+			this.setIconImage(ImageIO.read(new File("resources/icons/car_front.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	
     		JPanel mainPanel = new JPanel(new BorderLayout());
     		this.setContentPane(mainPanel);
     		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);

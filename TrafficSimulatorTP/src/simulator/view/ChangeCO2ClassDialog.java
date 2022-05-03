@@ -4,10 +4,13 @@ import simulator.control.Controller;
 import simulator.model.RoadMap;
 import simulator.model.Vehicle;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class  ChangeCO2ClassDialog extends JDialog {
 
@@ -43,23 +46,30 @@ public class  ChangeCO2ClassDialog extends JDialog {
         super(parent, true);
         _ctrl = ctrl;
         setTitle("Change CO2 Class");
+       
         init();
     }
 
     public void init(){
-
-        String[] vehiclesList = {};
-
+    	
+    	//window Icon
+    	 try {
+ 			this.setIconImage(ImageIO.read(new File("resources/icons/co2class.png")));
+ 		} catch (IOException e) {
+ 			e.printStackTrace();
+ 		}
+    	 
+    	//main panel
         changeCO2 = new JPanel();
         changeCO2.setLayout(new BorderLayout());
         this.setContentPane(changeCO2);
 
-        //instructions
+        //instructions text
         instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
                 "after a given number of simulation ticks from now.", JLabel.CENTER);
         changeCO2.add(instructions, BorderLayout.NORTH);
         
-        changeCO2.add(Box.createVerticalGlue());
+       // changeCO2.add(Box.createVerticalGlue());
         //select vehicle
         //JLabel vehicle = new JLabel("Vehicle:");
         //changeCO2.add(vehicle, BorderLayout.LINE_START);
@@ -128,7 +138,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 state = 0;
-             //   changeCO2.setVisible(false);
             	ChangeCO2ClassDialog.this.setVisible(false);
             }
         });
