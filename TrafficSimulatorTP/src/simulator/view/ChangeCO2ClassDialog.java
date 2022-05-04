@@ -16,7 +16,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
-    //new?
     private JPanel changeCO2;
     private JLabel instructions;
 

@@ -12,9 +12,6 @@ import java.util.List;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 
 

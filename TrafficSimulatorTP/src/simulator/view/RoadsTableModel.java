@@ -19,13 +19,9 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
     private String[] _colNames = { "Id", "Length", "Weather", "Max. Speed", "Speed Limit",
             "Total CO2", "CO2 Limit"};
 
-    private Controller _ctrl;
-
     public RoadsTableModel(Controller ctrl){
-        _ctrl = ctrl;
         _roads = new ArrayList<Road>();
         ctrl.addObserver(this);
-
     }
 
     public void update() {

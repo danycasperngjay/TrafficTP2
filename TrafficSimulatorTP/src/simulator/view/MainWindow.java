@@ -18,7 +18,6 @@ public class MainWindow extends JFrame {
 
 
 	private Controller _ctrl;
-    private JTextArea log;
 
     public MainWindow(Controller ctrl){
     	super("Traffic Simulator");
@@ -88,7 +87,7 @@ public class MainWindow extends JFrame {
 			mapView.setBorder(BorderFactory.createTitledBorder(_defaultBorder, "Map", TitledBorder.LEFT,
 					TitledBorder.TOP));
 
-    		// TODO add a map for MapByRoadComponent
+    		// map for MapByRoadComponent
 
     		JPanel mapByRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map By Road");
 			mapByRoadView.setPreferredSize(new Dimension(500, 200));
@@ -97,6 +96,7 @@ public class MainWindow extends JFrame {
 							TitledBorder.TOP));
 
     		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    		setPreferredSize(new Dimension(1700, 1000));
     		this.pack();
     		this.setVisible(true);
     		}
@@ -113,7 +113,10 @@ public class MainWindow extends JFrame {
 
     private JPanel createViewPanel(JComponent c, String title) {
     	JPanel p = new JPanel( new BorderLayout() );
-    	// TODO add a framed border to p with title
+    	
+    	Border b = BorderFactory.createLineBorder(Color.black, 3, true);
+    	p.setBorder(b);
+    	
     	p.add(new JScrollPane(c));
     	return p;
     }

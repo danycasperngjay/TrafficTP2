@@ -33,8 +33,6 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     MapByRoadComponent(Controller ctrl){
         initGUI();
         ctrl.addObserver(this);
-        //this._map = ctrl.getSimulator().getRoadMap();
-        //this.setPreferredSize(new Dimension(300, 200));
     }
 
     private void initGUI(){
@@ -152,7 +150,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
     	for (Road r : _map.getRoads()) {
 
     		int index = _map.getRoads().indexOf(r);
-            int x = 50;
+            int x = 50; 
             int y = index*100 + 70;
             int s = 25;
             for (Vehicle v : r.getVehicles()) {
