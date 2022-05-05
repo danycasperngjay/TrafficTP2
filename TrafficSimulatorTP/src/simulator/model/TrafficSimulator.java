@@ -35,20 +35,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 			for(TrafficSimObserver o: obs) {
 			o.onEventAdded(_roadMap, _events, e, _time);
 			}
-			
-// Keep array sorted
-//			for (Event o : _events) {
-//				if (e.compareTo(o) == -1)
-//					_events.add(_events.indexOf(o),e);
-//			}
-//        _events.sort((e1,e2) -> {
-//        if(e1.getTime() < e2.getTime())
-//        		return -1;
-//        	else if (e1.getTime() > e2.getTime())
-//        		return 1;
-//        	else
-//        		return 0;
-//        });
+
 	}
 	
 	public void advance() {

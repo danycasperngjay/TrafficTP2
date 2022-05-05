@@ -160,10 +160,6 @@ public class Main {
 			control.loadEvents(in);
 			in.close();
 		}
-		
-		//OutputStream out = _outFile == null ? System.out : new FileOutputStream(_outFile);
-		//control.run(_timeLimit, out);
-		
 
 		SwingUtilities.invokeLater( () -> new MainWindow(control));
 
@@ -184,7 +180,7 @@ public class Main {
 			default :
 				break;
 		}
-		//startBatchMode();
+
 	}
 
 	// example command lines:

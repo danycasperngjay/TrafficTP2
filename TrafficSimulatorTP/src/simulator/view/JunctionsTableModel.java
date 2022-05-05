@@ -77,16 +77,11 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
                 }
                 break;
             case 2:
-                //IDK
             	for(int i= 0; i < _junctions.get(rowIndex).getInRoads().size(); i++)
             	{
             		string += _junctions.get(rowIndex).getInRoads().get(i) + " :" + _junctions.get(rowIndex).getQueues().get(i);
             	}
             	s = string;
-                //s = _junctions.get(rowIndex).getQueues() + ": [";
-                //for(Vehicle : _junctions.get(rowIndex).getQueueByRoad().get(_junctions.get(rowIndex).getQueues())) {
-
-                //}
                 break;
         }
         return s;

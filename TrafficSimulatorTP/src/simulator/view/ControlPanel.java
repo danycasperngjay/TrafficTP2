@@ -61,7 +61,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 
 	private void loadEvents() {
-	//	updateUI();
 	    Icon icon = new ImageIcon("resources/icons/open.png");
 		loadB.setIcon(icon);
 		loadB.setToolTipText("Loads the file");

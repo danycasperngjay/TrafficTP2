@@ -102,8 +102,7 @@ public abstract class Road extends SimulatedObject {
             vehicle.setSpeed(calculateVehicleSpeed(vehicle));
             vehicle.advance(time);
         }
-       // this.vehicles.stream().sorted(Comparator.comparing(Vehicle :: getLocation)).collect(Collectors.toList()); // Sort List 
-     
+
         vehicles.sort((v1,v2) -> {
         	if(v1.getLocation() > v2.getLocation())
         		return -1;

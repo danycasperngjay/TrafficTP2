@@ -1,9 +1,6 @@
 package simulator.view;
 
 import simulator.control.Controller;
-import simulator.model.Event;
-import simulator.model.RoadMap;
-import simulator.model.TrafficSimObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,7 +9,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class MainWindow extends JFrame {
 
@@ -100,15 +96,6 @@ public class MainWindow extends JFrame {
     		this.pack();
     		this.setVisible(true);
     		}
-//        log = new JTextArea();
-//        log.setPreferredSize(new Dimension(400, 200));
-//        mainPanel.add(log);
-//
-//        JButton step = new JButton("Step");
-//        mainPanel.add(step, BorderLayout.PAGE_START);
-//        step.addActionListener( (e) -> {
-//            control.run(1, null);
-//        });
 
 
     private JPanel createViewPanel(JComponent c, String title) {

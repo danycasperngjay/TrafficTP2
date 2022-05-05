@@ -67,19 +67,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
         instructions = new JLabel("Schedule an event to change the CO2 class of a vehicle " +
                 "after a given number of simulation ticks from now.", JLabel.CENTER);
         changeCO2.add(instructions, BorderLayout.NORTH);
-        
-       // changeCO2.add(Box.createVerticalGlue());
-        //select vehicle
-        //JLabel vehicle = new JLabel("Vehicle:");
-        //changeCO2.add(vehicle, BorderLayout.LINE_START);
-        //ArrayList<String> vehicleChoices = new ArrayList<>();
-        //for (Road r : _ctrl.getSimulator().getRoadMap().getRoads()) {
-        //    vehicleChoices.add(r.toString());
-        //}
-        //vehiclesList = vehicleChoices.toArray(new String[0]);
-        //JComboBox<String> comboVehicle = new JComboBox<String> (vehiclesList);
-        //comboVehicle.setPreferredSize(new Dimension(60, 20));
-        //changeCO2.add(comboVehicle, BorderLayout.LINE_START);
 
         //new panel
         buttons = new JPanel();
@@ -94,14 +81,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
         buttons.add(vehicleTitle);
         buttons.add(vehicles);
 
-        //select a CO2 class
-        //JLabel co2Class = new JLabel("CO2 Class:");
-        //changeCO2.add(co2Class, BorderLayout.CENTER);
-        //String[] co2Choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        //JComboBox<String> comboCO2 = new JComboBox<String>(co2Choices);
-        //co2Class.setPreferredSize(new Dimension(60, 20));
-        //changeCO2.add(comboCO2, BorderLayout.CENTER);
-
         //select a co2 class
         CO2Title = new JLabel("CO2 Class:", JLabel.CENTER);
         co2Box = new DefaultComboBoxModel<>();
@@ -109,13 +88,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
         co2s.setVisible(true);
         buttons.add(CO2Title);
         buttons.add(co2s);
-
-        //ticks
-        //JLabel ticksLabel = new JLabel("Ticks: ");
-        //changeCO2.add(ticksLabel, BorderLayout.LINE_END);
-        //JSpinner ticksSpinner = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
-        //ticksSpinner.setPreferredSize(new Dimension(80, 40));
-        //changeCO2.add(ticksSpinner, BorderLayout.LINE_END);
 
         //ticks
         ticksTitle = new JLabel("Ticks: ", JLabel.CENTER);
@@ -146,18 +118,6 @@ public class  ChangeCO2ClassDialog extends JDialog {
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	//Vehicle selectedVehicle = (Vehicle) comboVehicle.getSelectedItem();
-                //String selectedCO2 = (String) comboCO2.getSelectedItem();
-                //for(Vehicle v : _ctrl.getSimulator().getRoadMap().getVehicles()){
-                //    if(v == selectedVehicle ){
-                //    	List<Pair<String,Integer>> contClass = new ArrayList<>();
-                //    	Pair<String,Integer> pair = new Pair<String,Integer> (v.toString(),Integer.parseInt(selectedCO2));
-                //    	contClass.add(pair);
-                //    	SetContClassEvent setc = new SetContClassEvent(_ctrl.getSimulator().getTime() + ticksSpinner.getComponentCount(), contClass);
-                //    	_ctrl.getSimulator().addEvent(setc);
-                //    }
-                //}
-                //ChangeCO2ClassDialog.this.setVisible(false);
 
                 if(vehicleBox.getSelectedItem() != null && co2Box.getSelectedItem() != null){
                     state = 1;
